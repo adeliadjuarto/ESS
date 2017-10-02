@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/layout">
+<body>
+<div layout:fragment="body">
+    <form action="#" th:action="@{/provider/save}" th:object="${provider}" method="post">0
+        <div class="subheader">
+            <div class="title">Edit Provider</div>
+            <a th:href="@{/provider}"><div class="button cancel-btn">Cancel</div></a>
+            <input type="submit" value="Save" class="button save-btn"/>
+        </div>
+        <table class="form-table" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td><div class="field-label">City</div></td>
+                <td><div><input type="text" th:field="*{city}" class="field-input" required/></div></td>
+            </tr>
+            <tr>
+                <td><div class="field-label">Name</div></td>
+                <td><div><input type="text" th:field="*{name}" class="field-input" required/></div></td>
+            </tr>
+            <tr>
+                <td><div class="field-label">BPJS</div></td>
+                <td><div><input type="text" th:field="*{bpjs}" class="field-input" required/></div></td>
+            </tr>
+            <tr>
+                <td><div class="field-label">Address</div></td>
+                <td><div><textarea th:field="*{address}" class="field-input field-textarea" required></textarea></div></td>
+            </tr>
+            <tr>
+                <td><div class="field-label">Telephone</div></td>
+                <td><div><input type="text" th:field="*{telephone}" class="field-input" required/></div></td>
+            </tr>
+            <tr>
+                <td><div class="field-label">Fax</div></td>
+                <td><div><input type="text" th:field="*{fax}" class="field-input" required/></div></td>
+            </tr>
+            <tr>
+                <td><div class="field-label">Provider Type</div></td>
+                <td>
+                    <div>
+                        <select id="providerType" class="form-control" name="providerType">
+                            <option th:each="type : ${providerTypes}" th:value="${type.id}" th:text="${type.name}" th:selected="${type.id == provider.providerType.id}"></option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><div class="field-label">Insurance Type</div></td>
+                <td>
+                    <div>
+                        <select id="insuranceType" class="form-control" name="insuranceType">
+                            <option th:each="type : ${insuranceTypes}" th:value="${type.id}" th:text="${type.name}" th:selected="${type.id == provider.insuranceType.id}"></option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><div class="field-label">Service Type</div></td>
+                <td>
+                    <div>
+                        <select id="serviceType" class="form-control" name="serviceType">
+                            <option th:each="type : ${serviceTypes}" th:value="${type.id}" th:text="${type.name}" th:selected="${type.id == provider.serviceType.id}"></option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

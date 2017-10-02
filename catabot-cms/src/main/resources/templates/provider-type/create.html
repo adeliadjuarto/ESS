@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/layout">
+<body>
+<div layout:fragment="body">
+    <form action="#" th:action="@{/provider-type/save}" th:object="${type}" method="post">
+        <div class="subheader">
+            <div class="title">Add Provider Type</div>
+            <a th:href="@{/provider-type}"><div class="button cancel-btn">Cancel</div></a>
+            <input type="submit" value="Save" class="button save-btn"/>
+        </div>
+        <table class="form-table" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td><div class="field-label">Name</div></td>
+                <td><div><input type="text" th:field="*{name}" class="field-input" required/></div></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

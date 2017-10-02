@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/layout">
+<body>
+<div layout:fragment="body">
+    <div class="col-md-12 main-content">
+        <h1>Leave Requests:</h1>
+        <table id="leaveRequestTable" border="0" class="table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Employee</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="request : ${requests}">
+                    <td th:text="${request.title}"></td>
+                    <td th:text="${request.requestType.name}"></td>
+                    <td th:text="${request.description}"></td>
+                    <td th:text="${request.user.name}"></td>
+                    <td th:text="${request.start}"></td>
+                    <td th:text="${request.end}"></td>
+                    <td>
+                        <div th:text="${request.isApproved} == null ? 'Pending'"></div>
+                        <div th:text="${request.isApproved} == true ? 'Approved'"></div>
+                        <div th:text="${request.isApproved} == false ? 'Rejected'"></div>
+                    </td>
+                    <td>
+                        <a th:href="@{/leave-request/approve/{id}(id=${request.id})}">
+                            <button class="btn btn-xs" specification="button">
+                                <span class="fa fa-check"></span>
+                            </button>
+                        </a>
+                        <a th:href="@{/leave-request/reject/{id}(id=${request.id})}">
+                            <button class="btn btn-xs" specification="button">
+                                <span class="fa fa-times"></span>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(document).ready( function () {
+             $('#leaveRequestTable').DataTable();
+        });
+        function showModalDelete(url){
+            $('#modalDelete').modal('show');
+            $('#modalDeleteForm').attr('action', url);
+        }
+    </script>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+group 'catabot-cms'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'idea'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar {
+    manifest {
+        attributes ('Main-Class': 'app.cms.CatabotApplication')
+    }
+    baseName = 'catabot-cms-gradle'
+    version =  '0.1.0'
+}
+
+springBoot{
+    mainClass = "app.cms.CatabotApplication"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:1.5.2.RELEASE") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+        exclude module: "logback-classic"
+    }
+    compile("org.springframework.boot:spring-boot-starter-actuator:1.5.2.RELEASE") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+        exclude module: "logback-classic"
+    }
+    compile('org.springframework.boot:spring-boot-starter-data-jpa') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+        exclude module: "logback-classic"
+    }
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+        exclude module: "logback-classic"
+    }
+    providedRuntime('org.springframework.boot:spring-boot-starter-undertow')
+    providedCompile('javax.servlet:javax.servlet-api')
+
+    compile('mysql:mysql-connector-java')
+    compile("org.projectlombok:lombok:1.16.16")
+    compile("org.javafunk:excel-parser:1.0.1")
+    compile("com.fasterxml.jackson.core:jackson-databind")
+
+    runtime 'net.sourceforge.nekohtml:nekohtml:1.9.15'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

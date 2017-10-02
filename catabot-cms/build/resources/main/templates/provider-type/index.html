@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/layout">
+<body>
+<div layout:fragment="body">
+    <div class="col-md-12 main-content">
+        <a th:href="@{/provider-type/create}" class="btn btn-success add-btn">Add Provider Type</a>
+        <h1>Provider Types:</h1>
+        <table id="providerTypeTable" border="0" class="table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="type : ${types}">
+                    <td th:text="${type.name}"></td>
+                    <td>
+                        <a th:href="@{/provider-type/edit/{id}(id=${type.id})}">
+                            <button class="btn btn-xs" specification="button">
+                                <span class="fa fa-edit"></span>
+                            </button>
+                        </a>
+                        <button class="btn btn-xs" specification="button" th:onclick="'showModalDelete(&quot;'+@{/provider-type/delete/{id}(id=${type.id})}+'&quot;)'">
+                            <span class="fa fa-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="modalDelete" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Delete Confirm</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure want to delete this?</p>
+                </div>
+                <div class="modal-footer">
+                    <form id="modalDeleteForm">
+                        <input type="submit" value="Yes" class="btn btn-success">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready( function () {
+             $('#providerTypeTable').DataTable();
+        });
+        function showModalDelete(url){
+            $('#modalDelete').modal('show');
+            $('#modalDeleteForm').attr('action', url);
+        }
+    </script>
+</div>
+</body>
+
+</html>
