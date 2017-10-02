@@ -1,0 +1,52 @@
+@import '../../../stylesheets/variables';
+
+:host {
+  position: fixed;
+  z-index: 10000;
+  pointer-events: none;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  justify-content: center;
+  align-items: flex-end;
+  display: flex;
+  width: 100%;
+  height: 100%
+}
+
+.container {
+  position: static;
+  margin-bottom: 0px;
+  pointer-events: auto;
+  box-sizing: border-box;
+  max-width: 588px;
+  min-width: 288px;
+}
+
+.content {
+  width: 100%;
+
+  .text {
+    float: left;
+    margin-bottom: 15px;
+  }
+  .actions {
+    float: right;
+    margin-right: -14px;
+    margin-top: -6px;
+    padding-bottom: 15px;
+
+    button {
+      margin-left: 4px;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.icon {
+  padding-right: 15px;
+}

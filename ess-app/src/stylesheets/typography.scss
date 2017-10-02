@@ -1,0 +1,32 @@
+
+@font-face {
+  font-family: 'Ubuntu-Light';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Ubuntu Light'), local('Ubuntu-Light'),
+  url(../assets/fonts/Ubuntu-L.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Ubuntu'), local('Ubuntu'),
+  url(../assets/fonts/Ubuntu-R.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Ubuntu-Medium';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Ubuntu Medium'), local('Ubuntu-Medium'),
+  url(../assets/fonts/Ubuntu-M.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Ubuntu-Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Ubuntu Bold'), local('Ubuntu-Bold'),
+  url(../assets/fonts/Ubuntu-B.ttf) format('truetype');
+}

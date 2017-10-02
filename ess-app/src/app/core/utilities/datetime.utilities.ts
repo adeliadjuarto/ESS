@@ -1,5 +1,5 @@
 
-import moment from 'moment';
+import * as moment from 'moment';
 
 import { GENERAL } from '../constant/general.constant';
 

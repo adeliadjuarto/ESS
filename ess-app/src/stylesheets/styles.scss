@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'typography.scss';
+@import 'variables.scss';
+
+html, body {
+  font-family: $font-family-base !important;
+  color: $color-text;
+  height: 100vh;
+  width: 100%;
+}
+
+body {
+    font-family: $font-family-base !important;
+    margin: 0px;
+    padding: 0px;
+}
+
+button {
+  background-color: $color-button !important;
+  color: $color-primary !important;
+  font-size: 1.2em !important;
+}
+
+button:disabled {
+  background-color: darken($color-base, 15%) !important;
+  color: darken($color-base, 45%) !important;
+}
+
+.batik-background {
+  height: 100%;
+  min-height: calc(100vh - 55px);
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: 350px 300px;
+}

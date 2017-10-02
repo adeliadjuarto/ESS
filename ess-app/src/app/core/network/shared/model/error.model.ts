@@ -2,7 +2,7 @@
  * Created by glenn on 6/9/17.
  */
 
-import moment from 'moment';
+import * as moment from 'moment';
 
 export class Error {
 

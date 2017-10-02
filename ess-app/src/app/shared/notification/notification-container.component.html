@@ -1,0 +1,20 @@
+<div class="overlay">
+  <div class="container">
+    <app-notification *ngFor="let notification of notifications; let nIndex = index;"
+                      [type]="notification.type"
+                      [timeout]="notification.actions.length > 0 ? -1 : timeout"
+                      (close)="removeAt(nIndex)">
+      <div *ngIf="!!notification.icon" class="icon"><i class="material-icons">{{notification.icon}}</i></div>
+      <div class="content">
+        <div class="text">{{notification.message}}</div>
+        <div class="actions" *ngIf="notification.actions.length > 0">
+          <button md-button color="primary"
+                  *ngFor="let action of notification.actions; let aIndex = index"
+                  (click)="action.action(aIndex, action.title); removeAt(nIndex)">
+            {{action.title}}
+          </button>
+        </div>
+      </div>
+    </app-notification>
+  </div>
+</div>
