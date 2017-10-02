@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { LoginModule } from './login/login.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { MaterialModule } from './shared/material/material.module';
 
 @NgModule({
   declarations: [
@@ -12,8 +13,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
   imports: [
     BrowserModule,
     LoginModule,
-    DashboardModule
-
+    DashboardModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
