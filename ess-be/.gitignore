@@ -1,0 +1,14 @@
+*.hash
+build/
+vcs.xml
+output/
+*.bin
+.idea/
+*.lock
+out/
+
+.gradle/buildOutputCleanup/cache.properties
+
+*.xml
+
+*.iml
