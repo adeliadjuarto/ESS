@@ -20,6 +20,7 @@ public class User {
     private String email;
     private String name;
     private String password;
+    private String phone;
     private Boolean isActive;
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")

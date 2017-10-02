@@ -13,6 +13,7 @@
                     <th>Name</th>
                     <th>Username</th>
                     <th>Email</th>
+                    <th>Phone</th>
                     <th>Role</th>
                     <th>Action</th>
                 </tr>
@@ -22,6 +23,7 @@
                     <td th:text="${user.name}"></td>
                     <td th:text="${user.username}"></td>
                     <td th:text="${user.email}"></td>
+                    <td th:text="${user.phone}"></td>
                     <td th:text="${user.role.name}"></td>
                     <td>
                         <a th:href="@{/user/edit/{id}(id=${user.id})}">
