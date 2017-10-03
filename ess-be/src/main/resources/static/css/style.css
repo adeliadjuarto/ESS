@@ -1,3 +1,8 @@
+.custom-container{
+    width: calc(100vw - 200px);
+    position: relative;
+    left: 200px;
+}
 .desktop{
     display: block;
 }
@@ -15,12 +20,14 @@
     background-color: #2986c2;
     z-index: 10000;
     width:200px;
+    margin-right: 200px;
 }
 .menu{
+    width: 100%;
     color: #fff;
     padding-right: 10px;
     padding-left: 10px;
-    display: inline-block;
+    display: block;
     height: 50px;
     line-height: 50px;
 }
@@ -153,6 +160,11 @@ input.field-input:focus, textarea:focus, input.field-input-2:focus {
     }
     .side-bar{
         display: none;
+        height: 100vh;
+        position: fixed;
+        background-color: #2986c2;
+        z-index: 10000;
+        width:200px;
     }
     .menu{
         display: block;

@@ -18,15 +18,17 @@
 <header>
     <div class="desktop">
         <img th:src="@{/image/logo.png}" class="logo">
-        <a th:href="@{/insurance-type}"><div th:classappend="${currPage} == 'insurance-type' ? 'menu active' : 'menu'">Insurance Type</div></a>
-        <a th:href="@{/provider-type}"><div th:classappend="${currPage} == 'provider-type' ? 'menu active' : 'menu'">Provider Type</div></a>
-        <a th:href="@{/request-type}"><div th:classappend="${currPage} == 'request-type' ? 'menu active' : 'menu'">Request Type</div></a>
-        <a th:href="@{/provider}"><div th:classappend="${currPage} == 'provider' ? 'menu active' : 'menu'">Provider</div></a>
-        <a th:href="@{/contact}"><div th:classappend="${currPage} == 'contact' ? 'menu active' : 'menu'">Contact</div></a>
-        <a th:href="@{/file-management}"><div th:classappend="${currPage} == 'document' ? 'menu active' : 'menu'">Document</div></a>
-        <a th:href="@{/leave-request}"><div th:classappend="${currPage} == 'leave-request' ? 'menu active' : 'menu'">Leave Request</div></a>
-        <a th:href="@{/role}"><div th:classappend="${currPage} == 'role' ? 'menu active' : 'menu'">Role</div></a>
-        <a th:href="@{/user}"><div th:classappend="${currPage} == 'user' ? 'menu active' : 'menu'">User</div></a>
+        <div class="side-bar">
+            <a th:href="@{/insurance-type}"><div th:classappend="${currPage} == 'insurance-type' ? 'menu active' : 'menu'">Insurance Type</div></a>
+            <a th:href="@{/provider-type}"><div th:classappend="${currPage} == 'provider-type' ? 'menu active' : 'menu'">Provider Type</div></a>
+            <a th:href="@{/request-type}"><div th:classappend="${currPage} == 'request-type' ? 'menu active' : 'menu'">Request Type</div></a>
+            <a th:href="@{/provider}"><div th:classappend="${currPage} == 'provider' ? 'menu active' : 'menu'">Provider</div></a>
+            <a th:href="@{/contact}"><div th:classappend="${currPage} == 'contact' ? 'menu active' : 'menu'">Contact</div></a>
+            <a th:href="@{/file-management}"><div th:classappend="${currPage} == 'document' ? 'menu active' : 'menu'">Document</div></a>
+            <a th:href="@{/leave-request}"><div th:classappend="${currPage} == 'leave-request' ? 'menu active' : 'menu'">Leave Request</div></a>
+            <a th:href="@{/role}"><div th:classappend="${currPage} == 'role' ? 'menu active' : 'menu'">Role</div></a>
+            <a th:href="@{/user}"><div th:classappend="${currPage} == 'user' ? 'menu active' : 'menu'">User</div></a>
+        </div>
     </div>
     <div class="mobile">
         <i class="fa fa-bars menu-btn fa-2x" id="toggle-btn" aria-hidden="true"></i>
@@ -59,7 +61,7 @@
          });
     });
 </script>
-<section layout:fragment="body">
+<section layout:fragment="body" class="custom-container">
 
 </section>
 </body>
