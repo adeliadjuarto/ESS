@@ -13,4 +13,9 @@ public class ViewController {
     public String dashboard() throws Exception {
         return "dashboard";
     }
+
+    @RequestMapping("/login")
+    public String login() throws Exception {
+        return "login";
+    }
 }

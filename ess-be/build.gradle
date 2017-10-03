@@ -52,6 +52,10 @@ dependencies {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
         exclude module: "logback-classic"
     }
+    compile('org.springframework.boot:spring-boot-starter-security'){
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+        exclude module: "logback-classic"
+    }
     providedRuntime('org.springframework.boot:spring-boot-starter-undertow')
     providedCompile('javax.servlet:javax.servlet-api')
 
