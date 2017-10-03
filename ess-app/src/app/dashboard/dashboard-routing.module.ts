@@ -7,22 +7,32 @@ import { AuthorizedGuard } from '../core/network/authentication/shared/authorize
 import { Permissions } from '../core/network/authentication/shared/permission.enum';
 import { DashboardComponent } from './dashboard.component';
 import { MenuComponent } from './menu/menu.component';
+import { ChatComponent } from './chat/chat.component';
+import { RequestComponent } from './request/request.component';
 
 const routes: Routes = [
   {
     path: PATH.EMPTY,
     component: DashboardComponent,
-    data: {
-      permission: Permissions.ReadAccount
-    },
     children: [
       {
         path: PATH.EMPTY,
         component: MenuComponent,
-        data: {
-          permission: Permissions.ReadAccount
-        },
       },
+      {
+        path: PATH.CHAT,
+        component: ChatComponent,
+        data: {
+          title: 'Chat',
+        }
+      },
+      {
+        path: PATH.REQUEST,
+        component: RequestComponent,
+        data: {
+          title: 'Request'
+        }
+      }
     ]
   },
 ];

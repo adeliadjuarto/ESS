@@ -9,5 +9,10 @@ export const PATH = {
     EMPTY: '',
 
     LOGIN: 'login',
-    DASHBOARD: 'dashboard'
+    DASHBOARD: 'dashboard',
+    ACCOUNT: 'my-account',
+
+    CHAT: 'chat',
+    REQUEST: 'request'
+
 };
