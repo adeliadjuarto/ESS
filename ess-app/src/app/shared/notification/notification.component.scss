@@ -1,0 +1,83 @@
+@import '../../../stylesheets/variables';
+
+@mixin variant($bg-color, $text-color) {
+  background-color: $bg-color;
+  color: $text-color;
+}
+
+:host {
+  min-width: 320px;
+  max-width: 600px;
+  display: block;
+  color: #fff;
+  box-sizing: content-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.message {
+  padding: 15px 25px 0px 25px;
+  font-size: 14px;
+  line-height: 22px;
+  display: flex;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+
+  &.success {
+    @include variant($color-success, #fff);
+  }
+
+  &.warning {
+    @include variant($color-warning, #fff);
+  }
+
+  &.error {
+    @include variant($color-error, #fff);
+  }
+
+  &.info {
+    @include variant(#323232, #fff);
+  }
+
+  -webkit-transform: translateY(100%);
+  -moz-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  -o-transform: translateY(100%);
+  transform: translateY(100%);
+
+}
+
+.initial {
+  -webkit-transition: all 150ms;
+  -moz-transition: all 150ms;
+  -ms-transition: all 150ms;
+  -o-transition: all 150ms;
+  transition: all 150ms;
+}
+
+.transition-in {
+  -webkit-transform: translateY(0%);
+  -moz-transform: translateY(0%);
+  -ms-transform: translateY(0%);
+  -o-transform: translateY(0%);
+  transform: translateY(0%);
+
+  -webkit-transition-timing-function: ease-in;
+  -moz-transition-timing-function: ease-in;
+  -ms-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+
+.transition-out {
+  -webkit-transform: translateY(100%);
+  -moz-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  -o-transform: translateY(100%);
+  transform: translateY(100%);
+
+  -webkit-transition-timing-function: ease-out;
+  -moz-transition-timing-function: ease-out;
+  -ms-transition-timing-function: ease-out;
+  -o-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}

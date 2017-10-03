@@ -1,0 +1,22 @@
+
+$font-family-base: 'Ubuntu', sans-serif;
+
+$color-base: #fafafa;
+$color-text: #000 !default;
+$color-text-light: lighten($color-text, 5%);
+$color-button: #FED037;
+
+$color-primary: #005da7;
+$color-secondary: #008fe1;
+$color-tertiary: #FCCF17;
+$color-white: #fff;
+
+$color-success: #6cc96c !default;
+$color-warning: #efb72a !default;
+$color-error: #c52d33 !default;
+$color-info: $color-white !default;
+
+$top-z-index: 10001;
+
+$icon-size: 1.6em;
+$icon-margin: -8px;

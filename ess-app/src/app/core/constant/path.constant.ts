@@ -8,4 +8,11 @@ export const PATH = {
     ROOT: '/',
     EMPTY: '',
 
+    LOGIN: 'login',
+    DASHBOARD: 'dashboard',
+    ACCOUNT: 'my-account',
+
+    CHAT: 'chat',
+    REQUEST: 'request'
+
 };
