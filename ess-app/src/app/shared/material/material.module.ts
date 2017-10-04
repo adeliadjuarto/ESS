@@ -9,7 +9,9 @@ import {
   MdSidenavModule,
   MdGridListModule,
   MdToolbarModule,
-  MdDatepickerModule
+  MdSelectModule,
+  MdDatepickerModule,
+  MdNativeDateModule
 } from '@angular/material';
 
 @NgModule({
@@ -22,7 +24,9 @@ import {
     MdSidenavModule,
     MdGridListModule,
     MdToolbarModule,
-    MdDatepickerModule
+    MdSelectModule,
+    MdDatepickerModule,
+    MdNativeDateModule
   ],
   declarations: [
   ],
@@ -35,7 +39,10 @@ import {
     MdSidenavModule,
     MdGridListModule,
     MdToolbarModule,
-    MdDatepickerModule
-  ]
+    MdSelectModule,
+    MdDatepickerModule,
+    MdNativeDateModule
+  ],
+
 })
 export class MaterialModule { }
