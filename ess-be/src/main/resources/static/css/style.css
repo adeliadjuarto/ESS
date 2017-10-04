@@ -55,6 +55,7 @@ a:hover{
     line-height: 50px;
     margin-left: 10px;
     margin-right: 10px;
+    display: inline-block;
 }
 .subheader{
     height: 50px;
@@ -146,6 +147,13 @@ input.field-input:focus, textarea:focus, input.field-input-2:focus {
 }
 .delete-icon{
     color: #D32F2F;
+}
+.logout-icon{
+    font-size: 20px;
+    color: #fff;
+    line-height: 50px;
+    display: inline-block;
+    margin-right: 10px;
 }
 .checkbox-label{
     font-weight: normal !important;
