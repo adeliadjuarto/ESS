@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -59,6 +60,8 @@ public class LeaveRequestApiController {
 
     @RequestMapping(value = "/leave-requests/{id}", method = RequestMethod.DELETE)
     public String deleteRequest(@PathVariable("id") Long id) {
+        List<Attachment> attachments = attachmentRepository.findByRequestIdAndCategory(id, "Leave");
+        attachmentRepository.delete(attachments);
         leaveRequestRepository.delete(id);
         return "Leave request successfully deleted!";
     }
