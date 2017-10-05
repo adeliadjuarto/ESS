@@ -1,6 +1,8 @@
 package app.cms.controller;
 
 import app.cms.model.*;
+import app.cms.model.excel.Doctor;
+import app.cms.model.excel.Hospital;
 import app.cms.repository.InsuranceTypeRepository;
 import app.cms.repository.ProviderRepository;
 import app.cms.repository.ProviderTypeRepository;

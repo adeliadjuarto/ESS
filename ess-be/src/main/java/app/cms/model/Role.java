@@ -1,5 +1,6 @@
 package app.cms.model;
 
+import app.cms.model.shared.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "roles")
 @Setter
 @Getter
-public class Role {
+public class Role extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

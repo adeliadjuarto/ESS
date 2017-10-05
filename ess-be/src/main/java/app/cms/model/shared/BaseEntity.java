@@ -1,4 +1,4 @@
-package app.cms.model;
+package app.cms.model.shared;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;

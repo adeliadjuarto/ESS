@@ -4,6 +4,7 @@ import app.cms.model.User;
 import app.cms.repository.RoleRepository;
 import app.cms.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,7 @@ public class UserController {
                            SessionStatus status) {
         user.setIsActive(true);
         user.setRole(roleRepository.findOne(roleId));
+        user.setPassword(hashPassword(user.getPassword()));
         userRepository.save(user);
         status.setComplete();
         return "redirect:/user";
@@ -61,4 +63,11 @@ public class UserController {
         userRepository.save(user);
         return "redirect:/user";
     }
+
+    private String hashPassword(String password) {
+        String salt = BCrypt.gensalt();
+        String encrypted = BCrypt.hashpw(password, salt);
+        return encrypted;
+    }
+
 }

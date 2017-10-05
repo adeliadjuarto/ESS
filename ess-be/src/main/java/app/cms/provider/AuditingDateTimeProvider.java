@@ -1,4 +1,4 @@
-package app.cms.model;
+package app.cms.provider;
 
 import org.springframework.data.auditing.DateTimeProvider;
 

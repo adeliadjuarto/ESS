@@ -1,5 +1,6 @@
 package app.cms.model;
 
+import app.cms.model.shared.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "users")
 @Setter
 @Getter
-public class User {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,6 +22,8 @@ public class User {
     private String name;
     private String password;
     private String phone;
+    @Column(name = "annual_leave")
+    private Integer annualLeave;
     private Boolean isActive;
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
