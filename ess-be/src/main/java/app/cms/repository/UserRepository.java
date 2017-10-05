@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface UserRepository extends JpaRepository<User, Long> {
     public List<User> findByIsActive(Boolean isActive);
+    public User findByUsernameAndIsActive(String username, Boolean isActive);
 }
