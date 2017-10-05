@@ -16,8 +16,10 @@
 </head>
 <body>
 <header>
+    <form th:action="@{/logout}" method="post" id="logout"></form>
     <div class="desktop">
         <img th:src="@{/image/logo.png}" class="logo">
+        <i class="fa fa-sign-out pull-right logout-icon" aria-hidden="true"></i>
         <div class="side-bar">
             <a th:href="@{/insurance-type}"><div th:classappend="${currPage} == 'insurance-type' ? 'menu active' : 'menu'">Insurance Type</div></a>
             <a th:href="@{/provider-type}"><div th:classappend="${currPage} == 'provider-type' ? 'menu active' : 'menu'">Provider Type</div></a>
@@ -58,6 +60,9 @@
             if (windowWidth > 1025) {
                 $(".side-bar").hide();
             }
+         });
+         $('.logout-icon').click(function(){
+            $('#logout').submit();
          });
     });
 </script>

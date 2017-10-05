@@ -55,6 +55,7 @@ a:hover{
     line-height: 50px;
     margin-left: 10px;
     margin-right: 10px;
+    display: inline-block;
 }
 .subheader{
     height: 50px;
@@ -147,6 +148,13 @@ input.field-input:focus, textarea:focus, input.field-input-2:focus {
 .delete-icon{
     color: #D32F2F;
 }
+.logout-icon{
+    font-size: 20px;
+    color: #fff;
+    line-height: 50px;
+    display: inline-block;
+    margin-right: 10px;
+}
 .checkbox-label{
     font-weight: normal !important;
 }
@@ -175,3 +183,65 @@ input.field-input:focus, textarea:focus, input.field-input-2:focus {
         padding-left: 30px;
     }
 }
+.container{
+    background-color: #1773C7;
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+.login-col{
+    transform: translateY(80%);
+}
+
+.panel{
+    border-radius: 0px !important;
+}
+
+.field-container{
+    padding-bottom: 10px;
+}
+
+.field-container input{
+    width: 85%;
+    border: 0;
+    line-height: 30px;
+    padding-left: 10px;
+    border-bottom: 1px solid #888;
+}
+
+.field-container input:focus{
+    outline: none;
+    border-bottom: 2px solid #3DBEEE;
+}
+
+.field-container i{
+    font-size: 17px;
+    color: #2986C2;
+    margin-right: 10px;
+}
+
+.login-button{
+    width: 150px;
+    border-radius: 28px/64px;
+    background: #6bbb26 !important;
+}
+
+.panel-body{
+    padding: 0px !important;
+    padding-top: 5px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.panel-heading{
+    background-color: #fff !important;
+}
+
+input::placeholder{
+    color: #999;
+    font-size: 15px;
+    font-weight: lighter;
+    letter-spacing: 0.5px;
+}
+
