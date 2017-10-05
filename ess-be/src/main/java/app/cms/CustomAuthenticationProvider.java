@@ -36,7 +36,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         if (authSuccessful) {
             return new UsernamePasswordAuthenticationToken(
-            name, password, new ArrayList<>());
+            name, user.getPassword(), new ArrayList<>());
         } else {
             return null;
         }
