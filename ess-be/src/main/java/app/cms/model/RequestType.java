@@ -1,5 +1,6 @@
 package app.cms.model;
 
+import app.cms.model.shared.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 

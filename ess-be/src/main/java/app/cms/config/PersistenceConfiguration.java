@@ -1,5 +1,7 @@
-package app.cms.model;
+package app.cms.config;
 
+import app.cms.provider.AuditingDateTimeProvider;
+import app.cms.provider.UsernameAuditorAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.auditing.DateTimeProvider;

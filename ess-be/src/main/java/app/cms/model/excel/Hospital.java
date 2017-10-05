@@ -1,4 +1,4 @@
-package app.cms.model;
+package app.cms.model.excel;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,23 +11,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * Created by adeliadjuarto on 7/5/17.
+ * Created by adeliadjuarto on 5/26/17.
  */
 @Setter
 @Getter
 @ExcelObject(parseType = ParseType.ROW, start = 2)
-public class Doctor {
+public class Hospital {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ExcelField(position = 2)
     private String city;
     @ExcelField(position = 3)
-    private String type;
+    private String provider;
     @ExcelField(position = 4)
-    private String name;
+    private String bpjs;
     @ExcelField(position = 5)
     private String address;
     @ExcelField(position = 6)
     private String telephone;
+    @ExcelField(position = 7)
+    private String fax;
 }
+
