@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Route } from '@angular/router';
 
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/of';
@@ -12,6 +13,7 @@ import { MenuItem, PATH } from './../../core/constant/index';
 import { NotificationType } from '../../shared/notification/notification.enum';
 import { NotificationService } from '../../shared/notification/notification.service';
 import { BACKGROUND } from './../../core/constant';
+import { DashboardAction } from './../shared/dashboard.action';
 
 @Component({
   selector: 'app-menu',
@@ -29,11 +31,14 @@ export class MenuComponent implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
+              private store: Store<any>,
               private authorization: AuthorizationService,
               private notification: NotificationService) {
 
     // this.menus = this.authorization.authorizedMenus(this.route.parent.routeConfig.children)
     //   .filter((menu: MenuItem) => menu.path !== PATH.ACCOUNT);
+
+    this.store.dispatch({ type: DashboardAction.CHANGE_TITLE, payload: '' });
 
     this.menus = this.route.parent.routeConfig.children
                      .filter((r: Route) => r.data )

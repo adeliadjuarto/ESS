@@ -1,4 +1,4 @@
-package app.cms;
+package app.cms.provider;
 
 import app.cms.model.User;
 import app.cms.repository.UserRepository;
