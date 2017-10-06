@@ -38,18 +38,21 @@ public class ProviderApiController {
         ProviderType providerType;
         InsuranceType insuranceType;
         if (providerTypeId == null && insuranceTypeId == null) {
-            return providerRepository.findByCity(city, pageable);
+            return providerRepository.findByCityAndIsActive(city, true, pageable);
         } else if (providerTypeId == null && insuranceTypeId != null) {
             insuranceType = insuranceTypeRepository.findOne(insuranceTypeId);
-            return providerRepository.findByCityAndInsuranceType(city, insuranceType, pageable);
+            return providerRepository
+                    .findByCityAndInsuranceTypeAndIsActive(city, insuranceType, true, pageable);
         } else if (providerTypeId != null && insuranceTypeId == null) {
             providerType = providerTypeRepository.findOne(providerTypeId);
-            return providerRepository.findByCityAndProviderType(city, providerType, pageable);
+            return providerRepository
+                    .findByCityAndProviderTypeAndIsActive(city, providerType, true, pageable);
         } else {
             insuranceType = insuranceTypeRepository.findOne(insuranceTypeId);
             providerType = providerTypeRepository.findOne(providerTypeId);
-            return providerRepository.
-                    findByCityAndProviderTypeAndInsuranceType(city, providerType, insuranceType, pageable);
+            return providerRepository
+                    .findByCityAndProviderTypeAndInsuranceTypeAndIsActive
+                            (city, providerType, insuranceType,true, pageable);
         }
     }
 

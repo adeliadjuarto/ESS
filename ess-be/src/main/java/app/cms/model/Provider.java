@@ -27,6 +27,7 @@ public class Provider extends BaseEntity {
         this.providerType = providerType;
         this.serviceType = serviceType;
         this.insuranceType = insuranceType;
+        this.isActive = true;
     }
 
     @Id

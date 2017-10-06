@@ -42,14 +42,14 @@ public class ProviderController {
 
     @RequestMapping("/provider")
     public String provider(Model model) throws Exception {
-        model.addAttribute("providers", providerRepository.findAll());
+        model.addAttribute("providers", providerRepository.findByIsActive(true));
         model.addAttribute("currPage", "provider");
         return "provider/index";
     }
 
     @RequestMapping("provider/import-provider")
     public String importProvider(Model model) throws Exception {
-        model.addAttribute("insuranceTypes", insuranceTypeRepository.findAll());
+        model.addAttribute("insuranceTypes", insuranceTypeRepository.findByIsActive(true));
         model.addAttribute("currPage", "provider");
         return "provider/import";
     }
@@ -57,8 +57,8 @@ public class ProviderController {
     @RequestMapping("provider/create")
     public String createProvider(Model model) throws Exception {
         model.addAttribute("provider", new Provider());
-        model.addAttribute("providerTypes", providerTypeRepository.findAll());
-        model.addAttribute("insuranceTypes", insuranceTypeRepository.findAll());
+        model.addAttribute("providerTypes", providerTypeRepository.findByIsActive(true));
+        model.addAttribute("insuranceTypes", insuranceTypeRepository.findByIsActive(true));
         model.addAttribute("serviceTypes", serviceTypeRepository.findAll());
         model.addAttribute("currPage", "provider");
         return "provider/create";
@@ -74,6 +74,7 @@ public class ProviderController {
         provider.setInsuranceType(insuranceTypeRepository.findOne(insuranceTypeId));
         provider.setServiceType(serviceTypeRepository.findOne(serviceTypeId));
         provider.setCity(provider.getCity().toUpperCase());
+        provider.setIsActive(true);
         providerRepository.save(provider);
         status.setComplete();
         return "redirect:/provider";
@@ -82,8 +83,8 @@ public class ProviderController {
     @RequestMapping("provider/edit/{id}")
     public String editProvider(Model model, @PathVariable(value = "id") Long id) throws Exception {
         model.addAttribute("provider", providerRepository.findOne(id));
-        model.addAttribute("providerTypes", providerTypeRepository.findAll());
-        model.addAttribute("insuranceTypes", insuranceTypeRepository.findAll());
+        model.addAttribute("providerTypes", providerTypeRepository.findByIsActive(true));
+        model.addAttribute("insuranceTypes", insuranceTypeRepository.findByIsActive(true));
         model.addAttribute("serviceTypes", serviceTypeRepository.findAll());
         model.addAttribute("currPage", "provider");
         return "provider/edit";
@@ -91,7 +92,9 @@ public class ProviderController {
 
     @RequestMapping(value = "provider/delete/{id}")
     public String deleteProvider(@PathVariable(value = "id") Long id) {
-        providerRepository.delete(id);
+        Provider provider = providerRepository.findOne(id);
+        provider.setIsActive(false);
+        providerRepository.save(provider);
         return "redirect:/provider";
     }
 
@@ -101,7 +104,7 @@ public class ProviderController {
                                     Model model)
             throws Exception {
         if (!file.getContentType().equals(EXCEL_FILE)) {
-            model.addAttribute("insuranceTypes", insuranceTypeRepository.findAll());
+            model.addAttribute("insuranceTypes", insuranceTypeRepository.findByIsActive(true));
             model.addAttribute("currPage", "provider");
             model.addAttribute("fileErrMsg",
                     "The file must be a file of type excel.");
@@ -118,7 +121,7 @@ public class ProviderController {
 
     private void saveRawatInapDataFromExcel (MultipartFile file,
                                              InsuranceType insuranceType) throws Exception {
-        ProviderType providerType = providerTypeRepository.findFirstByName("RS");
+        ProviderType providerType = providerTypeRepository.findFirstByNameAndIsActive("RS", true);
         if (providerType == null) {
             providerType = providerTypeRepository.save(new ProviderType("RS"));
         }
@@ -147,7 +150,7 @@ public class ProviderController {
         List<Doctor> rawatJalanLists = parser.createEntity(sheet, Doctor.class, error -> {throw error;});
         for (Doctor i : rawatJalanLists) {
             if (i.getName() != null && !i.getName().isEmpty()) {
-                providerType = providerTypeRepository.findFirstByName(i.getType());
+                providerType = providerTypeRepository.findFirstByNameAndIsActive(i.getType(), true);
                 if (providerType == null) {
                     providerType = providerTypeRepository.save(new ProviderType(i.getType()));
                 }
@@ -170,7 +173,7 @@ public class ProviderController {
 
         for (Doctor i : mcuLists) {
             if (i.getName() != null && !i.getName().isEmpty()) {
-                providerType = providerTypeRepository.findFirstByName(i.getType());
+                providerType = providerTypeRepository.findFirstByNameAndIsActive(i.getType(), true);
                 if (providerType == null) {
                     providerType = providerTypeRepository.save(new ProviderType(i.getType()));
                 }
