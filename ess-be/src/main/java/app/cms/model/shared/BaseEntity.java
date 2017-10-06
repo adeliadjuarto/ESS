@@ -38,8 +38,6 @@ public class BaseEntity implements Serializable {
     @LastModifiedDate
     protected Long updatedDate;
 
-    @JsonIgnore
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
+    @Column(name = "is_active")
+    protected Boolean isActive;
 }

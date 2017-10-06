@@ -9,5 +9,6 @@ import java.util.List;
  * Created by adeliadjuarto on 7/5/17.
  */
 public interface InsuranceTypeRepository extends JpaRepository<InsuranceType, Long> {
-    public List<InsuranceType> findByOrderByNameAsc();
+    public List<InsuranceType> findByIsActiveOrderByNameAsc(Boolean isActive);
+    public List<InsuranceType> findByIsActive(Boolean isActive);
 }

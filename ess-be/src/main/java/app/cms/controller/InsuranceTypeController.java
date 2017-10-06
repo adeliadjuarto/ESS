@@ -19,7 +19,7 @@ public class InsuranceTypeController {
 
     @RequestMapping("/insurance-type")
     public String InsuranceType(Model model) throws Exception {
-        model.addAttribute("insuranceTypes", insuranceTypeRepository.findAll());
+        model.addAttribute("insuranceTypes", insuranceTypeRepository.findByIsActive(true));
         model.addAttribute("currPage", "insurance-type");
         return "insurance-type/index";
     }
@@ -34,6 +34,7 @@ public class InsuranceTypeController {
     @RequestMapping(value = "insurance-type/save", method = RequestMethod.POST)
     public String saveInsuranceType(@ModelAttribute InsuranceType insuranceType,
                                     SessionStatus status) {
+        insuranceType.setIsActive(true);
         insuranceTypeRepository.save(insuranceType);
         status.setComplete();
         return "redirect:/insurance-type";
@@ -48,7 +49,9 @@ public class InsuranceTypeController {
 
     @RequestMapping(value = "insurance-type/delete/{id}")
     public String deleteInsuranceType(@PathVariable(value = "id") Long id) {
-        insuranceTypeRepository.delete(id);
+        InsuranceType insuranceType = insuranceTypeRepository.findOne(id);
+        insuranceType.setIsActive(false);
+        insuranceTypeRepository.save(insuranceType);
         return "redirect:/insurance-type";
     }
 }
