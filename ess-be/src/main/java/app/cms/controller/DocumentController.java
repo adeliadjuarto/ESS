@@ -37,7 +37,7 @@ public class DocumentController {
 
     @RequestMapping("/file-management")
     public String fileManagement(Model model) throws Exception {
-        model.addAttribute("files", documentRepository.findAll());
+        model.addAttribute("files", documentRepository.findByIsActive(true));
         model.addAttribute("currPage", "document");
         return "file-management/index";
     }
@@ -68,6 +68,7 @@ public class DocumentController {
         String pathName = saveFileToDirectory(file);
         document.setPath(pathName);
         document.setCategory(category);
+        document.setIsActive(true);
         documentRepository.save(document);
         return "redirect:/file-management";
     }
@@ -104,13 +105,14 @@ public class DocumentController {
     @RequestMapping(value = "file-management/delete/{id}")
     public String deleteFile(@PathVariable(value = "id") Long id) {
         Document document = documentRepository.findOne(id);
-        try {
-            Path oldPath = Paths.get(directoryPath + document.getPath());
-            Files.delete(oldPath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        documentRepository.delete(id);
+//        try {
+//            Path oldPath = Paths.get(directoryPath + document.getPath());
+//            Files.delete(oldPath);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        document.setIsActive(false);
+        documentRepository.save(document);
         return "redirect:/file-management";
     }
 
