@@ -28,10 +28,10 @@ const routes: Routes = [
       },
       {
         path: PATH.REQUEST,
-        component: RequestComponent,
         data: {
           title: 'Request'
-        }
+        },
+        loadChildren: 'app/dashboard/request/request.module#RequestModule'
       }
     ]
   },
