@@ -5,10 +5,8 @@ import app.cms.repository.LeaveRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 /**
  * Created by adeliadjuarto on 9/29/17.
@@ -36,9 +34,17 @@ public class LeaveRequestController {
 
     @RequestMapping("/leave-request/reject/{id}")
     public String rejectRequest(Model model, @PathVariable("id") Long id) throws Exception {
-        LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
-        leaveRequest.setIsApproved(false);
-        leaveRequestRepository.save(leaveRequest);
+        model.addAttribute("request", leaveRequestRepository.findOne(id));
+        model.addAttribute("currPage", "leave-request");
+        return "leave-request/reject";
+    }
+
+    @RequestMapping(value = "/leave-request/reject", method = RequestMethod.POST)
+    public String saveRejectedRequest(@ModelAttribute("request") LeaveRequest request,
+                                      SessionStatus status) throws Exception {
+        request.setIsApproved(false);
+        leaveRequestRepository.save(request);
+        status.setComplete();
         return "redirect:/leave-request";
     }
 }
