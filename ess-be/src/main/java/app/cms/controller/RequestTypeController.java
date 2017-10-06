@@ -19,7 +19,7 @@ public class RequestTypeController {
 
     @RequestMapping("/request-type")
     public String requestTypes(Model model) throws Exception {
-        model.addAttribute("requestTypes", requestTypeRepository.findAll());
+        model.addAttribute("requestTypes", requestTypeRepository.findByIsActive(true));
         model.addAttribute("currPage", "request-type");
         return "request-type/index";
     }
@@ -34,6 +34,7 @@ public class RequestTypeController {
     @RequestMapping(value = "request-type/save", method = RequestMethod.POST)
     public String saveRequestType(@ModelAttribute RequestType requestType,
                                     SessionStatus status) {
+        requestType.setIsActive(true);
         requestTypeRepository.save(requestType);
         status.setComplete();
         return "redirect:/request-type";
@@ -48,7 +49,9 @@ public class RequestTypeController {
 
     @RequestMapping(value = "request-type/delete/{id}")
     public String deleteRequestType(@PathVariable(value = "id") Long id) {
-        requestTypeRepository.delete(id);
+        RequestType requestType = requestTypeRepository.findOne(id);
+        requestType.setIsActive(false);
+        requestTypeRepository.save(requestType);
         return "redirect:/request-type";
     }
 }
