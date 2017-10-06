@@ -62,8 +62,13 @@ public class LeaveRequestApiController {
     @RequestMapping(value = "/leave-requests/{id}", method = RequestMethod.DELETE)
     public String deleteRequest(@PathVariable("id") Long id) throws Exception {
         List<Attachment> attachments = attachmentRepository.findByRequestIdAndCategory(id, "Leave");
-        attachmentRepository.delete(attachments);
-        leaveRequestRepository.delete(id);
+        for (Attachment attachment : attachments) {
+            attachment.setIsActive(false);
+            attachmentRepository.save(attachment);
+        }
+        LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
+        leaveRequest.setIsActive(false);
+        leaveRequestRepository.save(leaveRequest);
         return "Leave request successfully deleted!";
     }
 
