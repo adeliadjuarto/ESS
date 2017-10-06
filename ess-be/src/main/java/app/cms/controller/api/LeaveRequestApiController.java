@@ -43,7 +43,8 @@ public class LeaveRequestApiController {
                                 @RequestParam("end") Long end,
                                 @RequestParam("requestTypeId") Long requestTypeId,
                                 @RequestParam("userId") Long userId,
-                                @RequestParam("attachments[]") MultipartFile[] attachments) {
+                                @RequestParam("attachments[]") MultipartFile[] attachments)
+            throws Exception {
         RequestType requestType = requestTypeRepository.findOne(requestTypeId);
         User user = userRepository.findOne(userId);
         LeaveRequest leaveRequest
@@ -59,7 +60,7 @@ public class LeaveRequestApiController {
     }
 
     @RequestMapping(value = "/leave-requests/{id}", method = RequestMethod.DELETE)
-    public String deleteRequest(@PathVariable("id") Long id) {
+    public String deleteRequest(@PathVariable("id") Long id) throws Exception {
         List<Attachment> attachments = attachmentRepository.findByRequestIdAndCategory(id, "Leave");
         attachmentRepository.delete(attachments);
         leaveRequestRepository.delete(id);
@@ -68,7 +69,7 @@ public class LeaveRequestApiController {
 
     @RequestMapping(value = "/leave-requests/{id}/reject", method = RequestMethod.POST)
     public String rejectRequest(@PathVariable("id") Long id,
-                                @RequestParam("notes") String notes) {
+                                @RequestParam("notes") String notes) throws Exception {
         LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
         leaveRequest.setIsApproved(false);
         leaveRequest.setRejectionNote(notes);
@@ -77,7 +78,7 @@ public class LeaveRequestApiController {
     }
 
     @RequestMapping(value = "/leave-requests/{id}/approve")
-    public String approveRequest(@PathVariable("id") Long id) {
+    public String approveRequest(@PathVariable("id") Long id) throws Exception {
         LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
         leaveRequest.setIsApproved(true);
         leaveRequestRepository.save(leaveRequest);
