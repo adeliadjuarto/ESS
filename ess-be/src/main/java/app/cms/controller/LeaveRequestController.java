@@ -19,7 +19,7 @@ public class LeaveRequestController {
 
     @RequestMapping("/leave-request")
     public String requestTypes(Model model) throws Exception {
-        model.addAttribute("requests", leaveRequestRepository.findAll());
+        model.addAttribute("requests", leaveRequestRepository.findByIsActive(true));
         model.addAttribute("currPage", "leave-request");
         return "leave-request/index";
     }

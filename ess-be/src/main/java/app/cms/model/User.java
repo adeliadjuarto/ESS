@@ -24,7 +24,6 @@ public class User extends BaseEntity {
     private String phone;
     @Column(name = "annual_leave")
     private Integer annualLeave;
-    private Boolean isActive;
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;

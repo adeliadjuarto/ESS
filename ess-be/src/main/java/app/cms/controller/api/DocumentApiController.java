@@ -32,7 +32,8 @@ public class DocumentApiController {
             @RequestParam("year") String year,
             @RequestParam(value = "title", defaultValue = "") String title
     ) throws Exception {
-        return documentRepository.findByCategoryAndYearAndTitleContaining(category, year, title);
+        return documentRepository
+                .findByCategoryAndYearAndTitleContainingAndIsActive(category, year, title,true);
     }
 
     @RequestMapping("/documents/{id}")

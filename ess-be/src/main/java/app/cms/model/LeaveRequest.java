@@ -24,6 +24,7 @@ public class LeaveRequest extends BaseEntity {
         this.requestType = requestType;
         this.user = user;
         this.isApproved = null;
+        this.isActive = true;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

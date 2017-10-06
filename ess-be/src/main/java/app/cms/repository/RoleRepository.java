@@ -9,4 +9,5 @@ import java.util.List;
  * Created by adeliadjuarto on 7/5/17.
  */
 public interface RoleRepository extends JpaRepository<Role, Long> {
+    public List<Role> findByIsActive(Boolean isActive);
 }

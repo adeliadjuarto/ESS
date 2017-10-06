@@ -14,16 +14,6 @@ import javax.persistence.*;
 @Setter
 @Getter
 public class Document extends BaseEntity {
-    public Document() {
-    }
-
-    public Document(String category, String title, String path) {
-        this.category = category;
-        this.title = title;
-        this.path = path;
-        this.year = year;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
