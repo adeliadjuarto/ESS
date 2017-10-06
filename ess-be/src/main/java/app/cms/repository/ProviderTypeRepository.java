@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface ProviderTypeRepository extends JpaRepository<ProviderType, Long> {
     public ProviderType findFirstByName(String name);
-
-    public List<ProviderType> findByOrderByNameAsc();
+    public List<ProviderType> findByIsActive(Boolean isActive);
+    public List<ProviderType> findByIsActiveOrderByNameAsc(Boolean isActive);
 }

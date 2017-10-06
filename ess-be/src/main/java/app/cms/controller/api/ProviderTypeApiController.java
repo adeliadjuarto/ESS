@@ -16,6 +16,6 @@ public class ProviderTypeApiController {
 
     @RequestMapping("/provider-types")
     public Iterable<ProviderType> getProviderTypes() throws Exception {
-        return providerTypeRepository.findByOrderByNameAsc();
+        return providerTypeRepository.findByIsActiveOrderByNameAsc(true);
     }
 }
