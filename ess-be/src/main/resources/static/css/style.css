@@ -2,6 +2,7 @@
     width: calc(100vw - 200px);
     position: relative;
     left: 200px;
+    top: 50px;
 }
 .desktop{
     display: block;
@@ -16,9 +17,8 @@
 }
 .side-bar{
     height: 100vh;
-    position: fixed;
+    /*position: fixed;*/
     background-color: #2986c2;
-    z-index: 10000;
     width:200px;
     margin-right: 200px;
 }
@@ -41,8 +41,11 @@ h1{
 }
 header{
     background-color: #2986c2;
+    width: 100vw;
     height: 50px;
     line-height: 50px;
+    position: fixed;
+    z-index: 10000;
 }
 a{
     text-decoration: none;
