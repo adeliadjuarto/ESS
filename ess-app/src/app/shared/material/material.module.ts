@@ -1,47 +1,51 @@
 import { NgModule } from '@angular/core';
 
 import {
-  MdAutocompleteModule,
-  MdButtonModule,
-  MdCardModule,
-  MdInputModule,
-  MdMenuModule,
-  MdSidenavModule,
-  MdGridListModule,
-  MdToolbarModule,
-  MdSelectModule,
-  MdDatepickerModule,
-  MdNativeDateModule
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatCardModule,
+  MatInputModule,
+  MatMenuModule,
+  MatSidenavModule,
+  MatGridListModule,
+  MatToolbarModule,
+  MatSelectModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatSliderModule
 } from '@angular/material';
+import 'hammerjs/hammer';
 
 @NgModule({
   imports: [
-    MdAutocompleteModule,
-    MdButtonModule,
-    MdCardModule,
-    MdInputModule,
-    MdMenuModule,
-    MdSidenavModule,
-    MdGridListModule,
-    MdToolbarModule,
-    MdSelectModule,
-    MdDatepickerModule,
-    MdNativeDateModule
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatCardModule,
+    MatInputModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatGridListModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSliderModule
   ],
   declarations: [
   ],
   exports: [
-    MdAutocompleteModule,
-    MdButtonModule,
-    MdCardModule,
-    MdInputModule,
-    MdMenuModule,
-    MdSidenavModule,
-    MdGridListModule,
-    MdToolbarModule,
-    MdSelectModule,
-    MdDatepickerModule,
-    MdNativeDateModule
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatCardModule,
+    MatInputModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatGridListModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSliderModule
   ],
 
 })
