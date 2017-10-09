@@ -3,8 +3,10 @@ package app.cms.model;
 import app.cms.model.shared.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by adeliadjuarto on 9/29/17.
@@ -43,4 +45,8 @@ public class LeaveRequest extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+    @OneToMany
+    @JoinColumn(name = "request_id", referencedColumnName = "id")
+    @Where(clause = "category='Leave' and is_active=1")
+    private List<Attachment> attachments;
 }
