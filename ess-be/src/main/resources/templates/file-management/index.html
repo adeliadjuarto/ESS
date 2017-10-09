@@ -22,6 +22,11 @@
                     <td th:text="${file.year}"></td>
                     <td th:text="${file.category == 'pkb' ? 'PKB' : 'SK/SE'}"></td>
                     <td>
+                        <a th:href="@{/file-management/preview/{id}(id=${file.id})}" target="_blank">
+                            <button class="btn btn-xs" specification="button">
+                                <span class="fa fa-eye"></span>
+                            </button>
+                        </a>
                         <a th:href="@{/file-management/download/{id}(id=${file.id})}">
                             <button class="btn btn-xs" specification="button">
                                 <span class="fa fa-download"></span>
