@@ -13,7 +13,10 @@ import { FormRequest } from './../shared/request.interface';
 })
 export class OvertimeRequestComponent implements OnInit {
 
-  fileInput: FormData = new FormData();
+  overtimeHours: number = 0;
+  requestTitle: string;
+  requestDescription: string;
+  requestDate: Date;
 
   constructor(private store: Store<any>,
               private requestService: RequestService) {
@@ -26,12 +29,34 @@ export class OvertimeRequestComponent implements OnInit {
   ngOnInit() {
   }
 
-  doSomething() {
-    this.requestService.create(this.fileInput).subscribe((data) => console.log(data));
+  onSliderChange(event) {
+    this.overtimeHours = event.value;
   }
 
-  fileEvent(event) {
-    this.fileInput.append('attachments', event.target.files[0]);
+  submitRequest() {
+
+    if (this.requestValid()) {
+      console.log('yay');
+    } else {
+      console.log('nay');
+    }
+
   }
+
+  requestValid() {
+    if (!this.requestTitle || !this.requestDescription || this.overtimeHours === 0) {
+      return false;
+    }
+
+    console.log(this.overtimeHours);
+    
+    if (this.requestDate.getTime() < Date.now()) {
+      return false;
+    }
+
+    return true;
+
+  }
+
 
 }
