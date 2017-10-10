@@ -7,6 +7,7 @@ import { MenuComponent } from './menu/menu.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ChatComponent } from './chat/chat.component';
 import { RequestModule } from './request/request.module';
+import { StatusComponent } from './status/status.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { RequestModule } from './request/request.module';
     DashboardComponent,
     MenuComponent,
     ChatComponent,
+    StatusComponent,
   ]
 })
 export class DashboardModule { }
