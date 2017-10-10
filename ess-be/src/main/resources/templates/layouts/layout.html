@@ -19,7 +19,6 @@
     <form th:action="@{/logout}" method="post" id="logout"></form>
     <img th:src="@{/image/logo.png}" class="logo">
     <i class="fa fa-sign-out pull-right logout-icon" aria-hidden="true"></i>
-    <!--</div>-->
     <!--<div class="mobile">-->
         <!--<i class="fa fa-bars menu-btn fa-2x" id="toggle-btn" aria-hidden="true"></i>-->
         <!--<center>-->
@@ -41,12 +40,6 @@
     $(document).ready( function () {
          $('#toggle-btn').click(function(){
            $('.side-bar').toggle("slide", { direction: "left" }, 300);
-         });
-         $(window).resize(function () {
-            var windowWidth = $(window).width();
-            if (windowWidth > 1025) {
-                $(".side-bar").hide();
-            }
          });
          $('.logout-icon').click(function(){
             $('#logout').submit();
