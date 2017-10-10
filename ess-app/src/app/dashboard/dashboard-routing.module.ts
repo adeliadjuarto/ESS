@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard.component';
 import { MenuComponent } from './menu/menu.component';
 import { ChatComponent } from './chat/chat.component';
 import { RequestComponent } from './request/request.component';
+import { StatusComponent } from './status/status.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,13 @@ const routes: Routes = [
           title: 'Request'
         },
         loadChildren: 'app/dashboard/request/request.module#RequestModule'
+      },
+      {
+        path: PATH.STATUS,
+        data: {
+          title: 'Status'
+        },
+        component: StatusComponent
       }
     ]
   },
