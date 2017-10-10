@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { RequestService } from './../shared/request.service';
 import { DashboardAction } from './../../shared/dashboard.action';
-import { Request } from './../shared/request.interface';
+import { FormRequest } from './../shared/request.interface';
 
 @Component({
   selector: 'app-overtime-request',
@@ -33,6 +33,5 @@ export class OvertimeRequestComponent implements OnInit {
   fileEvent(event) {
     this.fileInput.append('attachments', event.target.files[0]);
   }
-
 
 }
