@@ -20,8 +20,11 @@ export class LeaveRequestComponent implements OnInit {
   leaveTypes = values(LEAVE_TYPES);
   singleDatepicker: boolean = false;
 
+  requestTitle: string;
+  requestDescription: string;
   dateFor: Date;
   dateTo: Date;
+  requestAttachments: File[];
 
   sliderValue: any = [0, 0];
   sliderConfig = {
@@ -51,32 +54,58 @@ export class LeaveRequestComponent implements OnInit {
     this.sliderValue = [0, 0];
   }
 
-  submitRequest() {
-    let start = this.dateFor.getTime() + (this.sliderValue[0] * 1000);
-    let end;
-    if (this.dateTo) {
-      end = this.dateTo.getTime() + (this.sliderValue[1] * 1000);
-    } else {
-      end = this.dateFor.getTime() + (this.sliderValue[1] * 1000);
+  fileChange(event) {
+    this.requestAttachments = event.target.files[0];
+  }
+
+  allFilesExist() {
+    if (!this.requestTitle || !this.requestDescription || !this.selectedLeaveType || !this.dateFor) {
+      return false;
+    }
+    if (!this.singleDatepicker && !this.dateTo) {
+      return false;
+    }
+    if (!this.requestAttachments) {
+      return false;
     }
 
-    let request: IRequest = {
-      title: '',
-      description: '',
-      start: start,
-      end: end,
-      requestTypeId: 2,
-      userId: 'user-id',
-      attachments: []
-    };
+    return true;
+  }
 
-    let formRequest = new FormData();
+  submitRequest() {
+    if (this.allFilesExist()) {
+      let start = this.dateFor.getTime() + (this.sliderValue[0] * 1000);
+      let end;
+      if (this.singleDatepicker) {
+        end = this.dateFor.getTime() + (this.sliderValue[1] * 1000);
+      } else {
+        end = this.dateTo.getTime() + (this.sliderValue[1] * 1000);
+      }
 
-    mapKeys(request, (value, key) => formRequest.append(key, value));
+      if ( start >= end ) {
+        return;
+      }
 
-    // this.requestService.create(formRequest);
+      let request: IRequest = {
+        title: this.requestTitle,
+        description: this.requestDescription,
+        start: start,
+        end: end,
+        requestTypeId: 1,
+        userId: 'user-id',
+        attachments: this.requestAttachments
+      };
 
+      let formRequest = new FormData();
 
+      mapKeys(request, (value, key) => formRequest.append(key, value));
+
+      // this.requestService.create(formRequest);
+      console.log('send request');
+
+    } else {
+      console.log('this happens');
+    }
   }
 
 }
