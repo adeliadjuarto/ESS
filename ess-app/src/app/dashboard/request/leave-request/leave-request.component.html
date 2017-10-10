@@ -7,11 +7,11 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <input #nameInput matInput placeholder="Title"/>
+      <input #nameInput matInput placeholder="Title" [(ngModel)]="requestTitle"/>
     </mat-form-field>
 
     <mat-form-field>
-      <input #nameInput matInput placeholder="Description"/>
+      <input #nameInput matInput placeholder="Description" [(ngModel)]="requestDescription"/>
     </mat-form-field>
 
     <div class="from-to-datepicker" *ngIf="!singleDatepicker">
@@ -43,7 +43,7 @@
     </div>
 
     <div class="input-file">
-      <input type="file">
+      <input type="file" (change)="fileChange($event)">
     </div>
 
     <button mat-raised-button (click)="submitRequest()">Submit Request</button>
