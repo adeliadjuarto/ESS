@@ -129,6 +129,19 @@ public class DocumentController {
         return "redirect:/file-management";
     }
 
+    @RequestMapping("file-management/preview/{id}")
+    public String previewFile(@PathVariable(value = "id") Long id,
+                               HttpServletResponse response) throws Exception {
+        Document document = documentRepository.findOne(id);
+        File file = new File(directoryPath + document.getPath());
+        InputStream is = new FileInputStream(file);
+        response.setContentType(APPLICATION_PDF);
+        response.setHeader("Content-Disposition", "inline; filename=" + file.getName());
+        response.setHeader("Content-Length", String.valueOf(file.length()));
+        FileCopyUtils.copy(is, response.getOutputStream());
+        return "redirect:/file-management";
+    }
+
     private String getFileName(String path) {
         Path p = Paths.get(path);
         return p.getFileName().toString();

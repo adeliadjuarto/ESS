@@ -36,6 +36,13 @@ public class LeaveRequestApiController {
     @Autowired
     private AttachmentRepository attachmentRepository;
 
+    @RequestMapping(value = "/leave-requests")
+    public Iterable<LeaveRequest> getRequest
+            (@RequestParam("requestTypeId") Long requestTypeId) throws Exception {
+        RequestType requestType = requestTypeRepository.findOne(requestTypeId);
+        return leaveRequestRepository.findByIsActiveAndRequestType(true, requestType);
+    }
+
     @RequestMapping(value = "/leave-requests", method = RequestMethod.POST)
     public String createRequest(@RequestParam("title") String title,
                                 @RequestParam("description") String description,

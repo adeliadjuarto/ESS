@@ -13,6 +13,7 @@
                     <th>Type</th>
                     <th>Description</th>
                     <th>Employee</th>
+                    <th>Attachments</th>
                     <th>Start</th>
                     <th>End</th>
                     <th>Status</th>
@@ -25,6 +26,11 @@
                     <td th:text="${request.requestType.name}"></td>
                     <td th:text="${request.description}"></td>
                     <td th:text="${request.user.name}"></td>
+                    <td>
+                        <div th:each="attachment : ${request.attachments}">
+                            <a th:href="@{/leave-request/preview/{id}(id=${attachment.id})}" target="_blank" th:text="${attachment.path}"></a>
+                        </div>
+                    </td>
                     <td th:text="${request.start}"></td>
                     <td th:text="${request.end}"></td>
                     <td>

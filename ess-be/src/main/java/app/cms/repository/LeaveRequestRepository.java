@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface LeaveRequestRepository extends JpaRepository<LeaveRequest, Long> {
     public List<LeaveRequest> findByIsActive(Boolean isActive);
+    public List<LeaveRequest> findByIsActiveAndRequestType(Boolean isActive, RequestType requestType);
 }

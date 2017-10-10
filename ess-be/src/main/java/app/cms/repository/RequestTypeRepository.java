@@ -11,4 +11,5 @@ import java.util.List;
 public interface RequestTypeRepository extends JpaRepository<RequestType, Long> {
     public List<RequestType> findByIsActiveOrderByCategoryAsc(Boolean isActive, String category);
     public List<RequestType> findByIsActive(Boolean isActive);
+    public List<RequestType> findByIsActiveAndCategory(Boolean isActive, String category);
 }
