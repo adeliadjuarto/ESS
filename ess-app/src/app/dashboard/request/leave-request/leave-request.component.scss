@@ -8,10 +8,6 @@ mat-form-field {
     width: 90vw;
 }
 
-mat-select {
-    width: 90vw;
-    padding-bottom: 20px;
-}
 
 #datepicker-left {
     width: 35vw;
@@ -28,4 +24,13 @@ mat-select {
 
 mat-slider {
     width: 90vw;
+}
+
+.input-file {
+    display: block;
+    margin-bottom: 20px;
+}
+
+nouislider {
+    margin-top: 40px;
 }

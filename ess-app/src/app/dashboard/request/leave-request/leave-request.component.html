@@ -1,42 +1,50 @@
 <div class="container">
-  <mat-select placeholder="Type" [(ngModel)]="selectedLeaveType" name="leaveType" (change)="doStuff()">
-    <mat-option *ngFor = "let type of leaveTypes" [value]="type">
-        {{type}}
-    </mat-option>
-  </mat-select>
-  <form>
+    <mat-form-field>
+      <mat-select placeholder="Type" [(ngModel)]="selectedLeaveType" name="leaveType" (change)="doStuff()">
+        <mat-option *ngFor = "let type of leaveTypes" [value]="type">
+            {{type}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <mat-form-field>
       <input #nameInput matInput placeholder="Title"/>
     </mat-form-field>
+
     <mat-form-field>
       <input #nameInput matInput placeholder="Description"/>
     </mat-form-field>
+
     <div class="from-to-datepicker" *ngIf="!singleDatepicker">
       <mat-form-field id="datepicker-left">
-        <input matInput [matDatepicker]="pickerFor" (click)="pickerFor.open()" placeholder="From"/>
+        <input name="dateFor" matInput placeholder="From" [(ngModel)]="dateFor"
+               [matDatepicker]="pickerFor" (click)="pickerFor.open()"/>
         <mat-datepicker-toggle matSuffix [for]="pickerFor"></mat-datepicker-toggle>
         <mat-datepicker #pickerFor></mat-datepicker>
       </mat-form-field>
       <mat-form-field id="datepicker-right">
-        <input matInput [matDatepicker]="pickerTo" (click)="pickerTo.open()" placeholder="To"/>
+        <input name="dateTo" matInput placeholder="To" [(ngModel)]="dateTo"
+               [matDatepicker]="pickerTo" (click)="pickerTo.open()" />
         <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
         <mat-datepicker #pickerTo></mat-datepicker>
       </mat-form-field>
     </div>
+
     <div class="single-datepicker" *ngIf="singleDatepicker">
+
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Pick A Date"/>
+        <input matInput placeholder="Pick A Date" [(ngModel)]="dateFor"
+               [matDatepicker]="picker" (click)="picker.open()" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <mat-slider min="0" max="9" step="1" [(ngModel)]="sliderValue" name="slider" (input)="doWeirdStuff($event)"></mat-slider>
-      <span>{{sliderValue}} hours</span>
+
+      <nouislider name="slider" [config]="sliderConfig" [(ngModel)]="sliderValue"></nouislider>
+    
     </div>
-    <input type="file">
 
-    <nouislider [connect]="true" [min]="0" [max]="15" [(ngModel)]="someRange"></nouislider>
+    <div class="input-file">
+      <input type="file">
+    </div>
 
-
-    <button mat-raised-button>Submit Request</button>
-  </form>
+    <button mat-raised-button (click)="submitRequest()">Submit Request</button>
 </div>
