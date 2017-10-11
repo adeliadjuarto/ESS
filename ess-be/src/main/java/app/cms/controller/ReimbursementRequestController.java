@@ -1,9 +1,9 @@
 package app.cms.controller;
 
-import app.cms.model.LeaveRequest;
-import app.cms.model.LeaveRequestAttachment;
-import app.cms.repository.LeaveRequestAttachmentRepository;
-import app.cms.repository.LeaveRequestRepository;
+import app.cms.model.ReimbursementRequest;
+import app.cms.model.ReimbursementRequestAttachment;
+import app.cms.repository.ReimbursementRequestAttachmentRepository;
+import app.cms.repository.ReimbursementRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -18,33 +18,33 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 /**
- * Created by adeliadjuarto on 9/29/17.
+ * Created by adeliadjuarto on 10/11/17.
  */
 @Controller
 @SessionAttributes("request")
-public class LeaveRequestController {
+public class ReimbursementRequestController {
     @Value("${file-directory-path}")
     private String directoryPath;
     @Autowired
-    private LeaveRequestRepository leaveRequestRepository;
+    private ReimbursementRequestRepository reimbursementRequestRepository;
     @Autowired
-    private LeaveRequestAttachmentRepository attachmentRepository;
+    private ReimbursementRequestAttachmentRepository attachmentRepository;
 
     private static final String APPLICATION_PDF = "application/pdf";
     private static final String JPG = "image/jpg";
     private static final String PNG = "image/png";
 
-    @RequestMapping("/leave-request")
+    @RequestMapping("/reimbursement-request")
     public String requests(Model model) throws Exception {
-        model.addAttribute("requests", leaveRequestRepository.findByIsActive(true));
-        model.addAttribute("currPage", "leave-request");
-        return "leave-request/index";
+        model.addAttribute("requests", reimbursementRequestRepository.findByIsActive(true));
+        model.addAttribute("currPage", "reimbursement-request");
+        return "reimbursement-request/index";
     }
 
-    @RequestMapping("leave-request/preview/{id}")
+    @RequestMapping("reimbursement-request/preview/{id}")
     public HttpServletResponse previewAttachment(@PathVariable(value = "id") Long id,
-                              HttpServletResponse response) throws Exception {
-        LeaveRequestAttachment document = attachmentRepository.findOne(id);
+                                                 HttpServletResponse response) throws Exception {
+        ReimbursementRequestAttachment document = attachmentRepository.findOne(id);
         File file = new File(directoryPath + document.getPath());
         InputStream is = new FileInputStream(file);
         String extension = file.getPath().substring(file.getPath().lastIndexOf('.') + 1);
@@ -66,27 +66,27 @@ public class LeaveRequestController {
         return response;
     }
 
-    @RequestMapping("/leave-request/approve/{id}")
+    @RequestMapping("/reimbursement-request/approve/{id}")
     public String approveRequest(Model model, @PathVariable("id") String id) throws Exception {
-        LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
-        leaveRequest.setIsApproved(true);
-        leaveRequestRepository.save(leaveRequest);
-        return "redirect:/leave-request";
+        ReimbursementRequest request = reimbursementRequestRepository.findOne(id);
+        request.setIsApproved(true);
+        reimbursementRequestRepository.save(request);
+        return "redirect:/reimbursement-request";
     }
 
-    @RequestMapping("/leave-request/reject/{id}")
+    @RequestMapping("/reimbursement-request/reject/{id}")
     public String rejectRequest(Model model, @PathVariable("id") String id) throws Exception {
-        model.addAttribute("request", leaveRequestRepository.findOne(id));
-        model.addAttribute("currPage", "leave-request");
-        return "leave-request/reject";
+        model.addAttribute("request", reimbursementRequestRepository.findOne(id));
+        model.addAttribute("currPage", "reimbursement-request");
+        return "reimbursement-request/reject";
     }
 
-    @RequestMapping(value = "/leave-request/reject", method = RequestMethod.POST)
-    public String saveRejectedRequest(@ModelAttribute("request") LeaveRequest request,
+    @RequestMapping(value = "/reimbursement-request/reject", method = RequestMethod.POST)
+    public String saveRejectedRequest(@ModelAttribute("request") ReimbursementRequest request,
                                       SessionStatus status) throws Exception {
         request.setIsApproved(false);
-        leaveRequestRepository.save(request);
+        reimbursementRequestRepository.save(request);
         status.setComplete();
-        return "redirect:/leave-request";
+        return "redirect:/reimbursement-request";
     }
 }

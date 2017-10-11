@@ -15,79 +15,79 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Created by adeliadjuarto on 10/2/17.
+ * Created by adeliadjuarto on 10/11/17.
  */
 @RestController
-public class LeaveRequestApiController {
+public class ReimbursementRequestApiController {
     @Value("${file-directory-path}")
     private String directoryPath;
     @Autowired
-    private LeaveRequestRepository leaveRequestRepository;
+    private ReimbursementRequestRepository reimbursementRequestRepository;
     @Autowired
     private RequestTypeRepository requestTypeRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private LeaveRequestAttachmentRepository attachmentRepository;
+    private ReimbursementRequestAttachmentRepository attachmentRepository;
 
-    @RequestMapping(value = "/leave-requests")
-    public Iterable<LeaveRequest> getRequest
+    @RequestMapping(value = "/reimbursement-requests")
+    public Iterable<ReimbursementRequest> getRequest
             (@RequestParam("requestTypeId") Long requestTypeId) throws Exception {
         RequestType requestType = requestTypeRepository.findOne(requestTypeId);
-        return leaveRequestRepository.findByIsActiveAndRequestType(true, requestType);
+        return reimbursementRequestRepository.findByIsActiveAndRequestType(true, requestType);
     }
 
-    @RequestMapping(value = "/leave-requests", method = RequestMethod.POST)
+    @RequestMapping(value = "/reimbursement-requests", method = RequestMethod.POST)
     public String createRequest(@RequestParam("title") String title,
                                 @RequestParam("description") String description,
-                                @RequestParam("start") Long start,
-                                @RequestParam("end") Long end,
+                                @RequestParam("eventDate") Long eventDate,
+                                @RequestParam("amount") Integer amount,
                                 @RequestParam("requestTypeId") Long requestTypeId,
                                 @RequestParam("userId") Long userId,
                                 @RequestParam("attachments[]") MultipartFile[] attachments)
             throws Exception {
         RequestType requestType = requestTypeRepository.findOne(requestTypeId);
         User user = userRepository.findOne(userId);
-        LeaveRequest leaveRequest
-                = new LeaveRequest(title, description, start, end, requestType, user);
-        leaveRequest = leaveRequestRepository.save(leaveRequest);
+        ReimbursementRequest request
+                = new ReimbursementRequest(title, description, eventDate, amount, requestType, user);
+        request = reimbursementRequestRepository.save(request);
         for (MultipartFile attachment : attachments) {
             String pathName = saveFileToDirectory(attachment);
-            LeaveRequestAttachment a = new LeaveRequestAttachment(leaveRequest.getId(), pathName);
+            ReimbursementRequestAttachment a = new ReimbursementRequestAttachment(request.getId(), pathName);
             attachmentRepository.save(a);
         }
 
-        return "Leave request successfully created!";
+        return "Reimbursement request successfully created!";
     }
 
-    @RequestMapping(value = "/leave-requests/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/reimbursement-requests/{id}", method = RequestMethod.DELETE)
     public String deleteRequest(@PathVariable("id") String id) throws Exception {
-        List<LeaveRequestAttachment> attachments = attachmentRepository.findByRequestId(id);
-        for (LeaveRequestAttachment attachment : attachments) {
+        List<ReimbursementRequestAttachment> attachments = attachmentRepository.findByRequestId(id);
+        for (ReimbursementRequestAttachment attachment : attachments) {
             attachment.setIsActive(false);
             attachmentRepository.save(attachment);
         }
-        LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
-        leaveRequest.setIsActive(false);
-        leaveRequestRepository.save(leaveRequest);
-        return "Leave request successfully deleted!";
+        ReimbursementRequest request = reimbursementRequestRepository.findOne(id);
+        request.setIsActive(false);
+        reimbursementRequestRepository.save(request);
+        return "Reimbursement request successfully deleted!";
     }
 
-    @RequestMapping(value = "/leave-requests/{id}/reject", method = RequestMethod.POST)
+    @RequestMapping(value = "/reimbursement-requests/{id}/reject", method = RequestMethod.POST)
     public String rejectRequest(@PathVariable("id") String id,
                                 @RequestParam("notes") String notes) throws Exception {
-        LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
-        leaveRequest.setIsApproved(false);
-        leaveRequest.setRejectionNote(notes);
-        leaveRequestRepository.save(leaveRequest);
+        ReimbursementRequest request = reimbursementRequestRepository.findOne(id);
+        request.setIsApproved(false);
+        request.setRejectionNote(notes);
+        reimbursementRequestRepository.save(request);
         return "You have rejected this request";
     }
 
-    @RequestMapping(value = "/leave-requests/{id}/approve")
+    @RequestMapping(value = "/reimbursement-requests/{id}/approve")
     public String approveRequest(@PathVariable("id") String id) throws Exception {
-        LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
-        leaveRequest.setIsApproved(true);
-        leaveRequestRepository.save(leaveRequest);
+        ReimbursementRequest request = reimbursementRequestRepository.findOne(id);
+        request.setIsApproved(true);
+        reimbursementRequestRepository.save(request);
         return "You have approved this request";
     }
 

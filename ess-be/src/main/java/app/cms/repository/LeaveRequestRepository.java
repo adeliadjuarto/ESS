@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by adeliadjuarto on 7/5/17.
  */
-public interface LeaveRequestRepository extends JpaRepository<LeaveRequest, Long> {
+public interface LeaveRequestRepository extends JpaRepository<LeaveRequest, String> {
     public List<LeaveRequest> findByIsActive(Boolean isActive);
     public List<LeaveRequest> findByIsActiveAndRequestType(Boolean isActive, RequestType requestType);
 }

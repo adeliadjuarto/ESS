@@ -10,20 +10,20 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by adeliadjuarto on 9/29/17.
+ * Created by adeliadjuarto on 10/11/17.
  */
 @Entity
-@Table(name = "leave_requests")
+@Table(name = "reimbursement_requests")
 @Setter
 @Getter
-public class LeaveRequest extends BaseEntity {
-    public LeaveRequest () {}
-    public LeaveRequest (String title, String description, Long start, Long end,
-                         RequestType requestType, User user) {
+public class ReimbursementRequest extends BaseEntity {
+    public ReimbursementRequest () {}
+    public ReimbursementRequest (String title, String description, Long eventDate,
+                                 Integer amount, RequestType requestType, User user) {
         this.title = title;
         this.description = description;
-        this.start = start;
-        this.end = end;
+        this.eventDate = eventDate;
+        this.amount = amount;
         this.requestType = requestType;
         this.user = user;
         this.isApproved = null;
@@ -37,8 +37,8 @@ public class LeaveRequest extends BaseEntity {
     private String id;
     private String title;
     private String description;
-    private Long start;
-    private Long end;
+    private Long eventDate;
+    private Integer amount;
     @Column(name = "rejection_note")
     private String rejectionNote;
     @Column(name = "is_approved")
@@ -51,5 +51,5 @@ public class LeaveRequest extends BaseEntity {
     private User user;
     @OneToMany
     @JoinColumn(name = "request_id", referencedColumnName = "id")
-    private List<LeaveRequestAttachment> attachments;
+    private List<ReimbursementRequestAttachment> attachments;
 }
