@@ -40,4 +40,5 @@ public class BaseEntity implements Serializable {
 
     @Column(name = "is_active")
     protected Boolean isActive;
+  
 }
