@@ -19,7 +19,7 @@ public class ProviderTypeController {
 
     @RequestMapping("/provider-type")
     public String providerType(Model model) throws Exception {
-        model.addAttribute("types", providerTypeRepository.findAll());
+        model.addAttribute("types", providerTypeRepository.findByIsActive(true));
         model.addAttribute("currPage", "provider-type");
         return "provider-type/index";
     }
@@ -34,6 +34,7 @@ public class ProviderTypeController {
     @RequestMapping(value = "provider-type/save", method = RequestMethod.POST)
     public String saveProviderType(@ModelAttribute("type") ProviderType type,
                                    SessionStatus status) {
+        type.setIsActive(true);
         providerTypeRepository.save(type);
         status.setComplete();
         return "redirect:/provider-type";
@@ -48,7 +49,9 @@ public class ProviderTypeController {
 
     @RequestMapping(value = "provider-type/delete/{id}")
     public String deleteProviderType(@PathVariable(value = "id") Long id) {
-        providerTypeRepository.delete(id);
+        ProviderType type = providerTypeRepository.findOne(id);
+        type.setIsActive(false);
+        providerTypeRepository.save(type);
         return "redirect:/provider-type";
     }
 }

@@ -1,0 +1,35 @@
+.container {
+    width: 90vw;
+    margin-left: 5vw;
+    margin-top: 3vh;
+}
+
+mat-form-field {
+    width: 90vw;
+}
+
+#datepicker-left {
+    width: 35vw;
+    margin-right: 19vw;
+}
+
+#datepicker-right {
+    width: 35vw;
+}
+
+:host /deep/ .mat-form-field-suffix .mat-icon-button {
+    background-color: #fafafa !important;
+}
+
+mat-slider {
+    width: 90vw;
+}
+
+.input-file {
+    display: block;
+    margin-bottom: 20px;
+}
+
+nouislider {
+    margin-top: 40px;
+}

@@ -27,7 +27,7 @@ export class MenuComponent implements OnInit {
   public infoIcon: boolean = true;
   public onlineToggle: boolean;
 
-  @ViewChild('dashboardContainer') private container: ElementRef;
+  @ViewChild('menuContainer') private container: ElementRef;
 
   constructor(private router: Router,
               private route: ActivatedRoute,

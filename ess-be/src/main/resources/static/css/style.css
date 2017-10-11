@@ -2,9 +2,10 @@
     width: calc(100vw - 200px);
     position: relative;
     left: 200px;
+    top: 50px;
 }
 .desktop{
-    display: block;
+    /*display: block;*/
 }
 .mobile{
     display: none;
@@ -16,11 +17,12 @@
 }
 .side-bar{
     height: 100vh;
-    position: fixed;
     background-color: #2986c2;
-    z-index: 10000;
     width:200px;
     margin-right: 200px;
+    margin-top: 50px;
+    position: fixed;
+    z-index: 10000;
 }
 .menu{
     width: 100%;
@@ -40,7 +42,10 @@ h1{
     padding-bottom: 15px;
 }
 header{
+    position: fixed;
+    z-index: 10000;
     background-color: #2986c2;
+    width: 100vw;
     height: 50px;
     line-height: 50px;
 }

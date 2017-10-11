@@ -21,7 +21,7 @@ public class RoleController {
 
     @RequestMapping("/role")
     public String roles(Model model) throws Exception {
-        model.addAttribute("roles", roleRepository.findAll());
+        model.addAttribute("roles", roleRepository.findByIsActive(true));
         model.addAttribute("currPage", "role");
         return "role/index";
     }
@@ -36,6 +36,7 @@ public class RoleController {
     @RequestMapping(value = "role/save", method = RequestMethod.POST)
     public String saveRole(@ModelAttribute Role role,
                                     SessionStatus status) {
+        role.setIsActive(true);
         roleRepository.save(role);
         status.setComplete();
         return "redirect:/role";
@@ -50,7 +51,9 @@ public class RoleController {
 
     @RequestMapping(value = "role/delete/{id}")
     public String deleteRole(@PathVariable(value = "id") Long id) {
-        roleRepository.delete(id);
+        Role role = roleRepository.findOne(id);
+        role.setIsActive(false);
+        roleRepository.save(role);
         return "redirect:/role";
     }
 }

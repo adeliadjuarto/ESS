@@ -37,7 +37,7 @@ public class DocumentController {
 
     @RequestMapping("/file-management")
     public String fileManagement(Model model) throws Exception {
-        model.addAttribute("files", documentRepository.findAll());
+        model.addAttribute("files", documentRepository.findByIsActive(true));
         model.addAttribute("currPage", "document");
         return "file-management/index";
     }
@@ -68,6 +68,7 @@ public class DocumentController {
         String pathName = saveFileToDirectory(file);
         document.setPath(pathName);
         document.setCategory(category);
+        document.setIsActive(true);
         documentRepository.save(document);
         return "redirect:/file-management";
     }
@@ -104,13 +105,14 @@ public class DocumentController {
     @RequestMapping(value = "file-management/delete/{id}")
     public String deleteFile(@PathVariable(value = "id") Long id) {
         Document document = documentRepository.findOne(id);
-        try {
-            Path oldPath = Paths.get(directoryPath + document.getPath());
-            Files.delete(oldPath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        documentRepository.delete(id);
+//        try {
+//            Path oldPath = Paths.get(directoryPath + document.getPath());
+//            Files.delete(oldPath);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        document.setIsActive(false);
+        documentRepository.save(document);
         return "redirect:/file-management";
     }
 
@@ -122,6 +124,19 @@ public class DocumentController {
         InputStream is = new FileInputStream(file);
         response.setContentType(APPLICATION_PDF);
         response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+        response.setHeader("Content-Length", String.valueOf(file.length()));
+        FileCopyUtils.copy(is, response.getOutputStream());
+        return "redirect:/file-management";
+    }
+
+    @RequestMapping("file-management/preview/{id}")
+    public String previewFile(@PathVariable(value = "id") Long id,
+                               HttpServletResponse response) throws Exception {
+        Document document = documentRepository.findOne(id);
+        File file = new File(directoryPath + document.getPath());
+        InputStream is = new FileInputStream(file);
+        response.setContentType(APPLICATION_PDF);
+        response.setHeader("Content-Disposition", "inline; filename=" + file.getName());
         response.setHeader("Content-Length", String.valueOf(file.length()));
         FileCopyUtils.copy(is, response.getOutputStream());
         return "redirect:/file-management";

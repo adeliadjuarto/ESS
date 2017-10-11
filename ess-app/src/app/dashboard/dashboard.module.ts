@@ -6,19 +6,21 @@ import { DashboardComponent } from './dashboard.component';
 import { MenuComponent } from './menu/menu.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ChatComponent } from './chat/chat.component';
-import { RequestComponent } from './request/request.component';
+import { RequestModule } from './request/request.module';
+import { StatusComponent } from './status/status.component';
 
 @NgModule({
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    MaterialModule
+    MaterialModule,
+    RequestModule
   ],
   declarations: [
     DashboardComponent,
     MenuComponent,
     ChatComponent,
-    RequestComponent
+    StatusComponent,
   ]
 })
 export class DashboardModule { }

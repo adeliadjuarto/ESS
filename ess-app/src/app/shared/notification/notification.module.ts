@@ -4,15 +4,15 @@ import { NgModule } from '@angular/core';
 import { NotificationContainerComponent } from './notification-container.component';
 import { NotificationComponent } from './notification.component';
 import { NotificationService } from './notification.service';
-import { MdButtonModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
-    MdButtonModule
+    MatButtonModule
   ],
   exports: [
-    MdButtonModule
+    MatButtonModule
   ],
   declarations: [
     NotificationContainerComponent,

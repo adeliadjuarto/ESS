@@ -39,4 +39,11 @@ export abstract class DataService<T> {
                           .map((response: Response) => response.to(ResponseType.of(this.model)));
   }
 
+  create(entity): Observable<T> {
+    return this.apiService.post(this.endpoint, entity)
+                          .map((response: any) => {
+                            return response.to(ResponseType.Text)
+                          });
+  }
+
 }

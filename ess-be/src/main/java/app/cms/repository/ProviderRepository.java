@@ -14,17 +14,21 @@ import java.util.List;
  * Created by adeliadjuarto on 7/5/17.
  */
 public interface ProviderRepository extends JpaRepository<Provider, Long> {
-    public Page<Provider> findByCityAndProviderTypeAndInsuranceType(String city,
+    public Page<Provider> findByCityAndProviderTypeAndInsuranceTypeAndIsActive(String city,
                                                                     ProviderType providerType,
                                                                     InsuranceType insuranceType,
+                                                                    Boolean isActive,
                                                                     Pageable pageable);
-
-    public Page<Provider> findByCityAndProviderType(String city, ProviderType providerType, Pageable pageable);
-
-    public Page<Provider> findByCityAndInsuranceType(String city, InsuranceType insuranceType, Pageable pageable);
-
-    public Page<Provider> findByCity(String city, Pageable pageable);
-
-    @Query(value = "SELECT DISTINCT city FROM Provider order by city asc")
+    public Page<Provider> findByCityAndProviderTypeAndIsActive(String city,
+                                                               ProviderType providerType,
+                                                               Boolean isActive,
+                                                               Pageable pageable);
+    public Page<Provider> findByCityAndInsuranceTypeAndIsActive(String city,
+                                                                InsuranceType insuranceType,
+                                                                Boolean isActive,
+                                                                Pageable pageable);
+    public Page<Provider> findByCityAndIsActive(String city, Boolean isActive, Pageable pageable);
+    public List<Provider> findByIsActive(Boolean isActive);
+    @Query(value = "SELECT DISTINCT city FROM Provider WHERE isActive = 1 order by city asc")
     public List<String> getCityLists();
 }

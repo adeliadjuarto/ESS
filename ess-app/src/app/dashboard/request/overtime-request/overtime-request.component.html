@@ -1,0 +1,22 @@
+<div class="container">
+    <mat-form-field>
+      <input #nameInput matInput placeholder="Title" [(ngModel)]="requestTitle"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input #nameInput matInput placeholder="Description" [(ngModel)]="requestDescription"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Pick A Date" [(ngModel)]="requestDate"
+             [matDatepicker]="picker" (click)="picker.open()" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-slider min="0" max="8" (input)="onSliderChange($event)"> </mat-slider>
+
+    <p> {{overtimeHours}} hours </p>
+
+    <button mat-raised-button (click)="submitRequest()">Submit Request</button>
+</div>

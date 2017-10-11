@@ -3,8 +3,11 @@ package app.cms.model;
 import app.cms.model.shared.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by adeliadjuarto on 9/29/17.
@@ -24,10 +27,14 @@ public class LeaveRequest extends BaseEntity {
         this.requestType = requestType;
         this.user = user;
         this.isApproved = null;
+        this.isActive = true;
     }
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(
+            name = "system-uuid",
+            strategy = "uuid2")
+    private String id;
     private String title;
     private String description;
     private Long start;
@@ -42,4 +49,7 @@ public class LeaveRequest extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+    @OneToMany
+    @JoinColumn(name = "request_id", referencedColumnName = "id")
+    private List<LeaveRequestAttachment> attachments;
 }

@@ -16,6 +16,6 @@ public class InsuranceTypeApiController {
 
     @RequestMapping("/insurance-types")
     public Iterable<InsuranceType> getInsuranceTypes() throws Exception {
-        return insuranceTypeRepository.findByOrderByNameAsc();
+        return insuranceTypeRepository.findByIsActiveOrderByNameAsc(true);
     }
 }

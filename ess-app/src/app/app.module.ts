@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { MATERIAL_COMPATIBILITY_MODE } from '@angular/material';
 
 import { StoreModule } from '@ngrx/store';
 
@@ -35,7 +36,8 @@ import { reducer } from './app.reducer';
     StoreModule.provideStore(reducer)
   ],
   providers: [
-    InjectionService
+    InjectionService,
+    { provide: MATERIAL_COMPATIBILITY_MODE, useValue: true }
   ],
   bootstrap: [AppComponent]
 })

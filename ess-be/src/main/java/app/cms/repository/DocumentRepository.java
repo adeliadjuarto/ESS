@@ -10,10 +10,12 @@ import java.util.List;
  * Created by adeliadjuarto on 7/6/17.
  */
 public interface DocumentRepository extends JpaRepository<Document, Long> {
-    public List<Document> findByCategory(String category);
-
-    public List<Document> findByCategoryAndYearAndTitleContaining(String category, String year, String name);
-
-    @Query(value = "SELECT DISTINCT year FROM Document")
+    public List<Document> findByIsActive(Boolean isActive);
+    public List<Document> findByCategoryAndIsActive(String category, Boolean isActive);
+    public List<Document> findByCategoryAndYearAndTitleContainingAndIsActive(String category,
+                                                                             String year,
+                                                                             String name,
+                                                                             Boolean isActive);
+    @Query(value = "SELECT DISTINCT year FROM Document WHERE isActive = 1")
     public List<String> getAllDocumentYear();
 }

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { MaterialModule } from './material/material.module';
 
 import { NotificationModule } from './notification/notification.module';
+import { CircularRangeSliderComponent } from './circular-range-slider/circular-range-slider.component';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { NotificationModule } from './notification/notification.module';
     MaterialModule
   ],
   declarations: [
+    CircularRangeSliderComponent
   ]
 })
 export class UIModule { }

@@ -13,6 +13,11 @@ export const PATH = {
     ACCOUNT: 'my-account',
 
     CHAT: 'chat',
-    REQUEST: 'request'
+    REQUEST: 'request',
+    STATUS: 'status',
+
+    LEAVE: 'leave',
+    OVERTIME: 'overtime',
+    REIMBURSEMENT: 'reimbursement',
 
 };
