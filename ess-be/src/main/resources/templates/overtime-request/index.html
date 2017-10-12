@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/layout">
+<body>
+<div layout:fragment="body">
+    <div class="col-md-12 main-content">
+        <h1>Overtime Requests:</h1>
+        <table id="overtimeRequestTable" border="0" class="table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Employee</th>
+                    <th>Attachments</th>
+                    <th>Event Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="request : ${requests}">
+                    <td th:text="${request.title}"></td>
+                    <td th:text="${request.requestType.name}"></td>
+                    <td th:text="${request.description}"></td>
+                    <td th:text="${request.user.name}"></td>
+                    <td>
+                        <div th:each="attachment : ${request.attachments}">
+                            <a th:href="@{/overtime-request/preview/{id}(id=${attachment.id})}" target="_blank" th:text="${attachment.path}"></a>
+                        </div>
+                    </td>
+                    <td th:text="${request.eventDate}"></td>
+                    <td th:text="${request.startTime}"></td>
+                    <td th:text="${request.endTime}"></td>
+                    <td>
+                        <div th:text="${request.isApproved} == null ? 'Pending'"></div>
+                        <div th:text="${request.isApproved} == true ? 'Approved'"></div>
+                        <div th:text="${request.isApproved} == false ? 'Rejected'"></div>
+                    </td>
+                    <td>
+                        <a th:href="@{/overtime-request/approve/{id}(id=${request.id})}">
+                            <button class="btn btn-xs" specification="button">
+                                <span class="fa fa-check"></span>
+                            </button>
+                        </a>
+                        <a th:href="@{/overtime-request/reject/{id}(id=${request.id})}">
+                            <button class="btn btn-xs" specification="button">
+                                <span class="fa fa-times"></span>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(document).ready( function () {
+             $('#overtimeRequestTable').DataTable();
+        });
+    </script>
+</div>
+</body>
+
+</html>

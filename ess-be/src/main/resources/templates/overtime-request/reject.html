@@ -4,10 +4,10 @@
       layout:decorator="layouts/layout">
 <body>
 <div layout:fragment="body">
-    <form action="#" th:action="@{/reimbursement-request/reject}" th:object="${request}" method="post">
+    <form action="#" th:action="@{/overtime-request/reject}" th:object="${request}" method="post">
         <div class="subheader">
-            <div class="title">Reject Reimbursement Request</div>
-            <a th:href="@{/reimbursement-request}"><div class="button cancel-btn">Cancel</div></a>
+            <div class="title">Reject Overtime Request</div>
+            <a th:href="@{/overtime-request}"><div class="button cancel-btn">Cancel</div></a>
             <input type="submit" value="Save" class="button save-btn"/>
         </div>
         <table class="form-table" border="0" cellpadding="0" cellspacing="0">
