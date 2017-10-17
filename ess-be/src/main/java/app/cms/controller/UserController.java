@@ -31,7 +31,7 @@ public class UserController {
     @RequestMapping("user/create")
     public String createUser(Model model) throws Exception {
         model.addAttribute("user", new User());
-        model.addAttribute("roles", roleRepository.findAll());
+        model.addAttribute("roles", roleRepository.findByIsActive(true));
         model.addAttribute("currPage", "user");
         return "user/create";
     }
@@ -51,7 +51,7 @@ public class UserController {
     @RequestMapping("user/edit/{id}")
     public String editUser(Model model, @PathVariable(value = "id") Long id) throws Exception {
         model.addAttribute("user", userRepository.findOne(id));
-        model.addAttribute("roles", roleRepository.findAll());
+        model.addAttribute("roles", roleRepository.findByIsActive(true));
         model.addAttribute("currPage", "user");
         return "user/edit";
     }
