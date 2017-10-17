@@ -32,6 +32,7 @@ public class UserController {
     public String createUser(Model model) throws Exception {
         model.addAttribute("user", new User());
         model.addAttribute("roles", roleRepository.findByIsActive(true));
+        model.addAttribute("superordinates", userRepository.findByIsActive(true));
         model.addAttribute("currPage", "user");
         return "user/create";
     }
@@ -39,9 +40,15 @@ public class UserController {
     @RequestMapping(value = "user/save", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute User user,
                            @RequestParam("roleId") Long roleId,
+                           @RequestParam("superordinateId") Long superordinateId,
                            SessionStatus status) {
+        User superordinate = null;
         user.setIsActive(true);
         user.setRole(roleRepository.findOne(roleId));
+        if (superordinateId != null) {
+            superordinate = userRepository.findOne(superordinateId);
+        }
+        user.setSuperordinate(superordinate);
         user.setPassword(hashPassword(user.getPassword()));
         userRepository.save(user);
         status.setComplete();
@@ -52,6 +59,7 @@ public class UserController {
     public String editUser(Model model, @PathVariable(value = "id") Long id) throws Exception {
         model.addAttribute("user", userRepository.findOne(id));
         model.addAttribute("roles", roleRepository.findByIsActive(true));
+        model.addAttribute("superordinates", userRepository.findByIsActive(true));
         model.addAttribute("currPage", "user");
         return "user/edit";
     }
