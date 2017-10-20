@@ -10,7 +10,6 @@
             <thead>
                 <tr>
                     <th>Title</th>
-                    <th>Type</th>
                     <th>Description</th>
                     <th>Employee</th>
                     <th>Attachments</th>
@@ -24,7 +23,6 @@
             <tbody>
                 <tr th:each="request : ${requests}">
                     <td th:text="${request.title}"></td>
-                    <td th:text="${request.requestType.name}"></td>
                     <td th:text="${request.description}"></td>
                     <td th:text="${request.user.name}"></td>
                     <td>
