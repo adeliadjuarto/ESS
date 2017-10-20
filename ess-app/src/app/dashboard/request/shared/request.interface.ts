@@ -1,11 +1,26 @@
 export interface IRequest {
     title: string;
     description: string;
-    start: number;
-    end: number;
     requestTypeId: number;
     userId: string;
-    attachments: File[];
+    'attachments[]': File[];
+}
+
+export interface Leave extends IRequest {
+    start: number;
+    end: number;
+
+}
+
+export interface Reimbursement extends IRequest {
+    eventDate: number;
+    amount: number;
+}
+
+export interface Overtime extends IRequest {
+    eventDate: number;
+    startTime: number;
+    endDate: number;
 }
 
 export class FormRequest {
