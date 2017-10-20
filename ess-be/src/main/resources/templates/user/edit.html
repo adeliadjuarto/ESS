@@ -20,7 +20,7 @@
                 <td>
                     <div>
                         <select id="role" class="form-control" name="roleId">
-                            <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}" th:selected="${role.id == user.role.id}"></option>
+                            <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}" th:selected="${user.role} ? ${role.id == user.role.id}"></option>
                         </select>
                     </div>
                 </td>
@@ -34,6 +34,7 @@
                             <option th:each="superordinate : ${superordinates}" th:value="${superordinate.id}" th:text="${superordinate.name}" th:selected="${user.superordinate} ? ${superordinate.id == user.superordinate.id} : false"></option>
                         </select>
                     </div>
+                    <div th:text="${errMsg}" class="alert-danger"></div>
                 </td>
             </tr>
             <tr>

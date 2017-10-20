@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by adeliadjuarto on 9/27/17.
@@ -29,7 +32,7 @@ public class UserController {
     }
 
     @RequestMapping("user/create")
-    public String createUser(Model model) throws Exception {
+    public String createUser(Model model, SessionStatus status) throws Exception {
         model.addAttribute("user", new User());
         model.addAttribute("roles", roleRepository.findByIsActive(true));
         model.addAttribute("superordinates", userRepository.findByIsActive(true));
@@ -38,9 +41,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "user/save", method = RequestMethod.POST)
-    public String saveUser(@ModelAttribute User user,
+    public String saveUser(RedirectAttributes model,
+                           @ModelAttribute User user,
                            @RequestParam("roleId") Long roleId,
                            @RequestParam("superordinateId") Long superordinateId,
+                           HttpServletRequest request,
                            SessionStatus status) {
         User superordinate = null;
         user.setIsActive(true);
@@ -49,6 +54,13 @@ public class UserController {
             superordinate = userRepository.findOne(superordinateId);
         }
         user.setSuperordinate(superordinate);
+        if (superordinate != null) {
+            if (!superordinateIsValid(superordinate, user)) {
+                model.addFlashAttribute("user", user);
+                model.addFlashAttribute("errMsg", "Superordinate is not valid.");
+                return "redirect:" + request.getHeader("Referer");
+            }
+        }
         user.setPassword(hashPassword(user.getPassword()));
         userRepository.save(user);
         status.setComplete();
@@ -76,6 +88,18 @@ public class UserController {
         String salt = BCrypt.gensalt();
         String encrypted = BCrypt.hashpw(password, salt);
         return encrypted;
+    }
+
+    private Boolean superordinateIsValid(User superordinate, User user) {
+        Boolean isValid = true;
+        while (superordinate != null) {
+            if (superordinate.getId() == user.getId()) {
+                isValid = false;
+                break;
+            }
+            superordinate = superordinate.getSuperordinate();
+        }
+        return isValid;
     }
 
 }
