@@ -1,23 +1,33 @@
 
 <div class="container">
-  <form>
+  <form (submit)="submitRequest()">
     <mat-form-field>
-      <input #nameInput matInput placeholder="Title"/>
+      <mat-select placeholder="Type" [(ngModel)]="selectedType" name="reimbursementType" >
+        <mat-option *ngFor = "let type of types" [value]="type">
+            {{type}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field>
-    <mat-select placeholder="Type">
-      <mat-option *ngFor = "let type of types">
-          {{type}}
-      </mat-option>
-    </mat-select>
+      <input #nameInput matInput placeholder="Title" name="title" [(ngModel)]="title"/>
     </mat-form-field>
     <mat-form-field>
-      <input #nameInput matInput placeholder="Description"/>
+      <input #descriptionInput matInput placeholder="Description" name="description" [(ngModel)]="description"/>
     </mat-form-field>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose date"/>
+      <input matInput [matDatepicker]="picker" name="date" [(ngModel)]="eventDate"
+             (click)="picker.open()" placeholder="Choose date"/>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+    <mat-form-field>
+      <input #amountInput matInput name="amount" placeholder="Amount" [(ngModel)]="amount"/>
+    </mat-form-field>
+
+    <div class="input-file">
+      <input type="file" (change)="fileChange($event)">
+    </div>
+
+    <button mat-raised-button>Submit Request</button>
   </form>
 </div>
