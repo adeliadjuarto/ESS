@@ -4,11 +4,13 @@
     <mat-form-field>
       <input #nameInput matInput placeholder="Title"/>
     </mat-form-field>
+    <mat-form-field>
     <mat-select placeholder="Type">
       <mat-option *ngFor = "let type of types">
           {{type}}
       </mat-option>
     </mat-select>
+    </mat-form-field>
     <mat-form-field>
       <input #nameInput matInput placeholder="Description"/>
     </mat-form-field>
