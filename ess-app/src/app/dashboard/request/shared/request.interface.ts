@@ -5,7 +5,7 @@ export interface IRequest {
     end: number;
     requestTypeId: number;
     userId: string;
-    attachments: File[];
+    'attachments[]': File[];
 }
 
 export class FormRequest {

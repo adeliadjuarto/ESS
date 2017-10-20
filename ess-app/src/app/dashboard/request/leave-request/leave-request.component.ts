@@ -92,19 +92,18 @@ export class LeaveRequestComponent implements OnInit {
         start: start,
         end: end,
         requestTypeId: 1,
-        userId: 'user-id',
-        attachments: this.requestAttachments
+        userId: '1',
+        'attachments[]': this.requestAttachments
       };
 
       let formRequest = new FormData();
 
       mapKeys(request, (value, key) => formRequest.append(key, value));
 
-      // this.requestService.create(formRequest);
-      console.log('send request');
+      this.requestService.create(formRequest);
 
     } else {
-      console.log('this happens');
+      console.log('error happens');
     }
   }
 
