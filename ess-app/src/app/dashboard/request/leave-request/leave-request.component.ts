@@ -4,10 +4,10 @@ import { Store } from '@ngrx/store';
 import { values, mapKeys } from 'lodash';
 
 import { TimeFormatter } from './../shared/time-formatter';
-import { FormRequest, IRequest } from './../shared/request.interface';
+import { FormRequest, Leave } from './../shared/request.interface';
 import { LEAVE_TYPES } from './../../../core/constant';
 import { DashboardAction } from './../../shared/dashboard.action';
-import { RequestService } from './../shared/request.service';
+import { LeaveRequestService } from './shared/leave-request.service';
 
 @Component({
   selector: 'app-leave-request',
@@ -39,7 +39,7 @@ export class LeaveRequestComponent implements OnInit {
   }
 
   constructor(private store: Store<any>,
-              private requestService: RequestService) {
+              private requestService: LeaveRequestService) {
     this.store.dispatch({
       type: DashboardAction.CHANGE_TITLE,
       payload: 'Leave'
@@ -86,25 +86,24 @@ export class LeaveRequestComponent implements OnInit {
         return;
       }
 
-      let request: IRequest = {
+      let request: Leave = {
         title: this.requestTitle,
         description: this.requestDescription,
         start: start,
         end: end,
         requestTypeId: 1,
-        userId: 'user-id',
-        attachments: this.requestAttachments
+        userId: '1',
+        'attachments[]': this.requestAttachments
       };
 
       let formRequest = new FormData();
 
       mapKeys(request, (value, key) => formRequest.append(key, value));
 
-      // this.requestService.create(formRequest);
-      console.log('send request');
+      this.requestService.create(formRequest);
 
     } else {
-      console.log('this happens');
+      console.log('error happens');
     }
   }
 
