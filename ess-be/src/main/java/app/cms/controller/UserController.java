@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @RequestMapping("user/create")
-    public String createUser(Model model, SessionStatus status) throws Exception {
+    public String createUser(Model model) throws Exception {
         model.addAttribute("user", new User());
         model.addAttribute("roles", roleRepository.findByIsActive(true));
         model.addAttribute("superordinates", userRepository.findByIsActive(true));
