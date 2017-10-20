@@ -7,7 +7,11 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by adeliadjuarto on 10/11/17.
@@ -52,4 +56,12 @@ public class ReimbursementRequest extends BaseEntity {
     @OneToMany
     @JoinColumn(name = "request_id", referencedColumnName = "id")
     private List<ReimbursementRequestAttachment> attachments;
+
+    public String getEventDate() {
+        Date date = new Date(this.eventDate);
+        DateFormat format = new SimpleDateFormat("dd MMM yyyy HH:mm");
+        format.setTimeZone(TimeZone.getTimeZone("Asia/Jakarta"));
+        String formatted = format.format(date);
+        return formatted;
+    }
 }

@@ -6,7 +6,11 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by adeliadjuarto on 10/12/17.
@@ -49,4 +53,28 @@ public class OvertimeRequest extends BaseEntity{
     @OneToMany
     @JoinColumn(name = "request_id", referencedColumnName = "id")
     private List<OvertimeRequestAttachment> attachments;
+
+    public String getEventDate() {
+        Date date = new Date(this.eventDate);
+        DateFormat format = new SimpleDateFormat("dd MMM yyyy");
+        format.setTimeZone(TimeZone.getTimeZone("Asia/Jakarta"));
+        String formatted = format.format(date);
+        return formatted;
+    }
+
+    public String getStartTime() {
+        Date date = new Date(this.startTime);
+        DateFormat format = new SimpleDateFormat("HH:mm");
+        format.setTimeZone(TimeZone.getTimeZone("Asia/Jakarta"));
+        String formatted = format.format(date);
+        return formatted;
+    }
+
+    public String getEndTime() {
+        Date date = new Date(this.endTime);
+        DateFormat format = new SimpleDateFormat("HH:mm");
+        format.setTimeZone(TimeZone.getTimeZone("Asia/Jakarta"));
+        String formatted = format.format(date);
+        return formatted;
+    }
 }
