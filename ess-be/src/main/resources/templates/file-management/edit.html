@@ -32,7 +32,10 @@
             </tr>
             <tr>
                 <td><div class="field-label">File</div></td>
-                <td><div><input type="file" name="file" class="field-input"/></div></td>
+                <td>
+                    <div><input type="file" name="file" class="field-input"/></div>
+                    <div th:text="${fileErrMsg}" class="alert-danger"></div>
+                </td>
             </tr>
         </table>
     </form>
