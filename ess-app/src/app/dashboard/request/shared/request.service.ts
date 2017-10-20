@@ -9,7 +9,7 @@ export class RequestService extends DataService<FormRequest> {
 
   constructor(apiService: ApiService) {
     super(apiService);
-    super.setEndpoint('/test-upload-file', FormRequest);
+    super.setEndpoint('/leave-requests', FormRequest);
   }
 
 
