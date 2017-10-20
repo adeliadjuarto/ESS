@@ -2,11 +2,9 @@ package app.cms.controller.api;
 
 import app.cms.model.OvertimeRequest;
 import app.cms.model.OvertimeRequestAttachment;
-import app.cms.model.RequestType;
 import app.cms.model.User;
 import app.cms.repository.OvertimeRequestAttachmentRepository;
 import app.cms.repository.OvertimeRequestRepository;
-import app.cms.repository.RequestTypeRepository;
 import app.cms.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,17 +28,13 @@ public class OvertimeRequestApiController {
     @Autowired
     private OvertimeRequestRepository overtimeRequestRepository;
     @Autowired
-    private RequestTypeRepository requestTypeRepository;
-    @Autowired
     private UserRepository userRepository;
     @Autowired
     private OvertimeRequestAttachmentRepository attachmentRepository;
 
     @RequestMapping(value = "/overtime-requests")
-    public Iterable<OvertimeRequest> getRequest
-            (@RequestParam("requestTypeId") Long requestTypeId) throws Exception {
-        RequestType requestType = requestTypeRepository.findOne(requestTypeId);
-        return overtimeRequestRepository.findByIsActiveAndRequestType(true, requestType);
+    public Iterable<OvertimeRequest> getRequest() throws Exception {
+        return overtimeRequestRepository.findByIsActive(true);
     }
 
     @RequestMapping(value = "/overtime-requests", method = RequestMethod.POST)
@@ -49,14 +43,12 @@ public class OvertimeRequestApiController {
                                 @RequestParam("eventDate") Long eventDate,
                                 @RequestParam("startTime") Long startTime,
                                 @RequestParam("endTime") Long endTime,
-                                @RequestParam("requestTypeId") Long requestTypeId,
                                 @RequestParam("userId") Long userId,
                                 @RequestParam("attachments[]") MultipartFile[] attachments)
             throws Exception {
-        RequestType requestType = requestTypeRepository.findOne(requestTypeId);
         User user = userRepository.findOne(userId);
         OvertimeRequest request
-                = new OvertimeRequest(title, description, eventDate, startTime, endTime, requestType, user);
+                = new OvertimeRequest(title, description, eventDate, startTime, endTime, user);
         request = overtimeRequestRepository.save(request);
         for (MultipartFile attachment : attachments) {
             String pathName = saveFileToDirectory(attachment);

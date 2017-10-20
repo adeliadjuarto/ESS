@@ -13,5 +13,4 @@ import java.util.List;
  */
 public interface OvertimeRequestRepository extends JpaRepository<OvertimeRequest, String> {
     public List<OvertimeRequest> findByIsActive(Boolean isActive);
-    public List<OvertimeRequest> findByIsActiveAndRequestType(Boolean isActive, RequestType requestType);
 }

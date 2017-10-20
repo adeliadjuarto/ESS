@@ -18,13 +18,12 @@ import java.util.List;
 public class OvertimeRequest extends BaseEntity{
     public OvertimeRequest () {}
     public OvertimeRequest (String title, String description, Long eventDate,
-                            Long startTime, Long endTime, RequestType requestType, User user) {
+                            Long startTime, Long endTime, User user) {
         this.title = title;
         this.description = description;
         this.eventDate = eventDate;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.requestType = requestType;
         this.user = user;
         this.isApproved = null;
         this.isActive = true;
@@ -44,9 +43,6 @@ public class OvertimeRequest extends BaseEntity{
     private String rejectionNote;
     @Column(name = "is_approved")
     private Boolean isApproved;
-    @ManyToOne
-    @JoinColumn(name = "request_type_id", referencedColumnName = "id")
-    private RequestType requestType;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
