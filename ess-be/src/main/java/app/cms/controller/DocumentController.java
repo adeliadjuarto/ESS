@@ -11,7 +11,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
@@ -81,17 +83,17 @@ public class DocumentController {
     }
 
     @RequestMapping(value = "file-management/update", method = RequestMethod.POST)
-    public String updateFile(@ModelAttribute("file") Document document,
+    public String updateFile(RedirectAttributes model,
+                             @ModelAttribute("file") Document document,
                              BindingResult bindingResult,
                              @RequestParam("file") MultipartFile file,
                              @RequestParam("category") String category,
+                             HttpServletRequest request,
                              SessionStatus status) {
         if (!file.getOriginalFilename().isEmpty()) {
-            try {
-                Path oldPath = Paths.get(directoryPath + document.getPath());
-                Files.delete(oldPath);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (!file.getContentType().equals(APPLICATION_PDF)) {
+                model.addFlashAttribute("fileErrMsg", "The file must be a file of type pdf.");
+                return "redirect:" + request.getHeader("Referer");
             }
             String pathName = saveFileToDirectory(file);
             document.setPath(pathName);
