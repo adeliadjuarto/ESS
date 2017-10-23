@@ -1,0 +1,11 @@
+<div class="input">
+    <input #textInput type="text"/>
+    <button (click)="addMessage(textInput.value)"> Submit </button>
+</div>
+
+<div class="message-list">
+<div class="message" *ngFor="let message of messages | async">
+    <app-chat-message [message]="message">
+    </app-chat-message>
+</div>
+</div>
