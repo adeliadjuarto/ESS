@@ -44,7 +44,7 @@ export class ReimbursementRequestComponent implements OnInit {
   submitRequest() {
     let eventDate = this.eventDate.getTime();
 
-    let request: Reimbursement = {
+    let formRequest: Reimbursement = {
         title: this.title,
         description: this.description,
         eventDate: eventDate,
@@ -54,11 +54,11 @@ export class ReimbursementRequestComponent implements OnInit {
         'attachments[]': this.requestAttachments
       };
 
-      let formRequest = new FormData();
+      let request = new FormData();
 
-      mapKeys(request, (value, key) => formRequest.append(key, value));
+      mapKeys(formRequest, (value, key) => request.append(key, value));
 
-      this.requestService.create(formRequest);
+      this.requestService.create(request);
 
   }
 

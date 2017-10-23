@@ -27,4 +27,8 @@ public class User extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "superordinate_id", referencedColumnName = "id")
+    private User superordinate;
+
 }

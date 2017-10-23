@@ -20,7 +20,7 @@ export interface Reimbursement extends IRequest {
 export interface Overtime extends IRequest {
     eventDate: number;
     startTime: number;
-    endDate: number;
+    endTime: number;
 }
 
 export class FormRequest {
