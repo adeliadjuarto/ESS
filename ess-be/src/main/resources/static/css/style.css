@@ -1,3 +1,7 @@
+.icon{
+    color: #FDD835;
+    padding-right: 10px;
+}
 .custom-container{
     width: calc(100vw - 200px);
     position: relative;
@@ -17,12 +21,16 @@
 }
 .side-bar{
     height: 100vh;
-    background-color: #2986c2;
+    background-color: #424242;
     width:200px;
     margin-right: 200px;
     margin-top: 50px;
     position: fixed;
     z-index: 10000;
+    font-size: 13px;
+}
+.modal{
+    z-index: 11000 !important;
 }
 .menu{
     width: 100%;
@@ -36,6 +44,7 @@
 .menu:hover, .active{
     color: #fff;
     border-bottom: 2px solid #F79310;
+    background-color: #212121;
 }
 h1{
     font-size: 27px;
@@ -44,7 +53,7 @@ h1{
 header{
     position: fixed;
     z-index: 10000;
-    background-color: #2986c2;
+    background-color: #424242;
     width: 100vw;
     height: 50px;
     line-height: 50px;
