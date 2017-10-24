@@ -33,10 +33,11 @@
     <a th:href="@{/provider}"><div th:classappend="${currPage} == 'provider' ? 'menu active' : 'menu'"><i class="fa fa-plus-square icon" aria-hidden="true"></i>Provider</div></a>
     <a th:href="@{/file-management}"><div th:classappend="${currPage} == 'document' ? 'menu active' : 'menu'"><i class="fa fa-file-pdf-o icon" aria-hidden="true"></i>Document</div></a>
     <a th:href="@{/leave-request}"><div th:classappend="${currPage} == 'leave-request' ? 'menu active' : 'menu'"><i class="fa fa-paper-plane icon" aria-hidden="true"></i>Leave Request</div></a>
-      <a th:href="@{/overtime-request}"><div th:classappend="${currPage} == 'overtime-request' ? 'menu active' : 'menu'"><i class="fa fa-clock-o icon" aria-hidden="true"></i>Overtime Request</div></a>
+    <a th:href="@{/overtime-request}"><div th:classappend="${currPage} == 'overtime-request' ? 'menu active' : 'menu'"><i class="fa fa-clock-o icon" aria-hidden="true"></i>Overtime Request</div></a>
     <a th:href="@{/reimbursement-request}"><div th:classappend="${currPage} == 'reimbursement-request' ? 'menu active' : 'menu'"><i class="fa fa-credit-card icon" aria-hidden="true"></i>Reimbursement Request</div></a>
     <a th:href="@{/role}"><div th:classappend="${currPage} == 'role' ? 'menu active' : 'menu'"><i class="fa fa-universal-access icon" aria-hidden="true"></i>Role</div></a>
     <a th:href="@{/user}"><div th:classappend="${currPage} == 'user' ? 'menu active' : 'menu'"><i class="fa fa-user icon" aria-hidden="true"></i>User</div></a>
+    <a th:href="@{/event}"><div th:classappend="${currPage} == 'event' ? 'menu active' : 'menu'"><i class="fa fa-calendar icon" aria-hidden="true"></i>Event</div></a>
 </div>
 <script>
     $(document).ready( function () {
