@@ -14,6 +14,7 @@ import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.Events;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +29,17 @@ import java.util.List;
  */
 @Service
 public class GoogleCalendarService {
+    /** Calendar ID. */
+    private static final String CALENDAR_ID =
+            "0lvq02sj88pineh3c58tgro63s@group.calendar.google.com";
+
     /** Application name. */
     private static final String APPLICATION_NAME =
-            "Google Calendar API Java Quickstart";
+            "ESS - Google Calendar API";
 
     /** Directory to store user credentials for this application. */
     private static final java.io.File DATA_STORE_DIR = new java.io.File(
-            System.getProperty("user.home"), ".credentials/calendar-java-quickstart");
+            System.getProperty("user.home"), ".credentials/calendar-java-ess");
 
     /** Global instance of the {@link FileDataStoreFactory}. */
     private static FileDataStoreFactory DATA_STORE_FACTORY;
@@ -52,7 +57,7 @@ public class GoogleCalendarService {
      * at ~/.credentials/calendar-java-quickstart
      */
     private static final List<String> SCOPES =
-            Arrays.asList(CalendarScopes.CALENDAR_READONLY);
+            Arrays.asList(CalendarScopes.CALENDAR);
 
     static {
         try {
@@ -104,7 +109,32 @@ public class GoogleCalendarService {
                 .build();
     }
 
-    public String viewEvents() throws IOException {
+    public Event addEvent(Long inputStart,
+                          Long inputEnd,
+                          String title,
+                          Boolean isAllDayEvent) throws IOException {
+        Event event = new Event();
+        event.setSummary(title);
+        EventDateTime start = new EventDateTime();
+        EventDateTime end = new EventDateTime();
+        if (!isAllDayEvent) {
+            start.setDateTime(new DateTime(inputStart));
+            end.setDateTime(new DateTime(inputEnd));
+        } else {
+            start.setDate(new DateTime(true, inputStart, 0));
+            end.setDate(new DateTime(true, (inputStart + 86400), 0));
+        }
+
+        start.setTimeZone("Asia/Jakarta");
+        end.setTimeZone("Asia/Jakarta");
+        event.setStart(start);
+        event.setEnd(end);
+        com.google.api.services.calendar.Calendar service =
+                getCalendarService();
+        return service.events().insert(CALENDAR_ID, event).execute();
+    }
+
+    public List<Event> viewEvents() throws IOException {
         // Build a new authorized API client service.
         // Note: Do not confuse this class with the
         //   com.google.api.services.calendar.model.Calendar class.
@@ -113,7 +143,7 @@ public class GoogleCalendarService {
 
         // List the next 10 events from the ESS calendar.
         DateTime now = new DateTime(System.currentTimeMillis());
-        Events events = service.events().list("0lvq02sj88pineh3c58tgro63s@group.calendar.google.com")
+        Events events = service.events().list(CALENDAR_ID)
                 .setMaxResults(10)
                 .setTimeMin(now)
                 .setOrderBy("startTime")
@@ -132,6 +162,6 @@ public class GoogleCalendarService {
                 System.out.printf("%s (%s)\n", event.getSummary(), start);
             }
         }
-        return "View successful!";
+        return events.getItems();
     }
 }
