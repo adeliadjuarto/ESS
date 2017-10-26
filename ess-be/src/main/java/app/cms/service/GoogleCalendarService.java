@@ -15,12 +15,14 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
+import com.google.api.services.calendar.model.EventReminder;
 import com.google.api.services.calendar.model.Events;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -90,8 +92,6 @@ public class GoogleCalendarService {
                         .build();
         Credential credential = new AuthorizationCodeInstalledApp(
                 flow, new LocalServerReceiver()).authorize("user");
-        System.out.println(
-                "Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
         return credential;
     }
 
@@ -111,10 +111,48 @@ public class GoogleCalendarService {
 
     public Event addEvent(Long inputStart,
                           Long inputEnd,
-                          String title,
+                          String summary,
                           Boolean isAllDayEvent) throws IOException {
         Event event = new Event();
-        event.setSummary(title);
+        event.setSummary(summary);
+        EventDateTime start = new EventDateTime();
+        EventDateTime end = new EventDateTime();
+        if (!isAllDayEvent) {
+            start.setDateTime(new DateTime(inputStart));
+            end.setDateTime(new DateTime(inputEnd));
+        } else {
+            start.setDate(new DateTime(true, inputStart, 0));
+            end.setDate(new DateTime(true, (inputStart + 86400), 0));
+        }
+        start.setTimeZone("Asia/Jakarta");
+        end.setTimeZone("Asia/Jakarta");
+        event.setStart(start);
+        event.setEnd(end);
+
+        Event.Reminders reminders = new Event.Reminders();
+        EventReminder reminder = new EventReminder();
+        List<EventReminder> reminderLists = new ArrayList<>();
+        reminder.setMethod("popup");
+        reminder.setMinutes(10);
+        reminderLists.add(reminder);
+        reminders.setOverrides(reminderLists);
+        event.setReminders(reminders);
+        event.getReminders().setUseDefault(false);
+
+        com.google.api.services.calendar.Calendar service =
+                getCalendarService();
+        return service.events().insert(CALENDAR_ID, event).execute();
+    }
+
+    public Event updateEvent(String id,
+                             Long inputStart,
+                             Long inputEnd,
+                             String summary,
+                             Boolean isAllDayEvent) throws IOException {
+        com.google.api.services.calendar.Calendar service =
+                getCalendarService();
+        Event event = service.events().get(CALENDAR_ID, id).execute();
+        event.setSummary(summary);
         EventDateTime start = new EventDateTime();
         EventDateTime end = new EventDateTime();
         if (!isAllDayEvent) {
@@ -129,9 +167,14 @@ public class GoogleCalendarService {
         end.setTimeZone("Asia/Jakarta");
         event.setStart(start);
         event.setEnd(end);
+
+        return service.events().update(CALENDAR_ID, id, event).execute();
+    }
+
+    public void deleteEvent(String id) throws IOException {
         com.google.api.services.calendar.Calendar service =
                 getCalendarService();
-        return service.events().insert(CALENDAR_ID, event).execute();
+        service.events().delete(CALENDAR_ID, id).execute();
     }
 
     public List<Event> viewEvents() throws IOException {
@@ -149,19 +192,6 @@ public class GoogleCalendarService {
                 .setOrderBy("startTime")
                 .setSingleEvents(true)
                 .execute();
-        List<Event> items = events.getItems();
-        if (items.size() == 0) {
-            System.out.println("No upcoming events found.");
-        } else {
-            System.out.println("Upcoming events");
-            for (Event event : items) {
-                DateTime start = event.getStart().getDateTime();
-                if (start == null) {
-                    start = event.getStart().getDate();
-                }
-                System.out.printf("%s (%s)\n", event.getSummary(), start);
-            }
-        }
         return events.getItems();
     }
 }
