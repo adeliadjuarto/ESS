@@ -41,7 +41,7 @@
     height: 50px;
     line-height: 50px;
 }
-.menu:hover, .active{
+.menu:hover, .c-active{
     color: #fff;
     border-bottom: 2px solid #F79310;
     background-color: #212121;

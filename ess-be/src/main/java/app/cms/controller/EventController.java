@@ -24,6 +24,13 @@ public class EventController {
         model.addAttribute("currPage", "event");
         return "event/index";
     }
+
+    @RequestMapping("event/create")
+    public String createEvents(Model model) throws Exception {
+        model.addAttribute("currPage", "event");
+        return "event/create";
+    }
+
     @ResponseBody
     @RequestMapping("/event/save")
     public Event saveEvent() throws Exception {
