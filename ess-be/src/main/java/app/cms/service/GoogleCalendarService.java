@@ -122,7 +122,7 @@ public class GoogleCalendarService {
             end.setDateTime(new DateTime(inputEnd));
         } else {
             start.setDate(new DateTime(true, inputStart, 0));
-            end.setDate(new DateTime(true, (inputStart + 86400), 0));
+            end.setDate(new DateTime(true, (inputEnd+86400000), 0));
         }
         start.setTimeZone("Asia/Jakarta");
         end.setTimeZone("Asia/Jakarta");
@@ -160,7 +160,7 @@ public class GoogleCalendarService {
             end.setDateTime(new DateTime(inputEnd));
         } else {
             start.setDate(new DateTime(true, inputStart, 0));
-            end.setDate(new DateTime(true, (inputStart + 86400), 0));
+            end.setDate(new DateTime(true, (inputEnd+86400000), 0));
         }
 
         start.setTimeZone("Asia/Jakarta");

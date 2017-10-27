@@ -16,14 +16,43 @@
                 <td><div><input type="text" name="summary" class="field-input" required/></div></td>
             </tr>
             <tr>
+                <input type="hidden" name="allDay" value="checked">
+                <td><input type="checkbox" id="allDayCb" name="allDay"> All Day</td>
+            </tr>
+            <tr>
                 <td><div class="field-label">Start</div></td>
-                <td><div><input id="datetimepicker" class="datetimepicker" type="text" required></div></td>
+                <td><div><input type="text" name="start" id="start-dt" class="field-input datetimepicker" required></div></td>
+            </tr>
+            <tr>
+                <td><div class="field-label">End</div></td>
+                <td><div><input type="text" name="end" id="end-dt" class="field-input datetimepicker" required></div></td>
             </tr>
         </table>
     </form>
     <script>
         $(document).ready( function () {
-            $('#datetimepicker').datetimepicker();
+            isAllDay = false;
+            $('#start-dt').datetimepicker();
+            $('#end-dt').datetimepicker();
+
+            $('#allDayCb').on("click", function(){
+                isAllDay = !isAllDay;
+                if (isAllDay) {
+                    $('#start-dt').datetimepicker({
+                        timepicker: false
+                    });
+                    $('#end-dt').datetimepicker({
+                        timepicker: false
+                    });
+                } else {
+                    $('#start-dt').datetimepicker({
+                        timepicker: true
+                    });
+                    $('#end-dt').datetimepicker({
+                        timepicker: true
+                    });
+                }
+            });
         });
     </script>
 </div>

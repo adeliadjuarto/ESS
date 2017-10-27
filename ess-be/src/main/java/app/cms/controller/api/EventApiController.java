@@ -21,7 +21,7 @@ public class EventApiController {
     @RequestMapping(value = "/events", method = RequestMethod.POST)
     public String saveEvent(@RequestParam("isAllDayEvent") Boolean isAllDayEvent,
                             @RequestParam("start") Long start,
-                            @RequestParam(value = "end", required = false) Long end,
+                            @RequestParam("end") Long end,
                             @RequestParam("summary") String summary) throws Exception {
         googleCalendarService.addEvent(start, end, summary, isAllDayEvent);
         return "Event successfully added to calendar!";
@@ -31,7 +31,7 @@ public class EventApiController {
     public String updateEvent(@PathVariable("id") String id,
                               @RequestParam("isAllDayEvent") Boolean isAllDayEvent,
                               @RequestParam("start") Long start,
-                              @RequestParam(value = "end", required = false) Long end,
+                              @RequestParam("end") Long end,
                               @RequestParam("summary") String summary) throws Exception {
         googleCalendarService.updateEvent(id, start, end, summary, isAllDayEvent);
         return "Event successfully edited!";
