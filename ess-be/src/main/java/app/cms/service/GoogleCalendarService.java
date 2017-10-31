@@ -13,10 +13,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.CalendarScopes;
-import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.EventDateTime;
-import com.google.api.services.calendar.model.EventReminder;
-import com.google.api.services.calendar.model.Events;
+import com.google.api.services.calendar.model.*;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -112,6 +109,7 @@ public class GoogleCalendarService {
     public Event addEvent(Long inputStart,
                           Long inputEnd,
                           String summary,
+                          String[] emails,
                           Boolean isAllDayEvent) throws IOException {
         Event event = new Event();
         event.setSummary(summary);
@@ -129,25 +127,24 @@ public class GoogleCalendarService {
         event.setStart(start);
         event.setEnd(end);
 
-        Event.Reminders reminders = new Event.Reminders();
-        EventReminder reminder = new EventReminder();
-        List<EventReminder> reminderLists = new ArrayList<>();
-        reminder.setMethod("popup");
-        reminder.setMinutes(10);
-        reminderLists.add(reminder);
-        reminders.setOverrides(reminderLists);
-        event.setReminders(reminders);
-        event.getReminders().setUseDefault(false);
+        List<EventAttendee> eventAttendeeList = new ArrayList<>();
+        for (String email : emails) {
+            EventAttendee eventAttendee = new EventAttendee();
+            eventAttendee.setEmail(email);
+            eventAttendeeList.add(eventAttendee);
+        }
+        event.setAttendees(eventAttendeeList);
 
         com.google.api.services.calendar.Calendar service =
                 getCalendarService();
-        return service.events().insert(CALENDAR_ID, event).execute();
+        return service.events().insert(CALENDAR_ID, event).setSendNotifications(true).execute();
     }
 
     public Event updateEvent(String id,
                              Long inputStart,
                              Long inputEnd,
                              String summary,
+                             String[] emails,
                              Boolean isAllDayEvent) throws IOException {
         com.google.api.services.calendar.Calendar service =
                 getCalendarService();
@@ -168,13 +165,21 @@ public class GoogleCalendarService {
         event.setStart(start);
         event.setEnd(end);
 
-        return service.events().update(CALENDAR_ID, id, event).execute();
+        List<EventAttendee> eventAttendeeList = new ArrayList<>();
+        for (String email : emails) {
+            EventAttendee eventAttendee = new EventAttendee();
+            eventAttendee.setEmail(email);
+            eventAttendeeList.add(eventAttendee);
+        }
+        event.setAttendees(eventAttendeeList);
+
+        return service.events().update(CALENDAR_ID, id, event).setSendNotifications(true).execute();
     }
 
     public void deleteEvent(String id) throws IOException {
         com.google.api.services.calendar.Calendar service =
                 getCalendarService();
-        service.events().delete(CALENDAR_ID, id).execute();
+        service.events().delete(CALENDAR_ID, id).setSendNotifications(true).execute();
     }
 
     public List<Event> viewEvents() throws IOException {

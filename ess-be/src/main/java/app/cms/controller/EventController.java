@@ -35,6 +35,7 @@ public class EventController {
 
     @RequestMapping("/event/save")
     public String saveEvent(@RequestParam("summary") String summary,
+                            @RequestParam("emails[]") String[] emails,
                             @RequestParam("start") String inputStart,
                             @RequestParam("end") String inputEnd,
                             @RequestParam("allDay")String[] allDayValue
@@ -54,7 +55,7 @@ public class EventController {
         start = date.getTime();
         date = format.parse(inputEnd);
         end = date.getTime();
-        googleCalendarService.addEvent(start, end, summary, isAllDayEvent);
+        googleCalendarService.addEvent(start, end, summary, emails, isAllDayEvent);
         return "event/index";
     }
 
