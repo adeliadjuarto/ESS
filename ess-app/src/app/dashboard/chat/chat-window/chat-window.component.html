@@ -4,7 +4,7 @@
 </div>
 
 <div class="message-list" id="message-div">
-    <div class="message" *ngFor="let message of messages | async">
+    <div [ngClass]="{'message': true, 'align-right': message.sender=='you' } " *ngFor="let message of messages | async">
         <app-chat-card [message]="message">
         </app-chat-card>
     </div>

@@ -13,6 +13,14 @@ input {
     box-sizing: border-box;
 }
 
+.message {
+    width: 100%;
+}
+
+.align-right {
+    text-align: right;
+}
+
 .message-list {
     height: 80vh;
     overflow: scroll;
