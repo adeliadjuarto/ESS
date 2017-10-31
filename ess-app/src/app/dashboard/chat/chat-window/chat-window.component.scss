@@ -6,13 +6,21 @@
 }
 
 input {
-    width: 90%;
+    width: 80%;
     margin-left: 5%;
     border: 2px solid black;
-    height: 60px;
+    height: 35px;
+    box-sizing: border-box;
 }
 
 .message-list {
-    height:60vh;
+    height: 80vh;
     overflow: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
+i {
+    font-size: 35px;
+    vertical-align: middle;
 }

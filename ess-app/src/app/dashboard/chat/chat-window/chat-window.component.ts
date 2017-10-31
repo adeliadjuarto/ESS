@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -12,9 +12,14 @@ import { MessageService } from './../shared/message.service';
 })
 export class ChatWindowComponent implements OnInit {
 
+  @ViewChild('textInput') textInput: ElementRef;
+
+  draftMessage: Message = new Message();
+
   messages: Observable<Message[]> = new Observable<Message[]>();
 
-  constructor(private messageService: MessageService) {
+  constructor(private messageService: MessageService,
+              private el: ElementRef) {
     this.messages = this.messageService.messageList;
 
     this.messages.subscribe((data) => console.log(data));
@@ -23,8 +28,14 @@ export class ChatWindowComponent implements OnInit {
   ngOnInit() {
   }
 
-  addMessage(message) {
-    this.messageService.sendMessage(message);
+  addMessage(event) {
+    console.log(event);
+    const scrollPane: any = this.el.nativeElement.querySelector('.message-list');
+    scrollPane.scrollTop = scrollPane.scrollHeight;
+
+    this.textInput.nativeElement.value = '';
+    console.log(this.draftMessage.text);
+    this.messageService.sendMessage(this.draftMessage.text);
   }
 
 }

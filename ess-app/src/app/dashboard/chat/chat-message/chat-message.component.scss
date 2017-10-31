@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: space-between;
+}
+
+.message {
+    word-wrap: break-word;
+    padding: 2px;
+	background-color: lightyellow;
+    line-height: 1.5em;
+    border: 1px solid black;
+    float: right;
+}
+
+.bot {
+    // float: left;
+}
+
+.you {
+    // float: right;
+}

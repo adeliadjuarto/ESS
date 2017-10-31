@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { MaterialModule } from './../../shared/material/material.module';
@@ -12,6 +13,7 @@ import { ChatService } from './shared/chat.service';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     MaterialModule
   ],
   declarations: [

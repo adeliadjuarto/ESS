@@ -1,11 +1,11 @@
 <div class="input">
-    <input #textInput type="text"/>
-    <button (click)="addMessage(textInput.value)"> Submit </button>
+    <input type="text" #textInput (keydown.enter)="addMessage($event)" [(ngModel)]="draftMessage.text"/>
+    <i class="material-icons" (click)="addMessage(textInput.value)">send</i>
 </div>
 
-<div class="message-list">
-<div class="message" *ngFor="let message of messages | async">
-    <app-chat-message [message]="message">
-    </app-chat-message>
-</div>
+<div class="message-list" id="message-div">
+    <div class="message" *ngFor="let message of messages | async">
+        <app-chat-card [message]="message">
+        </app-chat-card>
+    </div>
 </div>

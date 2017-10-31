@@ -1,5 +1,14 @@
 export class Message {
-    constructor(
-        public text: string,
-    ) {}
+
+    public text: string;
+    public sender: string;
+    public buttons: any[];
+
+    constructor() {
+        this.text = null;
+        this.sender = null;
+        this.buttons = [];
+    }
+
+
 }

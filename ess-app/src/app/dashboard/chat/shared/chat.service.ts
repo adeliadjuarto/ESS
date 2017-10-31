@@ -12,8 +12,6 @@ export class ChatService extends DataService<String> {
   }
 
   parse(text: string) {
-    // let url = `${this.endpoint}?query=${text}`;
-
     return this.apiService.get(this.endpoint, (request) => {request.setQuery({query: text})})
                    .map(response => response.content);
   }

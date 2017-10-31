@@ -23,16 +23,18 @@ export class MessageService {
   }
 
   sendMessage(message: string) {
-    this.addMessage(message);
+    this.addMessage('you', message);
     this.chatService.parse(message).subscribe(data => this.botReply(data.intent.name));
   }
 
-  addMessage(message: string) {
-    this.messages.next(new Message(message));
+  addMessage(sender: string, text: string) {
+    let message: Message = new Message();
+    message.sender = sender;
+    message.text = text;
+    this.messages.next(message);
   }
 
   botReply(intent: string) {
-    console.log(intent);
     let reply;
     switch (intent) {
       case INTENT.GREET:
@@ -54,9 +56,7 @@ export class MessageService {
         reply = 'Sorry I still don\'t understand';
     }
 
-    reply = 'Server says: ' + reply;
-
-    setTimeout(() => this.addMessage(reply), 1000);
+    setTimeout(() => this.addMessage('bot', reply), 1000);
   }
 
 }

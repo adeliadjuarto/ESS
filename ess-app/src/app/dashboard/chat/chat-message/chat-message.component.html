@@ -1,3 +1,8 @@
-<md-card *ngIf="message">
-  {{ message.text }}
-</md-card>
+<div class="container">
+    <!--<div class="avatar">
+        {{ message.sender }}
+    </div>-->
+    <div class="message" [ngClass]="message.sender" >
+        {{ message.text }}
+    </div>
+</div>
