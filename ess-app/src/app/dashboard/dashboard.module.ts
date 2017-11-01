@@ -8,6 +8,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ChatComponent } from './chat/chat.component';
 import { RequestModule } from './request/request.module';
 import { StatusComponent } from './status/status.component';
+import { PayrollComponent } from './payroll/payroll.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { StatusComponent } from './status/status.component';
     MenuComponent,
     ChatComponent,
     StatusComponent,
+    PayrollComponent,
   ]
 })
 export class DashboardModule { }

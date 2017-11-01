@@ -10,6 +10,7 @@ import { MenuComponent } from './menu/menu.component';
 import { ChatComponent } from './chat/chat.component';
 import { RequestComponent } from './request/request.component';
 import { StatusComponent } from './status/status.component';
+import { PayrollComponent } from './payroll/payroll.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,13 @@ const routes: Routes = [
           title: 'Status'
         },
         component: StatusComponent
+      },
+      {
+        path: PATH.PAYROLL,
+        data: {
+          title: 'Payroll'
+        },
+        component: PayrollComponent
       }
     ]
   },

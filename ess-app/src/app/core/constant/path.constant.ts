@@ -15,6 +15,7 @@ export const PATH = {
     CHAT: 'chat',
     REQUEST: 'request',
     STATUS: 'status',
+    PAYROLL: 'payroll',
 
     LEAVE: 'leave',
     OVERTIME: 'overtime',
