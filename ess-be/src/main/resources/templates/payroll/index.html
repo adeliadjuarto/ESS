@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/layout">
+<body>
+<div layout:fragment="body">
+    <div class="col-md-12 main-content">
+        <h1>Payrolls:</h1>
+        <table id="payrollTable" border="0" class="table-striped">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Month</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="payroll : ${payrolls}">
+                    <td th:text="${payroll.user.name}"></td>
+                    <td th:text="${payroll.getMonthName()}"></td>
+                    <td th:text="${payroll.isProcessed} ? 'Done' : 'Pending'"></td>
+                    <td>
+                        <span th:if="${payroll.path != null}">
+                        <a th:href="@{/payroll/preview/{id}(id=${payroll.id})}" target="_blank">
+                            <button class="btn btn-xs" specification="button">
+                                <span class="fa fa-eye"></span>
+                            </button>
+                        </a>
+                        </span>
+                        <a th:href="@{/payroll/edit/{id}(id=${payroll.id})}">
+                            <button class="btn btn-xs" specification="button">
+                                <span class="fa fa-edit"></span>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="modalDelete" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Delete Confirm</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure want to delete this?</p>
+                </div>
+                <div class="modal-footer">
+                    <form id="modalDeleteForm">
+                        <input type="submit" value="Yes" class="btn btn-success">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready( function () {
+             $('#payrollTable').DataTable();
+        });
+        function showModalDelete(url){
+            $('#modalDelete').modal('show');
+            $('#modalDeleteForm').attr('action', url);
+        }
+    </script>
+</div>
+</body>
+
+</html>
