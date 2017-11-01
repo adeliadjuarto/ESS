@@ -16,6 +16,7 @@ export const PATH = {
     REQUEST: 'request',
     STATUS: 'status',
     PAYROLL: 'payroll',
+    CALENDAR: 'calendar',
 
     LEAVE: 'leave',
     OVERTIME: 'overtime',

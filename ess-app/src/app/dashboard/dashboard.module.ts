@@ -8,21 +8,23 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ChatComponent } from './chat/chat.component';
 import { RequestModule } from './request/request.module';
 import { StatusComponent } from './status/status.component';
-import { PayrollComponent } from './payroll/payroll.component';
+import { PayrollModule } from './payroll/payroll.module';
+import { CalendarModule } from './calendar/calendar.module';
 
 @NgModule({
   imports: [
     CommonModule,
     DashboardRoutingModule,
     MaterialModule,
-    RequestModule
+    RequestModule,
+    CalendarModule,
+    PayrollModule
   ],
   declarations: [
     DashboardComponent,
     MenuComponent,
     ChatComponent,
     StatusComponent,
-    PayrollComponent,
   ]
 })
 export class DashboardModule { }
