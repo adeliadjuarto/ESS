@@ -25,6 +25,11 @@ public class PayrollApiController {
     private PayrollRepository payrollRepository;
     private static final String APPLICATION_PDF = "application/pdf";
 
+    @RequestMapping("/payrolls/{id}")
+    public Payroll getPayroll(@PathVariable("id") Long id) throws Exception {
+        return payrollRepository.findOne(id);
+    }
+
     @RequestMapping("/payrolls/{id}/download")
     public HttpServletResponse downloadPayroll(@PathVariable("id") Long id,
                                                 HttpServletResponse response) throws Exception {
