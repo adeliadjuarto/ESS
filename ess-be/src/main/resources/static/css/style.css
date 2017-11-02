@@ -38,8 +38,8 @@
     padding-right: 10px;
     padding-left: 10px;
     display: block;
-    height: 50px;
-    line-height: 50px;
+    height: 45px;
+    line-height: 45px;
 }
 .menu:hover, .c-active{
     color: #fff;
