@@ -1,6 +1,7 @@
 package app.cms.model;
 
 import app.cms.model.shared.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,6 +28,7 @@ public class Payroll extends BaseEntity {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
     private String path;
     private Integer month;
