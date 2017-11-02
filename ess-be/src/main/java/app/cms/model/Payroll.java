@@ -19,7 +19,7 @@ public class Payroll extends BaseEntity {
     public Payroll (User user, Integer month) {
         this.user = user;
         this.month = month;
-        this.isProcessed = false;
+        this.payrollStatus = "pending";
     }
 
     @Id
@@ -30,7 +30,7 @@ public class Payroll extends BaseEntity {
     private User user;
     private String path;
     private Integer month;
-    private Boolean isProcessed;
+    private String payrollStatus;
 
     public String getMonthName () {
         return new DateFormatSymbols().getMonths()[this.month-1];

@@ -49,6 +49,18 @@ public class PayrollController {
         return "payroll/index";
     }
 
+    @RequestMapping("payroll/process/{id}")
+    public String changePayrollStatus(@PathVariable(value = "id") Long id) throws Exception {
+        Payroll payroll = payrollRepository.findOne(id);
+        if (payroll.getPayrollStatus().equals("pending")) {
+            payroll.setPayrollStatus("processing");
+        } else {
+            payroll.setPayrollStatus("pending");
+        }
+        payrollRepository.save(payroll);
+        return "redirect:/payroll";
+    }
+
     @RequestMapping("payroll/edit/{id}")
     public String editPayroll(Model model, @PathVariable(value = "id") Long id) throws Exception {
         model.addAttribute("payroll", payrollRepository.findOne(id));
@@ -71,7 +83,7 @@ public class PayrollController {
             String pathName = saveFileToDirectory(file);
             payroll.setPath(pathName);
         }
-        payroll.setIsProcessed(true);
+        payroll.setPayrollStatus("processed");
         payrollRepository.save(payroll);
         status.setComplete();
         return "redirect:/payroll";

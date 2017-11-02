@@ -19,14 +19,21 @@
                 <tr th:each="payroll : ${payrolls}">
                     <td th:text="${payroll.user.name}"></td>
                     <td th:text="${payroll.getMonthName()}"></td>
-                    <td th:text="${payroll.isProcessed} ? 'Done' : 'Pending'"></td>
+                    <td th:text="${payroll.payrollStatus}"></td>
                     <td>
+                        <span th:if="${payroll.payrollStatus != 'processed'}">
+                            <a th:href="@{/payroll/process/{id}(id=${payroll.id})}">
+                                <button class="btn btn-xs" specification="button">
+                                    Mark as <span th:text="${payroll.payrollStatus == 'pending'} ? 'processing' : 'pending'"></span>
+                                </button>
+                            </a>
+                        </span>
                         <span th:if="${payroll.path != null}">
-                        <a th:href="@{/payroll/preview/{id}(id=${payroll.id})}" target="_blank">
-                            <button class="btn btn-xs" specification="button">
-                                <span class="fa fa-eye"></span>
-                            </button>
-                        </a>
+                            <a th:href="@{/payroll/preview/{id}(id=${payroll.id})}" target="_blank">
+                                <button class="btn btn-xs" specification="button">
+                                    <span class="fa fa-eye"></span>
+                                </button>
+                            </a>
                         </span>
                         <a th:href="@{/payroll/edit/{id}(id=${payroll.id})}">
                             <button class="btn btn-xs" specification="button">
