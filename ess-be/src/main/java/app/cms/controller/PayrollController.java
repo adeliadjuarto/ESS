@@ -38,8 +38,6 @@ public class PayrollController {
     @Value("${file-directory-path}")
     private String directoryPath;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private PayrollRepository payrollRepository;
 
     private static final String APPLICATION_PDF = "application/pdf";
@@ -79,19 +77,6 @@ public class PayrollController {
         return "redirect:/payroll";
     }
 
-//    @RequestMapping("file-management/download/{id}")
-//    public String downloadFile(@PathVariable(value = "id") Long id,
-//                               HttpServletResponse response) throws Exception {
-//        Document document = documentRepository.findOne(id);
-//        File file = new File(directoryPath + document.getPath());
-//        InputStream is = new FileInputStream(file);
-//        response.setContentType(APPLICATION_PDF);
-//        response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
-//        response.setHeader("Content-Length", String.valueOf(file.length()));
-//        FileCopyUtils.copy(is, response.getOutputStream());
-//        return "redirect:/file-management";
-//    }
-
     @RequestMapping("payroll/preview/{id}")
     public HttpServletResponse previewFile(@PathVariable(value = "id") Long id,
                               HttpServletResponse response) throws Exception {
@@ -103,22 +88,6 @@ public class PayrollController {
         response.setHeader("Content-Length", String.valueOf(file.length()));
         FileCopyUtils.copy(is, response.getOutputStream());
         return response;
-    }
-
-    @RequestMapping("payroll/generate")
-    @ResponseBody
-    public String generateEmptyPayroll() {
-        Date date= new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        Integer month = cal.get(Calendar.MONTH);
-
-        List<User> users = userRepository.findByIsActive(true);
-        for (User user : users) {
-            Payroll payroll = new Payroll(user, month);
-            payrollRepository.save(payroll);
-        }
-        return "Empty payrolls have been generated!";
     }
 
     private String saveFileToDirectory (MultipartFile file) {
