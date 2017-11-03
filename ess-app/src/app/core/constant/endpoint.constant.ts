@@ -4,7 +4,7 @@ export const ENDPOINT = {
     LOGOUT: '/logout',
     USER: '/user',
     CHANGE_PASSWORD: '/change-password',
-    PAYROLL: '/payroll',
+    PAYROLL: '/payrolls',
     CALENDAR: '/events',
 
     REQUEST_TYPES: '/request-types',
