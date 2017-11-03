@@ -31,10 +31,8 @@ public class ReimbursementRequestApiController {
     private ReimbursementRequestAttachmentRepository attachmentRepository;
 
     @RequestMapping(value = "/reimbursement-requests")
-    public Iterable<ReimbursementRequest> getRequest
-            (@RequestParam("requestTypeId") Long requestTypeId) throws Exception {
-        RequestType requestType = requestTypeRepository.findOne(requestTypeId);
-        return reimbursementRequestRepository.findByIsActiveAndRequestType(true, requestType);
+    public Iterable<ReimbursementRequest> getRequest() throws Exception {
+        return reimbursementRequestRepository.findByIsActive(true);
     }
 
     @RequestMapping(value = "/reimbursement-requests", method = RequestMethod.POST)
