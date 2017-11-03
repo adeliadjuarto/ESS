@@ -9,7 +9,6 @@ export interface IRequest {
 export interface Leave extends IRequest {
     start: number;
     end: number;
-
 }
 
 export interface Reimbursement extends IRequest {

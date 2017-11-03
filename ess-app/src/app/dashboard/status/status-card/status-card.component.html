@@ -1,0 +1,79 @@
+<mat-card>  
+  <mat-card-content>
+    <div class="status">
+      <div class="status-title">
+        No Transaksi
+      </div>
+      <div class="status-item">
+        {{inputStatus.transactionNo}}
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-content *ngIf="inputStatus.patient">
+    <table class="status">
+      <tr>
+        <td class="status-title" valign="middle">Pasien</td>
+        <td class="status-item patient">
+          {{inputStatus.patient}}
+        </td>
+      </tr>
+    </table>
+  </mat-card-content>
+  <mat-card-content>
+    <table class="status">
+      <tr>
+        <td class="status-title" valign="middle">Jenis Klaim</td>
+        <td class="status-item">
+          {{inputStatus.type}}
+        </td>
+      </tr>
+    </table>
+  </mat-card-content>
+  <mat-card-content>
+    <div class="status">
+      <div class="status-title">
+        Nominal
+      </div>
+      <div class="status-item">
+        {{nominal}}
+      </div>
+    </div> 
+  </mat-card-content>
+  <mat-card-content>
+    <table class="status">
+      <tr>
+        <td class="status-title" valign="middle">Keterangan</td>
+        <td class="status-item">
+          {{inputStatus.statusInformation}}
+        </td>
+      </tr>
+    </table>
+  </mat-card-content>
+  <mat-card-content class="latest-status" (click)="toggleHistoryStatus()">
+    <table class="status">
+      <tr>
+        <td class="status-title" valign="middle">Status</td>
+        <td class="status-item">
+          <div [ngClass]="inputStatus.status">{{inputStatus.status}}</div>
+          <div class="arrow-icon">
+            <i class="material-icons icon">{{arrowType}}</i>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </mat-card-content>
+    <mat-card-content *ngIf="showStatusHistory">
+      <div class="histories">
+        <div class="status-title"></div>
+        <div class="status-item">
+            {{inputStatus.statusDate | date: dateFormat}} - <span [ngClass]="inputStatus.status">{{inputStatus.status}}</span>
+        </div>
+      </div>
+      <div class="histories" *ngFor="let history of statusHistory">
+          <div class="status-title"></div>
+          <div class="status-item">
+              {{history.statusDate | date: dateFormat}} - <span [ngClass]="history.status">{{history.status}}</span>
+          </div>
+      </div>
+    </mat-card-content>
+</mat-card>
