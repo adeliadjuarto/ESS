@@ -35,11 +35,7 @@ export class ChatWindowComponent implements OnInit {
 
   scrollToBottom(): void {
     const scrollPane: any = this.el.nativeElement.querySelector('.message-list');
-    console.log(scrollPane.scrollHeight);
     scrollPane.scrollTop = scrollPane.scrollHeight;
-
-    console.log(scrollPane.scrollTop);
-    console.log(scrollPane.scrollHeight);
   }
 
 }
