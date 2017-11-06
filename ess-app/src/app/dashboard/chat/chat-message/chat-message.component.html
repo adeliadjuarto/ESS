@@ -1,8 +1,8 @@
-<div class="container">
-    <!--<div class="avatar">
-        {{ message.sender }}
-    </div>-->
-    <div class="message" [ngClass]="message.sender" >
-        {{ message.text }}
+<div class="message" [ngClass]="message.sender" >
+    {{ message.text }}
+</div>
+<div class="buttons-container">
+    <div class="button" *ngFor="let button of message.buttons" (click)="addMessage(button.title)">
+        {{button.title}}
     </div>
 </div>

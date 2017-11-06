@@ -27,14 +27,17 @@ export class MessageService {
     this.chatService.parse(message).subscribe(data => this.botReply(data.intent.name));
   }
 
-  addMessage(sender: string, text: string) {
+  private addMessage(sender: string, text: string, buttons?: any[]) {
     let message: Message = new Message();
     message.sender = sender;
     message.text = text;
+    if (buttons) {
+      message.buttons = buttons
+    };
     this.messages.next(message);
   }
 
-  botReply(intent: string) {
+  private botReply(intent: string) {
     let reply;
     switch (intent) {
       case INTENT.GREET:
@@ -56,7 +59,9 @@ export class MessageService {
         reply = 'Sorry I still don\'t understand';
     }
 
-    setTimeout(() => this.addMessage('bot', reply), 1000);
+    let buttons: any = [{title: 'Hey'}, {title: 'Ho'}]
+
+    setTimeout(() => this.addMessage('bot', reply, buttons), 1000);
   }
 
 }

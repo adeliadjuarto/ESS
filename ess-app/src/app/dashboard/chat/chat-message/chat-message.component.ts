@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+
+import { MessageService } from './../shared/message.service';
 import { Message } from './../shared/message.model';
 
 @Component({
@@ -10,10 +12,14 @@ export class ChatMessageComponent implements OnInit {
 
   @Input() message: Message;
 
-  constructor() {
+  constructor(private service: MessageService) {
   }
 
   ngOnInit() {
+  }
+
+  addMessage(input) {
+    this.service.sendMessage(input);
   }
 
 }
