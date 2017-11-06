@@ -37,19 +37,19 @@ export class LoginService {
     this.store.dispatch({ type: AuthenticationAction.INIT });
   }
 
-  public login(credential: Credential) {
+  public login() {
     this.store.dispatch({ type: AuthenticationAction.LOGIN_BEGIN });
 
-    this.authentication.authenticate(Object.assign({}, credential))
-      .subscribe((result: AuthenticationResult) => {
-        this.store.dispatch({ type: AuthenticationAction.LOGIN_COMPLETE, payload: result });
+    // this.authentication.authenticate(Object.assign({}, credential))
+    //   .subscribe((result: AuthenticationResult) => {
+        this.store.dispatch({ type: AuthenticationAction.LOGIN_COMPLETE, payload: {success: true, data: new LoginToken('mockuserdata')} });
 
-        if (result.success && result.data) {
+        // if (result.success && result.data) {
           let token: LoginToken = new LoginToken(Math.random().toString(36).substr(2, 5));
           this.token.store(GENERAL.TOKEN.SESSION, token);
-          this.token.store(GENERAL.TOKEN.USER, result.data);
-        }
-      });
+          this.token.store(GENERAL.TOKEN.USER, new LoginToken('mockuserdata'));
+        // }
+  //     });
   }
 
   public logout() {

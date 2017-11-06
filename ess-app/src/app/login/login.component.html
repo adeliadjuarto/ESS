@@ -1,3 +1,21 @@
-<p>
-  login works!
-</p>
+
+<div class="color-background">
+  <div class="text-center form-container">
+    <form (submit)="handleSubmit()">
+      <mat-form-field>
+        <input matInput name="identifier">
+        <mat-placeholder>
+          <span class="placeholder">Username</span>
+        </mat-placeholder>
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+        <input matInput name="secret" type="password">
+        <mat-placeholder>
+          <span class="placeholder">Password</span>
+        </mat-placeholder>
+      </mat-form-field>
+    <button mat-button (click)="login()"> Login </button>
+    </form>
+  </div>
+</div>
