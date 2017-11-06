@@ -14,6 +14,7 @@ import { StatusComponent } from './status/status.component';
 const routes: Routes = [
   {
     path: PATH.EMPTY,
+    canActivateChild: [AuthenticatedGuard],
     component: DashboardComponent,
     children: [
       {
