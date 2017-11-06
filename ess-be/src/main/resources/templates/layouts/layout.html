@@ -4,20 +4,24 @@
 <head>
     <title>ESS</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/jquery.datetimepicker.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.js"></script>
+    <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+    <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+
 </head>
 <body>
 <header>
     <form th:action="@{/logout}" method="post" id="logout"></form>
-    <img th:src="@{/image/logo.png}" class="logo">
+    <!--<img th:src="@{/image/logo.png}" class="logo">-->
     <i class="fa fa-sign-out pull-right logout-icon" aria-hidden="true"></i>
     <!--<div class="mobile">-->
         <!--<i class="fa fa-bars menu-btn fa-2x" id="toggle-btn" aria-hidden="true"></i>-->
@@ -27,15 +31,17 @@
     <!--</div>-->
 </header>
 <div class="side-bar">
-    <a th:href="@{/insurance-type}"><div th:classappend="${currPage} == 'insurance-type' ? 'menu active' : 'menu'">Insurance Type</div></a>
-    <a th:href="@{/provider-type}"><div th:classappend="${currPage} == 'provider-type' ? 'menu active' : 'menu'">Provider Type</div></a>
-    <a th:href="@{/request-type}"><div th:classappend="${currPage} == 'request-type' ? 'menu active' : 'menu'">Request Type</div></a>
-    <a th:href="@{/provider}"><div th:classappend="${currPage} == 'provider' ? 'menu active' : 'menu'">Provider</div></a>
-    <a th:href="@{/file-management}"><div th:classappend="${currPage} == 'document' ? 'menu active' : 'menu'">Document</div></a>
-    <a th:href="@{/leave-request}"><div th:classappend="${currPage} == 'leave-request' ? 'menu active' : 'menu'">Leave Request</div></a>
-    <a th:href="@{/reimbursement-request}"><div th:classappend="${currPage} == 'reimbursement-request' ? 'menu active' : 'menu'">Reimbursement Request</div></a>
-    <a th:href="@{/role}"><div th:classappend="${currPage} == 'role' ? 'menu active' : 'menu'">Role</div></a>
-    <a th:href="@{/user}"><div th:classappend="${currPage} == 'user' ? 'menu active' : 'menu'">User</div></a>
+    <a th:href="@{/insurance-type}"><div th:classappend="${currPage} == 'insurance-type' ? 'menu c-active' : 'menu'"><i class="fa fa-th icon" aria-hidden="true"></i>Insurance Type</div></a>
+    <a th:href="@{/provider-type}"><div th:classappend="${currPage} == 'provider-type' ? 'menu c-active' : 'menu'"><i class="fa fa-list icon" aria-hidden="true"></i>Provider Type</div></a>
+    <a th:href="@{/request-type}"><div th:classappend="${currPage} == 'request-type' ? 'menu c-active' : 'menu'"><i class="fa fa-th-list icon" aria-hidden="true"></i>Request Type</div></a>
+    <a th:href="@{/provider}"><div th:classappend="${currPage} == 'provider' ? 'menu c-active' : 'menu'"><i class="fa fa-plus-square icon" aria-hidden="true"></i>Provider</div></a>
+    <a th:href="@{/file-management}"><div th:classappend="${currPage} == 'document' ? 'menu c-active' : 'menu'"><i class="fa fa-file-pdf-o icon" aria-hidden="true"></i>Document</div></a>
+    <a th:href="@{/leave-request}"><div th:classappend="${currPage} == 'leave-request' ? 'menu c-active' : 'menu'"><i class="fa fa-paper-plane icon" aria-hidden="true"></i>Leave Request</div></a>
+    <a th:href="@{/overtime-request}"><div th:classappend="${currPage} == 'overtime-request' ? 'menu c-active' : 'menu'"><i class="fa fa-clock-o icon" aria-hidden="true"></i>Overtime Request</div></a>
+    <a th:href="@{/reimbursement-request}"><div th:classappend="${currPage} == 'reimbursement-request' ? 'menu c-active' : 'menu'"><i class="fa fa-credit-card icon" aria-hidden="true"></i>Reimbursement Request</div></a>
+    <a th:href="@{/role}"><div th:classappend="${currPage} == 'role' ? 'menu c-active' : 'menu'"><i class="fa fa-universal-access icon" aria-hidden="true"></i>Role</div></a>
+    <a th:href="@{/user}"><div th:classappend="${currPage} == 'user' ? 'menu c-active' : 'menu'"><i class="fa fa-user icon" aria-hidden="true"></i>User</div></a>
+    <a th:href="@{/event}"><div th:classappend="${currPage} == 'event' ? 'menu c-active' : 'menu'"><i class="fa fa-calendar icon" aria-hidden="true"></i>Event</div></a>
 </div>
 <script>
     $(document).ready( function () {

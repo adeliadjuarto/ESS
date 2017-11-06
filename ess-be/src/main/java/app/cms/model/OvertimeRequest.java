@@ -4,7 +4,6 @@ import app.cms.model.shared.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.text.DateFormat;
@@ -14,21 +13,21 @@ import java.util.List;
 import java.util.TimeZone;
 
 /**
- * Created by adeliadjuarto on 10/11/17.
+ * Created by adeliadjuarto on 10/12/17.
  */
 @Entity
-@Table(name = "reimbursement_requests")
+@Table(name = "overtime_requests")
 @Setter
 @Getter
-public class ReimbursementRequest extends BaseEntity {
-    public ReimbursementRequest () {}
-    public ReimbursementRequest (String title, String description, Long eventDate,
-                                 Integer amount, RequestType requestType, User user) {
+public class OvertimeRequest extends BaseEntity{
+    public OvertimeRequest () {}
+    public OvertimeRequest (String title, String description, Long eventDate,
+                            Long startTime, Long endTime, User user) {
         this.title = title;
         this.description = description;
         this.eventDate = eventDate;
-        this.amount = amount;
-        this.requestType = requestType;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.user = user;
         this.isApproved = null;
         this.isActive = true;
@@ -42,24 +41,38 @@ public class ReimbursementRequest extends BaseEntity {
     private String title;
     private String description;
     private Long eventDate;
-    private Integer amount;
+    private Long startTime;
+    private Long endTime;
     @Column(name = "rejection_note")
     private String rejectionNote;
     @Column(name = "is_approved")
     private Boolean isApproved;
     @ManyToOne
-    @JoinColumn(name = "request_type_id", referencedColumnName = "id")
-    private RequestType requestType;
-    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
     @OneToMany
     @JoinColumn(name = "request_id", referencedColumnName = "id")
-    private List<ReimbursementRequestAttachment> attachments;
+    private List<OvertimeRequestAttachment> attachments;
 
     public String getEventDate() {
         Date date = new Date(this.eventDate);
-        DateFormat format = new SimpleDateFormat("dd MMM yyyy HH:mm");
+        DateFormat format = new SimpleDateFormat("dd MMM yyyy");
+        format.setTimeZone(TimeZone.getTimeZone("Asia/Jakarta"));
+        String formatted = format.format(date);
+        return formatted;
+    }
+
+    public String getStartTime() {
+        Date date = new Date(this.startTime);
+        DateFormat format = new SimpleDateFormat("HH:mm");
+        format.setTimeZone(TimeZone.getTimeZone("Asia/Jakarta"));
+        String formatted = format.format(date);
+        return formatted;
+    }
+
+    public String getEndTime() {
+        Date date = new Date(this.endTime);
+        DateFormat format = new SimpleDateFormat("HH:mm");
         format.setTimeZone(TimeZone.getTimeZone("Asia/Jakarta"));
         String formatted = format.format(date);
         return formatted;

@@ -86,7 +86,7 @@ export class LeaveRequestComponent implements OnInit {
         return;
       }
 
-      let request: Leave = {
+      let formRequest: Leave = {
         title: this.requestTitle,
         description: this.requestDescription,
         start: start,
@@ -96,11 +96,11 @@ export class LeaveRequestComponent implements OnInit {
         'attachments[]': this.requestAttachments
       };
 
-      let formRequest = new FormData();
+      let request = new FormData();
 
-      mapKeys(request, (value, key) => formRequest.append(key, value));
+      mapKeys(formRequest, (value, key) => request.append(key, value));
 
-      this.requestService.create(formRequest);
+      this.requestService.create(request);
 
     } else {
       console.log('error happens');

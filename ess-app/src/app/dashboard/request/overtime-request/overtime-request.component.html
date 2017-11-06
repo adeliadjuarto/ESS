@@ -14,9 +14,13 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-    <mat-slider min="0" max="8" (input)="onSliderChange($event)"> </mat-slider>
+    <!--<mat-slider min="0" max="8" (input)="onSliderChange($event)"> </mat-slider>-->
 
-    <p> {{overtimeHours}} hours </p>
+    <nouislider name="slider" [config]="sliderConfig" [(ngModel)]="sliderValue"></nouislider>
+
+    <div class="input-file">
+      <input type="file" (change)="fileChange($event)">
+    </div>
 
     <button mat-raised-button (click)="submitRequest()">Submit Request</button>
 </div>

@@ -15,6 +15,7 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Role</th>
+                    <th>Superordinate</th>
                     <th>Annual Leave</th>
                     <th>Action</th>
                 </tr>
@@ -26,6 +27,7 @@
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.phone}"></td>
                     <td th:text="${user.role.name}"></td>
+                    <td th:text="${user.superordinate} != null ? ${user.superordinate.name} : '-'"></td>
                     <td th:text="${user.annualLeave}"></td>
                     <td>
                         <a th:href="@{/user/edit/{id}(id=${user.id})}">

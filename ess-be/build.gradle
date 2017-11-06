@@ -40,10 +40,6 @@ dependencies {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
         exclude module: "logback-classic"
     }
-    compile("org.springframework.boot:spring-boot-starter-actuator:1.5.2.RELEASE") {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
-        exclude module: "logback-classic"
-    }
     compile('org.springframework.boot:spring-boot-starter-data-jpa') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
         exclude module: "logback-classic"
@@ -62,7 +58,10 @@ dependencies {
     compile('mysql:mysql-connector-java')
     compile("org.projectlombok:lombok:1.16.16")
     compile("org.javafunk:excel-parser:1.0.1")
-    compile("com.fasterxml.jackson.core:jackson-databind")
+
+    compile 'com.google.api-client:google-api-client:1.23.0'
+    compile 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+    compile 'com.google.apis:google-api-services-calendar:v3-rev262-1.23.0'
 
     runtime 'net.sourceforge.nekohtml:nekohtml:1.9.15'
 
