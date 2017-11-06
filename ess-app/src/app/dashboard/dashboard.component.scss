@@ -1,3 +1,5 @@
+@import '../../stylesheets/variables.scss';
+
 .mat-toolbar.mat-primary {
-    background: #2E8B57 !important;
+    background: $color-primary !important;
 }
