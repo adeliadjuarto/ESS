@@ -22,7 +22,7 @@ input {
 }
 
 .message-list {
-    height: 80vh;
+    max-height: 80vh;
     overflow: scroll;
     display: flex;
     flex-direction: column;

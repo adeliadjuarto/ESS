@@ -22,20 +22,24 @@ export class ChatWindowComponent implements OnInit {
               private el: ElementRef) {
     this.messages = this.messageService.messageList;
 
-    this.messages.subscribe((data) => console.log(data));
+    this.messages.subscribe((data) => { setTimeout( () => this.scrollToBottom()); });
   }
 
   ngOnInit() {
   }
 
   addMessage(event) {
-    console.log(event);
+    this.textInput.nativeElement.value = '';
+    this.messageService.sendMessage(this.draftMessage.text);
+  }
+
+  scrollToBottom(): void {
     const scrollPane: any = this.el.nativeElement.querySelector('.message-list');
+    console.log(scrollPane.scrollHeight);
     scrollPane.scrollTop = scrollPane.scrollHeight;
 
-    this.textInput.nativeElement.value = '';
-    console.log(this.draftMessage.text);
-    this.messageService.sendMessage(this.draftMessage.text);
+    console.log(scrollPane.scrollTop);
+    console.log(scrollPane.scrollHeight);
   }
 
 }
