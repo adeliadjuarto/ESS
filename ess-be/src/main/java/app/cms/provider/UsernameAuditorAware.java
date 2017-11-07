@@ -1,12 +1,14 @@
 package app.cms.provider;
 
-import app.cms.model.User;
+import app.cms.service.AuthenticationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class UsernameAuditorAware implements AuditorAware<String> {
-
+    @Autowired
+    private AuthenticationService authService;
     @Override
     public String getCurrentAuditor() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -14,8 +16,7 @@ public class UsernameAuditorAware implements AuditorAware<String> {
         String username = "system";
 
         if (securityContext != null && securityContext.getAuthentication() != null) {
-            User user = (User) securityContext.getAuthentication().getPrincipal();
-            username = user.getName();
+            username = authService.getCurrentUser().getName();
         }
 
         return username;

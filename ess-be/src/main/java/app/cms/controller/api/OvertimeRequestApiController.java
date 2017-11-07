@@ -6,6 +6,7 @@ import app.cms.model.User;
 import app.cms.repository.OvertimeRequestAttachmentRepository;
 import app.cms.repository.OvertimeRequestRepository;
 import app.cms.repository.UserRepository;
+import app.cms.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,8 @@ public class OvertimeRequestApiController {
     @Value("${file-directory-path}")
     private String directoryPath;
     @Autowired
+    private AuthenticationService authService;
+    @Autowired
     private OvertimeRequestRepository overtimeRequestRepository;
     @Autowired
     private UserRepository userRepository;
@@ -34,7 +37,8 @@ public class OvertimeRequestApiController {
 
     @RequestMapping(value = "/overtime-requests")
     public Iterable<OvertimeRequest> getRequest() throws Exception {
-        return overtimeRequestRepository.findByIsActive(true);
+        User user = authService.getCurrentUser();
+        return overtimeRequestRepository.findByUserAndIsActive(user, true);
     }
 
     @RequestMapping(value = "/overtime-requests", method = RequestMethod.POST)
@@ -43,10 +47,9 @@ public class OvertimeRequestApiController {
                                 @RequestParam("eventDate") Long eventDate,
                                 @RequestParam("startTime") Long startTime,
                                 @RequestParam("endTime") Long endTime,
-                                @RequestParam("userId") Long userId,
                                 @RequestParam("attachments[]") MultipartFile[] attachments)
             throws Exception {
-        User user = userRepository.findOne(userId);
+        User user = authService.getCurrentUser();
         OvertimeRequest request
                 = new OvertimeRequest(title, description, eventDate, startTime, endTime, user);
         request = overtimeRequestRepository.save(request);

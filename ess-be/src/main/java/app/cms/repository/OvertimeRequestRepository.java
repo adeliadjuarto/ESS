@@ -1,9 +1,6 @@
 package app.cms.repository;
 
-import app.cms.model.LeaveRequest;
-import app.cms.model.OvertimeRequest;
-import app.cms.model.OvertimeRequestAttachment;
-import app.cms.model.RequestType;
+import app.cms.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -13,4 +10,5 @@ import java.util.List;
  */
 public interface OvertimeRequestRepository extends JpaRepository<OvertimeRequest, String> {
     public List<OvertimeRequest> findByIsActive(Boolean isActive);
+    public List<OvertimeRequest> findByUserAndIsActive(User user, Boolean isActive);
 }
