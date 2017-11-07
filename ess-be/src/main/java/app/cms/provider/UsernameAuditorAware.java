@@ -1,5 +1,6 @@
 package app.cms.provider;
 
+import app.cms.model.User;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +14,8 @@ public class UsernameAuditorAware implements AuditorAware<String> {
         String username = "system";
 
         if (securityContext != null && securityContext.getAuthentication() != null) {
-            username = securityContext.getAuthentication().getName();
+            User user = (User) securityContext.getAuthentication().getPrincipal();
+            username = user.getName();
         }
 
         return username;

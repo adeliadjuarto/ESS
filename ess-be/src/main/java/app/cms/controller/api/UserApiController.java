@@ -19,9 +19,7 @@ public class UserApiController {
     @RequestMapping("/users/current")
     public User getCurrentUser() throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getPrincipal().toString();
-        System.out.println(username);
-        User user = userRepository.findByUsernameAndIsActive(username, true);
+        User user = (User) auth.getPrincipal();
         return user;
     }
 }
