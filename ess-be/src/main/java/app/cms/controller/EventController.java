@@ -1,11 +1,14 @@
 package app.cms.controller;
 
+import app.cms.repository.EventRepository;
 import app.cms.repository.UserRepository;
 import app.cms.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
@@ -20,6 +23,8 @@ public class EventController {
     private EventService eventService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private EventRepository eventRepository;
 
 
     @RequestMapping("/event")
@@ -58,7 +63,20 @@ public class EventController {
         date = format.parse(inputEnd);
         end = date.getTime();
         eventService.addEvent(start, end, summary, userIds, isAllDayEvent);
-        return "event/index";
+        return "redirect:/event";
+    }
+
+    @RequestMapping("event/edit/{id}")
+    public String editEvent(Model model, @PathVariable(value = "id") Long id) throws Exception {
+        model.addAttribute("event", eventRepository.findOne(id));
+        model.addAttribute("currPage", "event");
+        return "event/edit";
+    }
+
+    @RequestMapping("/event/delete/{id}")
+    public String deleteEvent(@PathVariable(value = "id") Long id) throws  Exception {
+       eventService.deleteEvent(id);
+        return "redirect:/event";
     }
 
 }

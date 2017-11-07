@@ -42,4 +42,11 @@ public class EventService {
         Event event = new Event(googleEventId, start, end, eventAttendees);
         return eventRepository.save(event);
     }
+
+    public void deleteEvent (Long id) throws IOException {
+        Event event = eventRepository.findOne(id);
+        event.setIsActive(false);
+        eventRepository.save(event);
+        googleCalendarService.deleteEvent(event.getGoogleEventId());
+    }
 }

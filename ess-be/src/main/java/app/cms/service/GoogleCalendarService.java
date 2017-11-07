@@ -136,7 +136,6 @@ public class GoogleCalendarService {
                              Long inputStart,
                              Long inputEnd,
                              String summary,
-                             String[] emails,
                              Boolean isAllDayEvent) throws IOException {
         com.google.api.services.calendar.Calendar service =
                 getCalendarService();
@@ -157,15 +156,7 @@ public class GoogleCalendarService {
         event.setStart(start);
         event.setEnd(end);
 
-        List<EventAttendee> eventAttendeeList = new ArrayList<>();
-        for (String email : emails) {
-            EventAttendee eventAttendee = new EventAttendee();
-            eventAttendee.setEmail(email);
-            eventAttendeeList.add(eventAttendee);
-        }
-        event.setAttendees(eventAttendeeList);
-
-        return service.events().update(CALENDAR_ID, id, event).setSendNotifications(true).execute();
+        return service.events().update(CALENDAR_ID, id, event).execute();
     }
 
     public void deleteEvent(String id) throws IOException {
