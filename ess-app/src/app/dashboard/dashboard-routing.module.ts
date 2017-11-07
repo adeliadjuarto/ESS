@@ -16,6 +16,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 const routes: Routes = [
   {
     path: PATH.EMPTY,
+    canActivateChild: [AuthenticatedGuard],
     component: DashboardComponent,
     children: [
       {
