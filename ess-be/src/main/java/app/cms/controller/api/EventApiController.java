@@ -1,5 +1,6 @@
 package app.cms.controller.api;
 
+import app.cms.service.EventService;
 import app.cms.service.GoogleCalendarService;
 import com.google.api.services.calendar.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 public class EventApiController {
     @Autowired
     private GoogleCalendarService googleCalendarService;
+    @Autowired
+    private EventService eventService;
 
     @RequestMapping("/events")
     public Iterable<Event> events() throws Exception {
@@ -23,8 +26,8 @@ public class EventApiController {
                             @RequestParam("start") Long start,
                             @RequestParam("end") Long end,
                             @RequestParam("summary") String summary,
-                            @RequestParam("emails[]") String[] emails) throws Exception {
-        googleCalendarService.addEvent(start, end, summary, emails, isAllDayEvent);
+                            @RequestParam("userIds[]") Long[] userIds) throws Exception {
+        eventService.addEvent(start, end, summary, userIds, isAllDayEvent);
         return "Event successfully added to calendar!";
     }
 
@@ -35,7 +38,7 @@ public class EventApiController {
                               @RequestParam("end") Long end,
                               @RequestParam("summary") String summary,
                               @RequestParam("emails[]") String[] emails) throws Exception {
-        googleCalendarService.updateEvent(id, start, end, summary, emails, isAllDayEvent);
+        googleCalendarService.updateEvent(id, start, end, summary, isAllDayEvent);
         return "Event successfully edited!";
     }
 
