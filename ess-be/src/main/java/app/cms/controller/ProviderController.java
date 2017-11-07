@@ -14,10 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 
@@ -52,6 +56,16 @@ public class ProviderController {
         model.addAttribute("insuranceTypes", insuranceTypeRepository.findByIsActive(true));
         model.addAttribute("currPage", "provider");
         return "provider/import";
+    }
+
+    @RequestMapping("provider/download-template")
+    public void downloadTemplate(HttpServletResponse response) throws Exception {
+        String path = "static/template/providers.xlsx";
+        File file = new File(getClass().getClassLoader().getResource(path).getFile());
+        InputStream is = new FileInputStream(file);
+        response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+        response.setHeader("Content-Length", String.valueOf(file.length()));
+        FileCopyUtils.copy(is, response.getOutputStream());
     }
 
     @RequestMapping("provider/create")
