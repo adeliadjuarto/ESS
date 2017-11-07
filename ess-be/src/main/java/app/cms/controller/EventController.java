@@ -1,14 +1,12 @@
 package app.cms.controller;
 
-import app.cms.service.GoogleCalendarService;
-import com.google.api.client.util.DateTime;
-import com.google.api.services.calendar.model.Event;
+import app.cms.repository.UserRepository;
+import app.cms.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,7 +17,10 @@ import java.util.Date;
 @Controller
 public class EventController {
     @Autowired
-    private GoogleCalendarService googleCalendarService;
+    private EventService eventService;
+    @Autowired
+    private UserRepository userRepository;
+
 
     @RequestMapping("/event")
     public String events(Model model) throws Exception {
@@ -29,13 +30,14 @@ public class EventController {
 
     @RequestMapping("event/create")
     public String createEvents(Model model) throws Exception {
+        model.addAttribute("users", userRepository.findByIsActive(true));
         model.addAttribute("currPage", "event");
         return "event/create";
     }
 
     @RequestMapping("/event/save")
     public String saveEvent(@RequestParam("summary") String summary,
-                            @RequestParam("emails[]") String[] emails,
+                            @RequestParam("userIds[]") Long[] userIds,
                             @RequestParam("start") String inputStart,
                             @RequestParam("end") String inputEnd,
                             @RequestParam("allDay")String[] allDayValue
@@ -55,14 +57,8 @@ public class EventController {
         start = date.getTime();
         date = format.parse(inputEnd);
         end = date.getTime();
-        googleCalendarService.addEvent(start, end, summary, emails, isAllDayEvent);
+        eventService.addEvent(start, end, summary, userIds, isAllDayEvent);
         return "event/index";
-    }
-
-    @ResponseBody
-    @RequestMapping("/event/list")
-    public Iterable<Event> eventList() throws Exception {
-        return googleCalendarService.viewEvents();
     }
 
 }

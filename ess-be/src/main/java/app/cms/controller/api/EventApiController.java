@@ -23,8 +23,8 @@ public class EventApiController {
                             @RequestParam("start") Long start,
                             @RequestParam("end") Long end,
                             @RequestParam("summary") String summary,
-                            @RequestParam("emails[]") String[] emails) throws Exception {
-        googleCalendarService.addEvent(start, end, summary, emails, isAllDayEvent);
+                            @RequestParam("userIds[]") Long[] userIds) throws Exception {
+        googleCalendarService.addEvent(start, end, summary, isAllDayEvent);
         return "Event successfully added to calendar!";
     }
 
