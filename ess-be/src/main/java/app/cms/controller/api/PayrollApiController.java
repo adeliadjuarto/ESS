@@ -4,6 +4,7 @@ import app.cms.model.Payroll;
 import app.cms.model.User;
 import app.cms.repository.PayrollRepository;
 import app.cms.repository.UserRepository;
+import app.cms.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.FileCopyUtils;
@@ -28,6 +29,8 @@ public class PayrollApiController {
     @Value("${file-directory-path}")
     private String directoryPath;
     @Autowired
+    private AuthenticationService authService;
+    @Autowired
     private UserRepository userRepository;
     @Autowired
     private PayrollRepository payrollRepository;
@@ -35,22 +38,11 @@ public class PayrollApiController {
 
     @RequestMapping("/payrolls/current")
     public Payroll getCurrentPayroll() throws Exception {
-        Long userId = 1l;
+        Long userId = authService.getCurrentUser().getId();
         Date date= new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         Integer month = cal.get(Calendar.MONTH);
-        return payrollRepository.findByUserIdAndMonth(userId, month);
-    }
-
-    @RequestMapping("/payrolls/latest-paid")
-    public Payroll getLatestPaidPayroll() throws Exception {
-        Long userId = 1l;
-        Date date= new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        Integer month = cal.get(Calendar.MONTH);
-        month -= 1;
         return payrollRepository.findByUserIdAndMonth(userId, month);
     }
 
