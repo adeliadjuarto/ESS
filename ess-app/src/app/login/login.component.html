@@ -1,3 +1,23 @@
-<p>
-  login works!
-</p>
+
+<div class="color-background">
+  <div class="text-center form-container">
+    <form (submit)="handleSubmit()">
+      <mat-form-field>
+        <input matInput [(ngModel)]="credential.identifier" name="identifier">
+        <mat-placeholder>
+          <span class="placeholder">Username</span>
+        </mat-placeholder>
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+        <input matInput [(ngModel)]="credential.secret" name="secret" type="password">
+        <mat-placeholder>
+          <span class="placeholder">Password</span>
+        </mat-placeholder>
+      </mat-form-field>
+  <div class="login-container">
+    <button mat-button> Login </button>
+  </div>
+    </form>
+  </div>
+</div>
