@@ -1,5 +1,6 @@
 package app.cms.controller.api;
 
+import app.cms.model.LeaveRequest;
 import app.cms.model.OvertimeRequest;
 import app.cms.model.OvertimeRequestAttachment;
 import app.cms.model.User;
@@ -39,6 +40,11 @@ public class OvertimeRequestApiController {
     public Iterable<OvertimeRequest> getRequest() throws Exception {
         User user = authService.getCurrentUser();
         return overtimeRequestRepository.findByUserAndIsActive(user, true);
+    }
+
+    @RequestMapping("/overtime-requests/{id}")
+    public OvertimeRequest getRequestDetail(@PathVariable("id") String id) throws Exception {
+        return overtimeRequestRepository.findOne(id);
     }
 
     @RequestMapping(value = "/overtime-requests", method = RequestMethod.POST)

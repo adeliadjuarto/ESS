@@ -40,6 +40,11 @@ public class ReimbursementRequestApiController {
         return reimbursementRequestRepository.findByUserAndIsActive(user, true);
     }
 
+    @RequestMapping("/reimbursement-requests/{id}")
+    public ReimbursementRequest getRequestDetail(@PathVariable("id") String id) throws Exception {
+        return reimbursementRequestRepository.findOne(id);
+    }
+
     @RequestMapping(value = "/reimbursement-requests", method = RequestMethod.POST)
     public String createRequest(@RequestParam("title") String title,
                                 @RequestParam("description") String description,

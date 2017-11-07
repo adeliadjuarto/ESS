@@ -40,6 +40,11 @@ public class LeaveRequestApiController {
         return leaveRequestRepository.findByUserAndIsActive(user, true);
     }
 
+    @RequestMapping("/leave-requests/{id}")
+    public LeaveRequest getRequestDetail(@PathVariable("id") String id) throws Exception {
+        return leaveRequestRepository.findOne(id);
+    }
+
     @RequestMapping(value = "/leave-requests", method = RequestMethod.POST)
     public String createRequest(@RequestParam("title") String title,
                                 @RequestParam("description") String description,
