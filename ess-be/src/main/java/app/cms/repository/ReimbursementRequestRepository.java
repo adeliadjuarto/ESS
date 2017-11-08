@@ -2,6 +2,7 @@ package app.cms.repository;
 
 import app.cms.model.ReimbursementRequest;
 import app.cms.model.RequestType;
+import app.cms.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -11,5 +12,5 @@ import java.util.List;
  */
 public interface ReimbursementRequestRepository extends JpaRepository<ReimbursementRequest, String> {
     public List<ReimbursementRequest> findByIsActive(Boolean isActive);
-    public List<ReimbursementRequest> findByIsActiveAndRequestType(Boolean isActive, RequestType requestType);
+    public List<ReimbursementRequest> findByUserAndIsActive(User user, Boolean isActive);
 }

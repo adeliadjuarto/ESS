@@ -28,8 +28,8 @@ export class AuthenticationService {
     this.connection.post(ENDPOINT.LOGIN, body)
       .subscribe((response: Response) => {
         let raw: any = response.content;
-        let user: User = cloneDeep(raw.user);
-        user.authorities = cloneDeep(raw.group.authorities) || Array<Authority>();
+        let user: User = cloneDeep(raw);
+        // user.authorities = cloneDeep(raw.group.authorities) || Array<Authority>();
 
         subject.next({ success: true, message: null, data: user });
         subject.complete();

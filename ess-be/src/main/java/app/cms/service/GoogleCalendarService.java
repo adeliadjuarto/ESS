@@ -106,10 +106,9 @@ public class GoogleCalendarService {
                 .build();
     }
 
-    public Event addEvent(Long inputStart,
+    public String addEvent(Long inputStart,
                           Long inputEnd,
                           String summary,
-                          String[] emails,
                           Boolean isAllDayEvent) throws IOException {
         Event event = new Event();
         event.setSummary(summary);
@@ -127,24 +126,16 @@ public class GoogleCalendarService {
         event.setStart(start);
         event.setEnd(end);
 
-        List<EventAttendee> eventAttendeeList = new ArrayList<>();
-        for (String email : emails) {
-            EventAttendee eventAttendee = new EventAttendee();
-            eventAttendee.setEmail(email);
-            eventAttendeeList.add(eventAttendee);
-        }
-        event.setAttendees(eventAttendeeList);
-
         com.google.api.services.calendar.Calendar service =
                 getCalendarService();
-        return service.events().insert(CALENDAR_ID, event).setSendNotifications(true).execute();
+        event = service.events().insert(CALENDAR_ID, event).execute();
+        return event.getId();
     }
 
     public Event updateEvent(String id,
                              Long inputStart,
                              Long inputEnd,
                              String summary,
-                             String[] emails,
                              Boolean isAllDayEvent) throws IOException {
         com.google.api.services.calendar.Calendar service =
                 getCalendarService();
@@ -165,15 +156,7 @@ public class GoogleCalendarService {
         event.setStart(start);
         event.setEnd(end);
 
-        List<EventAttendee> eventAttendeeList = new ArrayList<>();
-        for (String email : emails) {
-            EventAttendee eventAttendee = new EventAttendee();
-            eventAttendee.setEmail(email);
-            eventAttendeeList.add(eventAttendee);
-        }
-        event.setAttendees(eventAttendeeList);
-
-        return service.events().update(CALENDAR_ID, id, event).setSendNotifications(true).execute();
+        return service.events().update(CALENDAR_ID, id, event).execute();
     }
 
     public void deleteEvent(String id) throws IOException {

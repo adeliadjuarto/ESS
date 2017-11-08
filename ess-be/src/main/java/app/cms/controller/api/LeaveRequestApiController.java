@@ -2,8 +2,10 @@ package app.cms.controller.api;
 
 import app.cms.model.*;
 import app.cms.repository.*;
+import app.cms.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +24,8 @@ public class LeaveRequestApiController {
     @Value("${file-directory-path}")
     private String directoryPath;
     @Autowired
+    private AuthenticationService authService;
+    @Autowired
     private LeaveRequestRepository leaveRequestRepository;
     @Autowired
     private RequestTypeRepository requestTypeRepository;
@@ -32,7 +36,13 @@ public class LeaveRequestApiController {
 
     @RequestMapping(value = "/leave-requests")
     public Iterable<LeaveRequest> getRequest() throws Exception {
-        return leaveRequestRepository.findByIsActive(true);
+        User user = authService.getCurrentUser();
+        return leaveRequestRepository.findByUserAndIsActive(user, true);
+    }
+
+    @RequestMapping("/leave-requests/{id}")
+    public LeaveRequest getRequestDetail(@PathVariable("id") String id) throws Exception {
+        return leaveRequestRepository.findOne(id);
     }
 
     @RequestMapping(value = "/leave-requests", method = RequestMethod.POST)
@@ -41,11 +51,10 @@ public class LeaveRequestApiController {
                                 @RequestParam("start") Long start,
                                 @RequestParam("end") Long end,
                                 @RequestParam("requestTypeId") Long requestTypeId,
-                                @RequestParam("userId") Long userId,
                                 @RequestParam("attachments[]") MultipartFile[] attachments)
             throws Exception {
+        User user = authService.getCurrentUser();
         RequestType requestType = requestTypeRepository.findOne(requestTypeId);
-        User user = userRepository.findOne(userId);
         LeaveRequest leaveRequest
                 = new LeaveRequest(title, description, start, end, requestType, user);
         leaveRequest = leaveRequestRepository.save(leaveRequest);

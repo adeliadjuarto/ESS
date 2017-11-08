@@ -1,9 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CalendarDateFormatter, CalendarEvent } from 'angular-calendar';
+import {
+  startOfDay,
+  endOfDay,
+  subDays,
+  addDays,
+  endOfMonth,
+  isSameDay,
+  isSameMonth,
+  addHours
+} from 'date-fns';
+import { CalendarDateFormatter, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
+import { Store } from '@ngrx/store';
 
 import { CustomDateFormatter } from './shared/custom-date-formatter';
 import { TestData } from './shared/test-data';
+import { DashboardAction } from './../shared/dashboard.action';
 
 @Component({
   selector: 'app-calendar',
@@ -17,6 +29,8 @@ import { TestData } from './shared/test-data';
   ]
 })
 export class CalendarComponent implements OnInit {
+
+  view: string = 'month';
 
   colors: any = {
     red: {
@@ -48,7 +62,9 @@ export class CalendarComponent implements OnInit {
                               }
                             })
 
-  constructor() { }
+  constructor(private store: Store<any>) {
+    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Calendar'});
+  }
 
   ngOnInit() {
   }
@@ -62,9 +78,9 @@ export class CalendarComponent implements OnInit {
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (this.viewDate) {
+    if (isSameMonth(date, this.viewDate)) {
       if (
-        (this.viewDate && this.activeDayIsOpen === true) ||
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
         events.length === 0
       ) {
         this.activeDayIsOpen = false;
@@ -74,6 +90,7 @@ export class CalendarComponent implements OnInit {
       }
     }
   }
+
 
 
 }
