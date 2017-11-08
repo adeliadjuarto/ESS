@@ -24,23 +24,47 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
+    public List<Event> getEvents () throws IOException {
+        return eventRepository.findByIsActive(true);
+    }
+
     public Event addEvent (Long start,
                            Long end,
                            String summary,
                            Long[] userIds,
                            Boolean isAllDayEvent) throws IOException {
-
         String googleEventId = googleCalendarService.addEvent(start, end, summary, isAllDayEvent);
         List<EventAttendee> eventAttendees = new ArrayList<>();
         EventAttendee eventAttendee = null;
         User user = null;
-        for (Long id : userIds) {
-            user = userRepository.findOne(id);
+        for (Long userId : userIds) {
+            user = userRepository.findOne(userId);
             eventAttendee = new EventAttendee(user);
             eventAttendees.add(eventAttendee);
         }
         Event event = new Event(googleEventId, start, end, eventAttendees);
         return eventRepository.save(event);
+    }
+
+    public Event updateEvent (Long id,
+                              Long start,
+                              Long end,
+                              String summary,
+                              Long[] userIds,
+                              Boolean isAllDayEvent) throws IOException {
+        Event event = eventRepository.findOne(id);
+        List<EventAttendee> eventAttendees = new ArrayList<>();
+        EventAttendee eventAttendee = null;
+        User user = null;
+        for (Long userId : userIds) {
+            user = userRepository.findOne(userId);
+            eventAttendee = new EventAttendee(user);
+            eventAttendees.add(eventAttendee);
+        }
+        event.update(start, end, eventAttendees);
+        eventRepository.save(event);
+        googleCalendarService.updateEvent(event.getGoogleEventId(), start, end, summary, isAllDayEvent);
+        return event;
     }
 
     public void deleteEvent (Long id) throws IOException {
