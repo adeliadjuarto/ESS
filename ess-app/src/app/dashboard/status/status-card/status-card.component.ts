@@ -23,4 +23,17 @@ export class StatusCardComponent<T extends Status> implements OnInit {
   ngOnInit() {
   }
 
+  public get status(): string {
+
+    if (this.inputStatus.isApproved === null) {
+      return 'Pending';
+    } else if (this.inputStatus.isApproved) {
+      return 'Approved';
+    } else if (this.inputStatus.isApproved === false) {
+      return 'Rejected';
+    }
+
+    return '';
+  }
+
 }
