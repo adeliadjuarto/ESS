@@ -21,7 +21,7 @@ export class StatusService extends DataService<Status> {
     super.setEndpoint(ENDPOINT.REQUEST.LEAVE, Status);
   }
 
-  fetchApprovals(endpointType, param) {
+  fetchApprovals(endpointType, param?) {
     this.store.dispatch({type: Actions.FETCH_STATUS_BEGIN});
 
     this.fetchApprovalStatus(endpointType, param).subscribe(
@@ -32,15 +32,17 @@ export class StatusService extends DataService<Status> {
 
   fetchApprovalStatus(endpoint, param?) {
     return this.apiService.get(endpoint, (request: Request) => {
-                              request.setQuery(param);
+                              if (param) {
+                                request.setQuery(param);
+                              }
                           })
-                          .map((response: Response) => response.to(ResponseType.list));
+                          .map((response: Response) => response.to(ResponseType.Json));
   }
 
   fetchApprovalStatusSuccess(result) {
     this.store.dispatch({
       type: Actions.FETCH_STATUS_SUCCESS,
-      payload: result.content,
+      payload: result,
     });
   }
 
