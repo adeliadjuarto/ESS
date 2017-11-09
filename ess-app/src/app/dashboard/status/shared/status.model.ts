@@ -6,7 +6,7 @@ export class Status extends BaseModel {
               public start: number,
               public end: number,
               public statusDate: string,
-              public statusInformation: string) {
+              public isApproved: boolean) {
                 super();
   }
 
