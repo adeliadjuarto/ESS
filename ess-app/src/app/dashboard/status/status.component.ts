@@ -44,6 +44,7 @@ export class StatusComponent implements OnInit, AfterContentInit {
   }
 
   ngOnInit() {
+    this.fetchApprovalStatus(StatusTypes.Leave.url);
   }
 
   ngAfterContentInit() {
@@ -65,9 +66,8 @@ export class StatusComponent implements OnInit, AfterContentInit {
   }
 
   fetchApprovalStatus(typeEndpoint) {
-    let param = { };
     this.approvalTypeUrl = typeEndpoint;
-    this.statusService.fetchApprovals(typeEndpoint, param);
+    this.statusService.fetchApprovals(typeEndpoint);
   }
 
   public get isEmpty(): boolean {
