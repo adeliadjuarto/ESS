@@ -1,6 +1,10 @@
 package app.cms.service;
 
 import app.cms.model.Chat;
+import app.cms.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -13,6 +17,9 @@ import static app.cms.commons.MenuConstants.*;
  */
 @Service
 public class ChatService {
+
+    @Autowired
+    private UserRepository userRepository;
 
     public Chat chat(String message) throws Exception {
         if(MenuConstants.contains(message)) {
@@ -42,16 +49,20 @@ public class ChatService {
     }
 
     private Chat chatRequest() {
+
+        String message = "Silahkan pilih tipe request yang ingin diajukan";
+
         List<String> buttons = Arrays.asList(
                 REQUEST_LEAVE,
                 REQUEST_OVERTIME,
                 REQUEST_REIMBURSEMENT
         );
-        return new Chat("Silahkan pilih tipe request yang ingin diajukan", buttons);
+        return new Chat(message, buttons);
     }
 
     private Chat chatStatus() {
-        return new Chat("Silahkan pilih tipe status yang ingin dilihat");
+        String message = "Silahkan pilih tipe status yang ingin dilihat";
+        return new Chat(message);
     }
 
     private Chat chatRequestLeave() {
@@ -71,7 +82,13 @@ public class ChatService {
     }
 
     private Chat chatLeaveBalance() {
-        return new Chat();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getPrincipal().toString();
+        Integer leaveBalance = userRepository.findByUsernameAndIsActive(username, true).getAnnualLeave();
+
+        String message = "Sisa jatah cuti tahunan anda adalah " + leaveBalance + " hari.";
+
+        return new Chat(message);
     }
 
     private Chat chatPayrollStatus() {
@@ -79,7 +96,7 @@ public class ChatService {
     }
 
     private Chat chatNonPredefined(String message) {
-        return new Chat();
+        return new Chat(message);
     }
 
 }
