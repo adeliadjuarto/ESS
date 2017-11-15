@@ -21,6 +21,9 @@ public class ChatService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private AuthenticationService authService;
+
     public Chat chat(String message) throws Exception {
         if(MenuConstants.contains(message)) {
             switch(message) {
@@ -82,9 +85,13 @@ public class ChatService {
     }
 
     private Chat chatLeaveBalance() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getPrincipal().toString();
+        String username = authService.getCurrentUser().toString();
+
+        System.out.println(username);
+
         Integer leaveBalance = userRepository.findByUsernameAndIsActive(username, true).getAnnualLeave();
+
+        System.out.println(leaveBalance);
 
         String message = "Sisa jatah cuti tahunan anda adalah " + leaveBalance + " hari.";
 
