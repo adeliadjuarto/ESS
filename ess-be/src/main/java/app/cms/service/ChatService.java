@@ -1,6 +1,7 @@
 package app.cms.service;
 
 import app.cms.model.Chat;
+import app.cms.model.User;
 import app.cms.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -85,16 +86,10 @@ public class ChatService {
     }
 
     private Chat chatLeaveBalance() {
-        String username = authService.getCurrentUser().toString();
-
-        System.out.println(username);
-
-        Integer leaveBalance = userRepository.findByUsernameAndIsActive(username, true).getAnnualLeave();
-
+        User user = authService.getCurrentUser();
+        Integer leaveBalance = user.getAnnualLeave();
         System.out.println(leaveBalance);
-
         String message = "Sisa jatah cuti tahunan anda adalah " + leaveBalance + " hari.";
-
         return new Chat(message);
     }
 
