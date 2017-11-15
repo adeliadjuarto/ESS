@@ -22,12 +22,12 @@ import java.util.TimeZone;
 public class OvertimeRequest extends BaseEntity{
     public OvertimeRequest () {}
     public OvertimeRequest (String title, String description, Long eventDate,
-                            Long startTime, Long endTime, User user) {
+                            Long start, Long end, User user) {
         this.title = title;
         this.description = description;
         this.eventDate = eventDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.start = start;
+        this.end = end;
         this.user = user;
         this.isApproved = null;
         this.isActive = true;
@@ -41,8 +41,8 @@ public class OvertimeRequest extends BaseEntity{
     private String title;
     private String description;
     private Long eventDate;
-    private Long startTime;
-    private Long endTime;
+    private Long start;
+    private Long end;
     @Column(name = "rejection_note")
     private String rejectionNote;
     @Column(name = "is_approved")
@@ -62,16 +62,16 @@ public class OvertimeRequest extends BaseEntity{
         return formatted;
     }
 
-    public String getStartTime() {
-        Date date = new Date(this.startTime);
+    public String getStart() {
+        Date date = new Date(this.start);
         DateFormat format = new SimpleDateFormat("HH:mm");
         format.setTimeZone(TimeZone.getTimeZone("Asia/Jakarta"));
         String formatted = format.format(date);
         return formatted;
     }
 
-    public String getEndTime() {
-        Date date = new Date(this.endTime);
+    public String getEnd() {
+        Date date = new Date(this.end);
         DateFormat format = new SimpleDateFormat("HH:mm");
         format.setTimeZone(TimeZone.getTimeZone("Asia/Jakarta"));
         String formatted = format.format(date);

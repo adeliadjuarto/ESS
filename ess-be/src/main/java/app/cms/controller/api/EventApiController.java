@@ -1,8 +1,8 @@
 package app.cms.controller.api;
 
+import app.cms.model.Event;
 import app.cms.service.EventService;
 import app.cms.service.GoogleCalendarService;
-import com.google.api.services.calendar.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +18,7 @@ public class EventApiController {
 
     @RequestMapping("/events")
     public Iterable<Event> events() throws Exception {
-        return googleCalendarService.viewEvents();
+        return eventService.getEvents();
     }
 
     @RequestMapping(value = "/events", method = RequestMethod.POST)
@@ -32,19 +32,19 @@ public class EventApiController {
     }
 
     @RequestMapping(value = "/events/{id}", method = RequestMethod.POST)
-    public String updateEvent(@PathVariable("id") String id,
+    public String updateEvent(@PathVariable("id") Long id,
                               @RequestParam("isAllDayEvent") Boolean isAllDayEvent,
                               @RequestParam("start") Long start,
                               @RequestParam("end") Long end,
                               @RequestParam("summary") String summary,
-                              @RequestParam("emails[]") String[] emails) throws Exception {
-        googleCalendarService.updateEvent(id, start, end, summary, isAllDayEvent);
+                              @RequestParam("userIds[]") Long[] userIds) throws Exception {
+        eventService.updateEvent(id, start, end, summary, userIds, isAllDayEvent);
         return "Event successfully edited!";
     }
 
     @RequestMapping(value = "/events/{id}", method = RequestMethod.DELETE)
-    public String deleteEvent(@PathVariable("id") String id) throws Exception {
-        googleCalendarService.deleteEvent(id);
+    public String deleteEvent(@PathVariable("id") Long id) throws Exception {
+        eventService.deleteEvent(id);
         return "Event successfully deleted from calendar!";
     }
 
