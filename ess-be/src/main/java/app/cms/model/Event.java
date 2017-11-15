@@ -35,4 +35,10 @@ public class Event extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "event_id")
     private List<EventAttendee> eventAttendees;
+
+    public void update (Long start, Long end, List<EventAttendee> eventAttendees) {
+        this.start = start;
+        this.end = end;
+        this.eventAttendees = eventAttendees;
+    }
 }

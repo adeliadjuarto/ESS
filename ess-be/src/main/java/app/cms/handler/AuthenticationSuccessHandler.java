@@ -26,13 +26,17 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException,
             ServletException {
-        User user = authService.getCurrentUser();
-        response.setContentType(JSON_TYPE);
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonInString = mapper.writeValueAsString(user);
-        response.getWriter().print(jsonInString);
-        response.getWriter().flush();
-        response.getWriter().close();
-
+        String source = request.getParameter("source");
+        if (source != null && source.equalsIgnoreCase("cms")) {
+            getRedirectStrategy().sendRedirect(request, response, "/");
+        } else {
+            User user = authService.getCurrentUser();
+            response.setContentType(JSON_TYPE);
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonInString = mapper.writeValueAsString(user);
+            response.getWriter().print(jsonInString);
+            response.getWriter().flush();
+            response.getWriter().close();
+        }
     }
 }

@@ -31,8 +31,8 @@
                         </div>
                     </td>
                     <td th:text="${request.eventDate}"></td>
-                    <td th:text="${request.startTime}"></td>
-                    <td th:text="${request.endTime}"></td>
+                    <td th:text="${request.start}"></td>
+                    <td th:text="${request.end}"></td>
                     <td>
                         <div th:text="${request.isApproved} == null ? 'Pending'"></div>
                         <div th:text="${request.isApproved} == true ? 'Approved'"></div>
