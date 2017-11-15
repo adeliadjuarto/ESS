@@ -8,6 +8,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ChatModule } from './chat/chat.module';
 import { RequestModule } from './request/request.module';
 import { StatusComponent } from './status/status.component';
+import { PayrollModule } from './payroll/payroll.module';
+import { CalendarModule } from './calendar/calendar.module';
 
 @NgModule({
   imports: [
@@ -15,7 +17,9 @@ import { StatusComponent } from './status/status.component';
     DashboardRoutingModule,
     MaterialModule,
     ChatModule,
-    RequestModule
+    RequestModule,
+    CalendarModule,
+    PayrollModule
   ],
   declarations: [
     DashboardComponent,

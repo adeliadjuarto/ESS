@@ -27,6 +27,9 @@
                     <div><input type="file" name="file" class="field-input" required/></div>
                     <div th:text="${fileErrMsg}" class="alert-danger"></div>
                 </td>
+                <td class="download-template">
+                    <a th:href="@{/provider/download-template}">Download Template</a>
+                </td>
             </tr>
         </table>
     </form>

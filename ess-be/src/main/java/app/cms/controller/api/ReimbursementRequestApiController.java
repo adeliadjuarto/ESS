@@ -2,8 +2,10 @@ package app.cms.controller.api;
 
 import app.cms.model.*;
 import app.cms.repository.*;
+import app.cms.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +24,8 @@ public class ReimbursementRequestApiController {
     @Value("${file-directory-path}")
     private String directoryPath;
     @Autowired
+    private AuthenticationService authService;
+    @Autowired
     private ReimbursementRequestRepository reimbursementRequestRepository;
     @Autowired
     private RequestTypeRepository requestTypeRepository;
@@ -31,10 +35,14 @@ public class ReimbursementRequestApiController {
     private ReimbursementRequestAttachmentRepository attachmentRepository;
 
     @RequestMapping(value = "/reimbursement-requests")
-    public Iterable<ReimbursementRequest> getRequest
-            (@RequestParam("requestTypeId") Long requestTypeId) throws Exception {
-        RequestType requestType = requestTypeRepository.findOne(requestTypeId);
-        return reimbursementRequestRepository.findByIsActiveAndRequestType(true, requestType);
+    public Iterable<ReimbursementRequest> getRequest() throws Exception {
+        User user = authService.getCurrentUser();
+        return reimbursementRequestRepository.findByUserAndIsActive(user, true);
+    }
+
+    @RequestMapping("/reimbursement-requests/{id}")
+    public ReimbursementRequest getRequestDetail(@PathVariable("id") String id) throws Exception {
+        return reimbursementRequestRepository.findOne(id);
     }
 
     @RequestMapping(value = "/reimbursement-requests", method = RequestMethod.POST)
@@ -43,11 +51,10 @@ public class ReimbursementRequestApiController {
                                 @RequestParam("eventDate") Long eventDate,
                                 @RequestParam("amount") Integer amount,
                                 @RequestParam("requestTypeId") Long requestTypeId,
-                                @RequestParam("userId") Long userId,
                                 @RequestParam("attachments[]") MultipartFile[] attachments)
             throws Exception {
+        User user = authService.getCurrentUser();
         RequestType requestType = requestTypeRepository.findOne(requestTypeId);
-        User user = userRepository.findOne(userId);
         ReimbursementRequest request
                 = new ReimbursementRequest(title, description, eventDate, amount, requestType, user);
         request = reimbursementRequestRepository.save(request);

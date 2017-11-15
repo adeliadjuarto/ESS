@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { AppState } from './../app.reducer';
 import { DashboardAction } from './shared/dashboard.action';
+import { UserAction } from './account/shared/user.action';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +18,7 @@ export class DashboardComponent implements OnInit {
   constructor(private store: Store<any>) {
 
     this.store.dispatch({ type: DashboardAction.INIT });
+    this.store.dispatch({ type: UserAction.CHANGE_USER, payload: '1'});
 
     this.store.select((state: AppState) => state.dashboardState)
         .subscribe((dashState) => {
