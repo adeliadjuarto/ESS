@@ -53,9 +53,7 @@ public class ChatService {
     }
 
     private Chat chatRequest() {
-
         String message = "Silahkan pilih tipe request yang ingin diajukan";
-
         List<String> buttons = Arrays.asList(
                 REQUEST_LEAVE,
                 REQUEST_OVERTIME,
@@ -101,4 +99,16 @@ public class ChatService {
         return new Chat(message);
     }
 
+    public Chat newChat() {
+        String message = "Selamat datang di chatbot HR. Tekan tombol di bawah untuk " +
+                         "mengajukan permintaan atau ketik pesan anda secara langsung" +
+                         " untuk dijawab langsung oleh bot HR";
+        List<String> buttons = Arrays.asList(
+                REQUEST,
+                STATUS,
+                EVENTS,
+                LEAVE_BALANCE
+        );
+        return new Chat(message, buttons);
+    }
 }

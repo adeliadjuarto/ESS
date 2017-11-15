@@ -23,4 +23,10 @@ public class ChatApiController {
     ) throws Exception {
         return chatService.chat(message);
     }
+
+    @RequestMapping("/chat/new")
+    public Chat getNewChat() throws Exception {
+        return chatService.newChat();
+    }
+
 }
