@@ -22,46 +22,48 @@ export class MessageService {
     }, this.initialMessage);
   }
 
-  sendMessage(message: string) {
-    this.addMessage('you', message);
-    this.chatService.parse(message).subscribe(data => this.botReply(data.intent.name));
+  sendMessage(chatMessage: string) {
+    let message: Message = new Message();
+    message.sender = 'you';
+    message.text = chatMessage;
+
+    this.addMessage(message);
+    this.chatService.parse(chatMessage).subscribe(data => this.botReply(data));
   }
 
-  private addMessage(sender: string, text: string, buttons?: any[]) {
-    let message: Message = new Message();
-    message.sender = sender;
-    message.text = text;
-    if (buttons) {
-      message.buttons = buttons
-    };
+  private addMessage(message: Message) {
     this.messages.next(message);
   }
 
-  private botReply(intent: string) {
-    let reply;
-    switch (intent) {
-      case INTENT.GREET:
-        reply = 'Hai juga';
-        break;
-      case INTENT.LEAVE_REQUEST:
-        reply = 'Oke, pesan sudah disampaikan';
-        break;
-      case INTENT.LEAVE_BALANCE_REQUEST:
-        reply = 'Sisa cuti anda tinggal x hari';
-        break;
-      case INTENT.AFFIRM:
-        reply = 'Oke';
-        break;
-      case INTENT.THANK:
-        reply = 'Sama-sama';
-        break;
-      default:
-        reply = 'Sorry I still don\'t understand';
-    }
+  private botReply(message: Message) {
+    // let reply;
+    // switch (intent) {
+    //   case INTENT.GREET:
+    //     reply = 'Hai juga';
+    //     break;
+    //   case INTENT.LEAVE_REQUEST:
+    //     reply = 'Oke, pesan sudah disampaikan';
+    //     break;
+    //   case INTENT.LEAVE_BALANCE_REQUEST:
+    //     reply = 'Sisa cuti anda tinggal x hari';
+    //     break;
+    //   case INTENT.AFFIRM:
+    //     reply = 'Oke';
+    //     break;
+    //   case INTENT.THANK:
+    //     reply = 'Sama-sama';
+    //     break;
+    //   default:
+    //     reply = 'Sorry I still don\'t understand';
+    // }
 
-    let buttons: any = [{title: 'Hey'}, {title: 'Ho'}]
+    // let buttons: any = [{title: 'Hey'}, {title: 'Ho'}]
 
-    setTimeout(() => this.addMessage('bot', reply, buttons), 1000);
+    setTimeout(() => this.addMessage(message), 1000);
+  }
+
+  newSession() {
+      this.chatService.newMessage().subscribe(data => this.addMessage(data));
   }
 
 }

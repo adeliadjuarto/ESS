@@ -2,7 +2,7 @@
     {{ message.text }}
 </div>
 <div class="buttons-container">
-    <div class="button" *ngFor="let button of message.buttons" (click)="addMessage(button.title)">
-        {{button.title}}
+    <div class="button" *ngFor="let button of message.buttons" (click)="addMessage(button)">
+        {{button}}
     </div>
 </div>

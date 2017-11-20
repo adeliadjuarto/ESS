@@ -8,14 +8,17 @@ export class ChatService extends DataService<String> {
 
   constructor(apiService: ApiService) {
     super(apiService);
-    super.setEndpoint('/parse', String);
+    super.setEndpoint('/chat', String);
   }
 
   parse(text: string) {
-    return this.apiService.get(this.endpoint, (request) => {request.setQuery({query: text})})
+    return this.apiService.get(this.endpoint, (request) => {request.setQuery({m: text})})
                    .map(response => response.content);
   }
 
-
+  newMessage() {
+    return this.apiService.get(`/chat/new`)
+                          .map(response => response.content);
+  }
 
 }

@@ -4,6 +4,7 @@ import app.cms.model.Chat;
 import app.cms.model.Document;
 import app.cms.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ public class ChatApiController {
     @Autowired
     private ChatService chatService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/chat")
     public Chat getChat(
             @RequestParam("m") String message
@@ -24,6 +26,7 @@ public class ChatApiController {
         return chatService.chat(message);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/chat/new")
     public Chat getNewChat() throws Exception {
         return chatService.newChat();

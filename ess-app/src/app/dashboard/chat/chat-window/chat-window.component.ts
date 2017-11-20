@@ -21,8 +21,8 @@ export class ChatWindowComponent implements OnInit {
   constructor(private messageService: MessageService,
               private el: ElementRef) {
     this.messages = this.messageService.messageList;
-
     this.messages.subscribe((data) => { setTimeout( () => this.scrollToBottom()); });
+    this.messageService.newSession();
   }
 
   ngOnInit() {
