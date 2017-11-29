@@ -19,11 +19,13 @@ public class Event extends BaseEntity {
     public Event (String googleEventId,
                   String title,
                   Long start, Long end,
+                  Boolean isAllDayEvent,
                   List<EventAttendee> eventAttendees) {
         this.googleEventId = googleEventId;
         this.title = title;
         this.start = start;
         this.end = end;
+        this.isAllDayEvent = isAllDayEvent;
         this.eventAttendees = eventAttendees;
         this.isActive = true;
     }
@@ -40,11 +42,13 @@ public class Event extends BaseEntity {
     @JoinColumn(name = "event_id")
     private List<EventAttendee> eventAttendees;
 
-    public Event update (String title, Long start, Long end, List<EventAttendee> eventAttendees) {
+    public Event update (String title, Long start, Long end,
+                         Boolean isAllDayEvent, List<EventAttendee> eventAttendees) {
         this.title = title;
         this.start = start;
         this.end = end;
         this.eventAttendees = eventAttendees;
+        this.isAllDayEvent = isAllDayEvent;
         return this;
     }
 }
