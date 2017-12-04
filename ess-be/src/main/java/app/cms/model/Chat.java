@@ -13,19 +13,19 @@ import java.util.List;
 @Setter
 public class Chat {
 
-    private String text;
+    private List<String> text;
     private String sender;
     private List<String> buttons = new ArrayList<>();
     private final static String BOT_IDENTIFIER = "bot";
 
     public Chat() {}
 
-    public Chat(String text) {
+    public Chat(List<String> text) {
         this.text = text;
         this.sender = BOT_IDENTIFIER;
     }
 
-    public Chat(String text, List<String> buttons) {
+    public Chat(List<String> text, List<String> buttons) {
         this.text = text;
         this.sender = BOT_IDENTIFIER;
         this.buttons = buttons;
