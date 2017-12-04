@@ -14,7 +14,7 @@ export class ChatWindowComponent implements OnInit {
 
   @ViewChild('textInput') textInput: ElementRef;
 
-  draftMessage: Message = new Message();
+  draftMessage: string;
 
   messages: Observable<Message[]> = new Observable<Message[]>();
 
@@ -30,7 +30,7 @@ export class ChatWindowComponent implements OnInit {
 
   addMessage(event) {
     this.textInput.nativeElement.value = '';
-    this.messageService.sendMessage(this.draftMessage.text);
+    this.messageService.sendMessage(this.draftMessage);
   }
 
   scrollToBottom(): void {

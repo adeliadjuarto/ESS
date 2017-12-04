@@ -1,5 +1,5 @@
 <div class="input">
-    <input type="text" #textInput (keydown.enter)="addMessage($event)" [(ngModel)]="draftMessage.text"/>
+    <input type="text" #textInput (keydown.enter)="addMessage($event)" [(ngModel)]="draftMessage"/>
     <i class="material-icons" (click)="addMessage(textInput.value)">send</i>
 </div>
 
