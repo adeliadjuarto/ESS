@@ -1,6 +1,5 @@
 .message {
-    word-wrap: break-word;
-    word-break: break-all;
+    white-space: pre-wrap;
     padding: 2px;
 	background-color: lightyellow;
     line-height: 1.5em;

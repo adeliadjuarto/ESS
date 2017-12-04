@@ -1,6 +1,6 @@
 export class Message {
 
-    public text: string;
+    public text: string[];
     public sender: string;
     public buttons: any[];
 

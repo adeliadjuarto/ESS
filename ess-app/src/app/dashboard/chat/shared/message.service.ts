@@ -25,7 +25,7 @@ export class MessageService {
   sendMessage(chatMessage: string) {
     let message: Message = new Message();
     message.sender = 'you';
-    message.text = chatMessage;
+    message.text = [chatMessage];
 
     this.addMessage(message);
     this.chatService.parse(chatMessage).subscribe(data => this.botReply(data));
