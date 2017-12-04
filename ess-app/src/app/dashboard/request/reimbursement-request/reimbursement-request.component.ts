@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { values, mapKeys } from 'lodash';
 import { Store } from '@ngrx/store';
 
+import { AppState } from './../../../app.reducer';
 import { REIMBURSEMENT_TYPES } from './../../../core/constant';
 import { DashboardAction } from './../../shared/dashboard.action';
 import { ReimbursementRequestService } from './shared/reimbursement-request.service';
@@ -23,7 +24,7 @@ export class ReimbursementRequestComponent implements OnInit {
   eventDate: Date;
   amount: number;
   requestTypeId: number;
-  userId: number;
+  userId: string;
   requestAttachments: File[];
 
   constructor(private store: Store<any>,
@@ -31,7 +32,10 @@ export class ReimbursementRequestComponent implements OnInit {
     this.store.dispatch({
       type: DashboardAction.CHANGE_TITLE,
       payload: 'Reimbursement'
-    })
+    });
+    this.store.select((state: AppState) => state.userState).subscribe((state) => {
+      this.userId = state.id;
+    });
   }
 
   ngOnInit() {
@@ -50,9 +54,9 @@ export class ReimbursementRequestComponent implements OnInit {
         eventDate: eventDate,
         amount: this.amount,
         requestTypeId: 1,
-        userId: '1',
+        userId: this.userId,
         'attachments[]': this.requestAttachments
-      };
+    };
 
       let request = new FormData();
 

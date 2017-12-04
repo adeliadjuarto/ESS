@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { values, mapKeys } from 'lodash';
 
+import { AppState } from './../../../app.reducer';
 import { TimeFormatter } from './../shared/time-formatter';
 import { FormRequest, Leave } from './../shared/request.interface';
 import { LEAVE_TYPES } from './../../../core/constant';
@@ -25,6 +26,7 @@ export class LeaveRequestComponent implements OnInit {
   dateFor: Date;
   dateTo: Date;
   requestAttachments: File[];
+  userId: string;
 
   sliderValue: any = [0, 0];
   sliderConfig = {
@@ -43,7 +45,11 @@ export class LeaveRequestComponent implements OnInit {
     this.store.dispatch({
       type: DashboardAction.CHANGE_TITLE,
       payload: 'Leave'
-    })
+    });
+
+    this.store.select((state: AppState) => state.userState).subscribe((state) => {
+      this.userId = state.id;
+    });
   }
 
   ngOnInit() {
@@ -92,7 +98,7 @@ export class LeaveRequestComponent implements OnInit {
         start: start,
         end: end,
         requestTypeId: 1,
-        userId: '1',
+        userId: this.userId,
         'attachments[]': this.requestAttachments
       };
 
