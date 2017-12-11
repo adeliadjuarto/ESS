@@ -34,17 +34,20 @@ public class LeaveRequestApiController {
     @Autowired
     private LeaveRequestAttachmentRepository attachmentRepository;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/leave-requests")
     public Iterable<LeaveRequest> getRequest() throws Exception {
         User user = authService.getCurrentUser();
         return leaveRequestRepository.findByUserAndIsActive(user, true);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/leave-requests/{id}")
     public LeaveRequest getRequestDetail(@PathVariable("id") String id) throws Exception {
         return leaveRequestRepository.findOne(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/leave-requests", method = RequestMethod.POST)
     public String createRequest(@RequestParam("title") String title,
                                 @RequestParam("description") String description,
@@ -67,6 +70,7 @@ public class LeaveRequestApiController {
         return "Leave request successfully created!";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/leave-requests/{id}", method = RequestMethod.DELETE)
     public String deleteRequest(@PathVariable("id") String id) throws Exception {
         List<LeaveRequestAttachment> attachments = attachmentRepository.findByRequestId(id);
@@ -80,6 +84,7 @@ public class LeaveRequestApiController {
         return "Leave request successfully deleted!";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/leave-requests/{id}/reject", method = RequestMethod.POST)
     public String rejectRequest(@PathVariable("id") String id,
                                 @RequestParam("notes") String notes) throws Exception {
@@ -90,6 +95,7 @@ public class LeaveRequestApiController {
         return "You have rejected this request";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/leave-requests/{id}/approve")
     public String approveRequest(@PathVariable("id") String id) throws Exception {
         LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);

@@ -16,11 +16,13 @@ public class EventApiController {
     @Autowired
     private EventService eventService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/events")
     public Iterable<Event> events() throws Exception {
         return eventService.getEvents();
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/events", method = RequestMethod.POST)
     public String saveEvent(@RequestParam("isAllDayEvent") Boolean isAllDayEvent,
                             @RequestParam("start") Long start,
@@ -31,6 +33,7 @@ public class EventApiController {
         return "Event successfully added to calendar!";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/events/{id}", method = RequestMethod.POST)
     public String updateEvent(@PathVariable("id") Long id,
                               @RequestParam("isAllDayEvent") Boolean isAllDayEvent,
@@ -42,6 +45,7 @@ public class EventApiController {
         return "Event successfully edited!";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/events/{id}", method = RequestMethod.DELETE)
     public String deleteEvent(@PathVariable("id") Long id) throws Exception {
         eventService.deleteEvent(id);

@@ -73,7 +73,7 @@ export class HttpRequest implements Request {
 
   private build(): AngularRequest {
     this.options.responseType = ResponseContentType.ArrayBuffer;
-    // this.options.withCredentials = true;
+    this.options.withCredentials = true;
     return new AngularRequest(this.options);
   }
 

@@ -1,0 +1,11 @@
+<div class="input">
+    <input type="text" #textInput (keydown.enter)="addMessage($event)" [(ngModel)]="draftMessage"/>
+    <i class="material-icons" (click)="addMessage(textInput.value)">send</i>
+</div>
+
+<div class="message-list" id="message-div">
+    <div [ngClass]="{'message': true, 'align-right': message.sender==='you' } " *ngFor="let message of messages | async">
+        <app-chat-card [message]="message">
+        </app-chat-card>
+    </div>
+</div>

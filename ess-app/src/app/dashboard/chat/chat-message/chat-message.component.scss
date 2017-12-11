@@ -1,0 +1,29 @@
+.message {
+    white-space: pre-wrap;
+    padding: 2px;
+	background-color: lightyellow;
+    line-height: 1.5em;
+    border: 1px solid black;
+    display: block;
+}
+
+.buttons-container {
+    align-items: center;
+}
+
+.button {
+    position: relative;
+    height: 44px;
+    background-color: lightblue;
+    text-align: center;
+    vertical-align: middle;
+    min-width: 100px;
+    line-height: 44px;
+}
+
+.bot {
+    min-width: 100px;
+}
+
+.you {
+}
