@@ -18,9 +18,8 @@ export class PayrollService extends DataService<Payroll> {
     super.setEndpoint(ENDPOINT.PAYROLL, Payroll);
   };
 
-  fetchPayrolls() {
+  fetchPayroll() {
     this.fetchCurrentPayroll().subscribe(this.fetchCurrentPayrollSuccess.bind(this));
-
     this.fetchLatestPayroll().subscribe(this.fetchLatestPayrollSuccess.bind(this));
   }
 
@@ -48,6 +47,12 @@ export class PayrollService extends DataService<Payroll> {
       type: PayrollAction.FETCH_PAYROLL_SUCCESS,
       payload: result
     })
+  }
+
+  fetchDocumentDownload(id: string) {
+    let endpoint = `${this.endpoint}/${id}/download`;
+
+    return this.apiService.get(endpoint).map(response => response.to(ResponseType.Json));
   }
 
 }
