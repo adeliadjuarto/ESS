@@ -54,7 +54,7 @@ public class PayrollApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping("/payrolls/{id}/download")
+    @RequestMapping("/payroll/{id}/download")
     public HttpServletResponse downloadPayroll(@PathVariable("id") Long id,
                                                 HttpServletResponse response) throws Exception {
         Payroll document = payrollRepository.findOne(id);
