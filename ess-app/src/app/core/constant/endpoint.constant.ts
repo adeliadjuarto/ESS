@@ -4,7 +4,7 @@ export const ENDPOINT = {
     LOGOUT: '/logout',
     USER: '/user',
     CHANGE_PASSWORD: '/change-password',
-    PAYROLL: '/payrolls',
+    PAYROLL: '/payroll',
     CALENDAR: '/events',
 
     REQUEST_TYPES: '/request-types',
@@ -12,5 +12,10 @@ export const ENDPOINT = {
         LEAVE: '/leave-requests',
         REIMBURSEMENT: '/reimbursement-requests',
         OVERTIME: '/overtime-requests'
+    },
+
+    SUFFIX: {
+        CURRENT: '/current',
+        LATEST: '/latest'
     }
 };

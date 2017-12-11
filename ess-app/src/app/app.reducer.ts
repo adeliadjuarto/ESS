@@ -5,12 +5,14 @@ import { environment } from '../environments/environment';
 
 import * as fromLogin from './login/shared/login.reducer';
 import * as fromDashboard from './dashboard/shared/dashboard.reducer';
+import * as fromPayroll from './dashboard/payroll/shared/payroll.reducer';
 import * as fromStatus from './dashboard/status/shared/status.reducer';
 import * as fromUser from './dashboard/account/shared/user.reducer';
 
 export interface AppState {
     loginState: fromLogin.LoginState;
     dashboardState: fromDashboard.DashboardState;
+    payrollState: fromPayroll.PayrollState;
     statusState: fromStatus.StatusState;
     userState: fromUser.UserState;
 }
@@ -18,6 +20,7 @@ export interface AppState {
 const reducers = {
     loginState: fromLogin.reducer,
     dashboardState: fromDashboard.reducer,
+    payrollState: fromPayroll.reducer,
     statusState: fromStatus.reducer,
     userState: fromUser.reducer
 };

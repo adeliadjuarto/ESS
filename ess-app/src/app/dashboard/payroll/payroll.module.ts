@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PayrollComponent } from './payroll.component';
+import { PayrollService } from './shared/payroll.service';
 import { UIModule } from './../../shared/user-interface.module';
 
 @NgModule({
@@ -11,6 +12,9 @@ import { UIModule } from './../../shared/user-interface.module';
   ],
   declarations: [
     PayrollComponent
+  ],
+  providers: [
+    PayrollService
   ]
 })
 export class PayrollModule { }
