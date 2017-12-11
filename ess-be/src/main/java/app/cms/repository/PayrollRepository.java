@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface PayrollRepository extends JpaRepository<Payroll, Long> {
     public Payroll findByUserIdAndMonth(Long userId, Integer month);
+
+    public Payroll findFirstByUserIdAndPayrollStatusOrderByMonthDesc(Long userId, String payrollStatus);
 }

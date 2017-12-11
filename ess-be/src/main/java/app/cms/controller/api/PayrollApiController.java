@@ -36,7 +36,7 @@ public class PayrollApiController {
     private PayrollRepository payrollRepository;
     private static final String APPLICATION_PDF = "application/pdf";
 
-    @RequestMapping("/payrolls/current")
+    @RequestMapping("/payroll/current")
     public Payroll getCurrentPayroll() throws Exception {
         Long userId = authService.getCurrentUser().getId();
         Date date= new Date();
@@ -46,7 +46,14 @@ public class PayrollApiController {
         return payrollRepository.findByUserIdAndMonth(userId, month);
     }
 
-    @RequestMapping("/payrolls/{id}/download")
+    @RequestMapping("/payroll/latest")
+    public Payroll getLatestPayroll() throws Exception {
+        Long userId = authService.getCurrentUser().getId();
+        String payrollStatus = "processed";
+        return payrollRepository.findFirstByUserIdAndPayrollStatusOrderByMonthDesc(userId, payrollStatus);
+    }
+
+    @RequestMapping("/payroll/{id}/download")
     public HttpServletResponse downloadPayroll(@PathVariable("id") Long id,
                                                 HttpServletResponse response) throws Exception {
         Payroll document = payrollRepository.findOne(id);
