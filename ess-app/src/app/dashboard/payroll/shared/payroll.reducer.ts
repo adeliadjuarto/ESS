@@ -9,8 +9,18 @@ export interface PayrollState {
 }
 
 export const initialState: PayrollState = {
-    latestPayroll: null,
-    currentPayroll: null
+    latestPayroll: {
+        id: '',
+        monthName: '',
+        payrollFile: null,
+        payrollStatus: ''
+    },
+    currentPayroll: {
+        id: '',
+        monthName: '',
+        payrollFile: null,
+        payrollStatus: ''
+    }
 };
 
 export function reducer(state: PayrollState = initialState, action: Action) {
@@ -25,10 +35,8 @@ export function reducer(state: PayrollState = initialState, action: Action) {
             latestPayroll: state.latestPayroll,
             currentPayroll: action.payload
         })
-
     default:
         return state;
-
   }
 
 }
