@@ -1,8 +1,8 @@
 
 export class Payroll {
 
-    public status: string;
-    public lastPayroll: string;
+    public payrollStatus: string;
+    public monthName: string;
     public payrollFile: File;
 
     constructor() {
