@@ -9,10 +9,7 @@ import app.cms.repository.ProviderTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by adeliadjuarto on 7/13/17.
@@ -26,6 +23,7 @@ public class ProviderApiController {
     @Autowired
     private InsuranceTypeRepository insuranceTypeRepository;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/providers")
     public Page<Provider>
     searchProviders(
@@ -56,11 +54,13 @@ public class ProviderApiController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/providers/{id}")
     public Provider findProvider(@PathVariable("id") Long id) throws Exception {
         return providerRepository.findOne(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/provider-cities")
     public Iterable<String> findProviderCities() throws Exception {
         return providerRepository.getCityLists();

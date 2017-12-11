@@ -8,10 +8,7 @@ import app.cms.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -36,6 +33,8 @@ public class PayrollApiController {
     private PayrollRepository payrollRepository;
     private static final String APPLICATION_PDF = "application/pdf";
 
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/payroll/current")
     public Payroll getCurrentPayroll() throws Exception {
         Long userId = authService.getCurrentUser().getId();
@@ -46,6 +45,7 @@ public class PayrollApiController {
         return payrollRepository.findByUserIdAndMonth(userId, month);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/payroll/latest")
     public Payroll getLatestPayroll() throws Exception {
         Long userId = authService.getCurrentUser().getId();
@@ -53,7 +53,8 @@ public class PayrollApiController {
         return payrollRepository.findFirstByUserIdAndPayrollStatusOrderByMonthDesc(userId, payrollStatus);
     }
 
-    @RequestMapping("/payroll/{id}/download")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping("/payrolls/{id}/download")
     public HttpServletResponse downloadPayroll(@PathVariable("id") Long id,
                                                 HttpServletResponse response) throws Exception {
         Payroll document = payrollRepository.findOne(id);
@@ -67,6 +68,7 @@ public class PayrollApiController {
         return response;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("payroll/generate")
     public String generateEmptyPayroll() {
         Date date= new Date();
