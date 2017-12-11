@@ -7,7 +7,7 @@ import { MenuComponent } from './menu/menu.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ChatModule } from './chat/chat.module';
 import { RequestModule } from './request/request.module';
-import { StatusComponent } from './status/status.component';
+import { StatusModule } from './status/status.module';
 import { PayrollModule } from './payroll/payroll.module';
 import { CalendarModule } from './calendar/calendar.module';
 
@@ -19,12 +19,12 @@ import { CalendarModule } from './calendar/calendar.module';
     ChatModule,
     RequestModule,
     CalendarModule,
-    PayrollModule
+    PayrollModule,
+    StatusModule
   ],
   declarations: [
     DashboardComponent,
     MenuComponent,
-    StatusComponent,
   ]
 })
 export class DashboardModule { }
