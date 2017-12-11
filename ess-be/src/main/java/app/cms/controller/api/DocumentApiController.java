@@ -5,10 +5,7 @@ import app.cms.repository.DocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -26,6 +23,7 @@ public class DocumentApiController {
     private DocumentRepository documentRepository;
     private static final String APPLICATION_PDF = "application/pdf";
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/documents")
     public Iterable<Document> getDocuments(
             @RequestParam("category") String category,
@@ -36,11 +34,13 @@ public class DocumentApiController {
                 .findByCategoryAndYearAndTitleContainingAndIsActive(category, year, title,true);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/documents/{id}")
     public Document findDocument(@PathVariable("id") Long id) throws Exception {
         return documentRepository.findOne(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/documents/{id}/download")
     public HttpServletResponse downloadDocument(@PathVariable("id") Long id,
                                                 HttpServletResponse response) throws Exception {
@@ -55,6 +55,7 @@ public class DocumentApiController {
         return response;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/document-years")
     public Iterable<String> getDocumentYears() throws Exception {
         return documentRepository.getAllDocumentYear();

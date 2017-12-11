@@ -36,23 +36,26 @@ public class OvertimeRequestApiController {
     @Autowired
     private OvertimeRequestAttachmentRepository attachmentRepository;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/overtime-requests")
     public Iterable<OvertimeRequest> getRequest() throws Exception {
         User user = authService.getCurrentUser();
         return overtimeRequestRepository.findByUserAndIsActive(user, true);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/overtime-requests/{id}")
     public OvertimeRequest getRequestDetail(@PathVariable("id") String id) throws Exception {
         return overtimeRequestRepository.findOne(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/overtime-requests", method = RequestMethod.POST)
     public String createRequest(@RequestParam("title") String title,
                                 @RequestParam("description") String description,
                                 @RequestParam("eventDate") Long eventDate,
                                 @RequestParam("startTime") Long startTime,
-                                @RequestParam("endTime") Long endTime,
+                                @RequestParam("end") Long endTime,
                                 @RequestParam("attachments[]") MultipartFile[] attachments)
             throws Exception {
         User user = authService.getCurrentUser();
@@ -68,6 +71,7 @@ public class OvertimeRequestApiController {
         return "Overtime request successfully created!";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/overtime-requests/{id}", method = RequestMethod.DELETE)
     public String deleteRequest(@PathVariable("id") String id) throws Exception {
         List<OvertimeRequestAttachment> attachments = attachmentRepository.findByRequestId(id);
@@ -81,6 +85,7 @@ public class OvertimeRequestApiController {
         return "Overtime request successfully deleted!";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/overtime-requests/{id}/reject", method = RequestMethod.POST)
     public String rejectRequest(@PathVariable("id") String id,
                                 @RequestParam("notes") String notes) throws Exception {
@@ -91,6 +96,7 @@ public class OvertimeRequestApiController {
         return "You have rejected this request";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/overtime-requests/{id}/approve")
     public String approveRequest(@PathVariable("id") String id) throws Exception {
         OvertimeRequest request = overtimeRequestRepository.findOne(id);
