@@ -1,3 +1,4 @@
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -37,6 +38,7 @@ import { reducer } from './app.reducer';
   ],
   providers: [
     InjectionService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: MATERIAL_COMPATIBILITY_MODE, useValue: true }
   ],
   bootstrap: [AppComponent]
