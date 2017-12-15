@@ -53,7 +53,7 @@ public class PayrollController {
     public String changePayrollStatus(@PathVariable(value = "id") Long id) throws Exception {
         Payroll payroll = payrollRepository.findOne(id);
         if (payroll.getPayrollStatus().equals("pending")) {
-            payroll.setPayrollStatus("processing");
+            payroll.setPayrollStatus("in process");
         } else {
             payroll.setPayrollStatus("pending");
         }
