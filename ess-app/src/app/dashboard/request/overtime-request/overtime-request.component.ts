@@ -71,16 +71,10 @@ export class OvertimeRequestComponent implements OnInit {
         eventDate: eventDate,
         startTime: startTime,
         endTime: endTime,
-        requestTypeId: 1,
-        userId: '1',
         'attachments[]': this.requestAttachment
       };
 
-      let request = new FormData();
-
-      mapKeys(formRequest, (value, key) => request.append(key, value));
-
-      this.requestService.create(request);
+      this.requestService.createRequest(formRequest);
     } else {
       console.log('nay');
     }
