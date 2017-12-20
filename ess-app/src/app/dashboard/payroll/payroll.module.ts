@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PayrollComponent } from './payroll.component';
 import { PayrollService } from './shared/payroll.service';
 import { UIModule } from './../../shared/user-interface.module';
+import { PayrollViewerComponent } from './payroll-viewer/payroll-viewer.component';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { UIModule } from './../../shared/user-interface.module';
     UIModule
   ],
   declarations: [
-    PayrollComponent
+    PayrollComponent,
+    PayrollViewerComponent
   ],
   providers: [
     PayrollService

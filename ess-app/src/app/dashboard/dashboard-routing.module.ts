@@ -11,6 +11,7 @@ import { ChatComponent } from './chat/chat.component';
 import { RequestComponent } from './request/request.component';
 import { StatusComponent } from './status/status.component';
 import { PayrollComponent } from './payroll/payroll.component';
+import { PayrollViewerComponent } from './payroll/payroll-viewer/payroll-viewer.component';
 import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
@@ -49,7 +50,16 @@ const routes: Routes = [
         data: {
           title: 'Payroll'
         },
-        component: PayrollComponent
+        children: [
+          {
+            path: PATH.EMPTY,
+            component: PayrollComponent
+          },
+          {
+            path: PATH.PARAM.ID,
+            component: PayrollViewerComponent
+          }
+        ]
       },
       {
         path: PATH.CALENDAR,
