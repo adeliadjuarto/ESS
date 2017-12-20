@@ -1,0 +1,9 @@
+{
+  "short_name": "ESS",
+  "name": "Employee Self Service",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#005da7",
+  "theme_color": "#005da7"
+}
