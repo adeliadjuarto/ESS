@@ -55,7 +55,7 @@ public class OvertimeRequestApiController {
                                 @RequestParam("description") String description,
                                 @RequestParam("eventDate") Long eventDate,
                                 @RequestParam("startTime") Long startTime,
-                                @RequestParam("end") Long endTime,
+                                @RequestParam("endTime") Long endTime,
                                 @RequestParam("attachments[]") MultipartFile[] attachments)
             throws Exception {
         User user = authService.getCurrentUser();
