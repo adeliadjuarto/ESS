@@ -5,6 +5,10 @@ export const PATH = {
         PREFIX: 'prefix'
     },
 
+    PARAM: {
+        ID: ':id'
+    },
+
     ROOT: '/',
     EMPTY: '',
 
