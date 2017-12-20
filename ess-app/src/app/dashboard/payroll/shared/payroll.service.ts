@@ -49,10 +49,6 @@ export class PayrollService extends DataService<Payroll> {
     })
   }
 
-  fetchDocumentDownload(id: string) {
-    let endpoint = `${this.endpoint}/${id}/download`;
 
-    return this.apiService.get(endpoint).map(response => response.to(ResponseType.Json));
-  }
 
 }
