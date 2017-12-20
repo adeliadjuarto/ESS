@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
@@ -21,6 +22,8 @@ export class PayrollComponent implements OnInit {
   private dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
 
   constructor(private store: Store<any>,
+              private router: Router,
+              private route: ActivatedRoute,
               private service: PayrollService) {
     this.service.fetchPayroll();
     this.store.dispatch({
@@ -32,14 +35,16 @@ export class PayrollComponent implements OnInit {
         this.latestPayroll = payrollState.latestPayroll;
         this.currentPayroll = payrollState.currentPayroll;
       }
-      if (this.latestPayroll.id) {
-        this.service.fetchDocumentDownload(this.latestPayroll.id);
-      }
     })
     this.currentDate = new Date().toLocaleDateString('en-GB', this.dateOptions);
   }
 
   ngOnInit() {
+  }
+
+  redirectToPayrollSlip() {
+    console.log(this.route);
+    this.router.navigate([this.latestPayroll.id], { relativeTo: this.route });
   }
 
 }
