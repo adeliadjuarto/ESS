@@ -24,6 +24,7 @@ public class RequestSession extends BaseEntity {
         this.type = type;
         this.user = user;
         this.data = "{}";
+        this.isActive = true;
     }
 
     @Id

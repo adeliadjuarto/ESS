@@ -173,6 +173,7 @@ public class ChatService {
         if (requestSession == null) {
             requestSession = new RequestSession(user, type);
             message = "Request session created";
+            isValid = false;
         } else {
             if (!chatState.getIsInitiation()) {
                 requestSession.addData(chatState.getField(), input);
@@ -233,6 +234,7 @@ public class ChatService {
         if (requestSession == null) {
             requestSession = new RequestSession(user, type);
             message = "Request session created";
+            isValid = false;
         } else {
             if (!chatState.getIsInitiation()) {
                 requestSession.addData(chatState.getField(), input);
@@ -290,6 +292,7 @@ public class ChatService {
         if (requestSession == null) {
             requestSession = new RequestSession(user, type);
             message = "Request session created";
+            isValid = false;
         } else {
             if (!chatState.getIsInitiation()) {
                 requestSession.addData(chatState.getField(), input);
