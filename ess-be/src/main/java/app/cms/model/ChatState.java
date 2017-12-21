@@ -15,4 +15,5 @@ public class ChatState {
     private String state;
     private String field;
     private Boolean isInitiation;
+    private String requestId;
 }

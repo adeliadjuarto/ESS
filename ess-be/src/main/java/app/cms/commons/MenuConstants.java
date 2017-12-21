@@ -30,7 +30,7 @@ public class MenuConstants {
     public static final List<String> LEAVE_REQUEST_FIELDS =
             Arrays.asList("judul", "keterangan", "tanggal mulai", "tanggal selesai", "jenis pengajuan cuti");
     public static final List<String> OVERTIME_REQUEST_FIELDS =
-            Arrays.asList("judul", "keterangan", "tanggal", "jam mulai", "jam selesai", "jenis pengajuan lembur");
+            Arrays.asList("judul", "keterangan", "tanggal", "jam mulai", "jam selesai");
     public static final List<String> REIMBURSEMENT_REQUEST_FIELDS =
             Arrays.asList("judul", "keterangan", "tanggal", "jumlah", "jenis pengajuan reimbursement");
 

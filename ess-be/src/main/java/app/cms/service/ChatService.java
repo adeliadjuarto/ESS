@@ -5,14 +5,19 @@ import app.cms.controller.api.OvertimeRequestApiController;
 import app.cms.controller.api.PayrollApiController;
 import app.cms.controller.api.ReimbursementRequestApiController;
 import app.cms.model.*;
-import app.cms.repository.LeaveRequestRepository;
-import app.cms.repository.RequestSessionRepository;
-import app.cms.repository.RequestTypeRepository;
+import app.cms.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static app.cms.commons.MenuConstants.*;
 import static org.springframework.util.StringUtils.isEmpty;
@@ -23,30 +28,34 @@ import static org.springframework.util.StringUtils.isEmpty;
 @Service
 public class ChatService {
 
+    @Value("${file-directory-path}")
+    private String directoryPath;
     @Autowired
     private AuthenticationService authService;
-
     @Autowired
     private PayrollApiController payrollApiController;
-
     @Autowired
     private LeaveRequestApiController leaveRequestApiController;
-
     @Autowired
     private OvertimeRequestApiController overtimeRequestApiController;
-
     @Autowired
     private ReimbursementRequestApiController reimbursementRequestApiController;
-
     @Autowired
     private RequestTypeRepository requestTypeRepository;
-
     @Autowired
     private LeaveRequestRepository leaveRequestRepository;
-
+    @Autowired
+    private OvertimeRequestRepository overtimeRequestRepository;
+    @Autowired
+    private ReimbursementRequestRepository reimbursementRequestRepository;
+    @Autowired
+    private LeaveRequestAttachmentRepository leaveRequestAttachmentRepository;
+    @Autowired
+    private OvertimeRequestAttachmentRepository overtimeRequestAttachmentRepository;
+    @Autowired
+    private ReimbursementRequestAttachmentRepository reimbursementRequestAttachmentRepository;
     @Autowired
     private RequestSessionRepository requestSessionRepository;
-
     @Autowired
     private ChatState chatState;
 
@@ -66,9 +75,9 @@ public class ChatService {
             case REQUEST_LEAVE:
                 return chatRequestLeave(message);
             case REQUEST_OVERTIME:
-                return chatRequestOvertime();
+                return chatRequestOvertime(message);
             case REQUEST_REIMBURSEMENT:
-                return chatRequestReimbursement();
+                return chatRequestReimbursement(message);
             case EVENTS:
                 return chatEvents();
             case LEAVE_BALANCE:
@@ -154,7 +163,7 @@ public class ChatService {
             chatState.setIsInitiation(false);
         }
         Boolean isValid = true;
-        String message = "Data lengkap, pengajuan sudah dibuat!";
+        String message = "Tolong lampirkan dokumen";
         String type = "leave";
         List<String> neededFields = LEAVE_REQUEST_FIELDS;
 
@@ -193,9 +202,10 @@ public class ChatService {
             );
             LeaveRequest leaveRequest = new LeaveRequest(
                     title, description, start, end, requestType, user);
-            leaveRequestRepository.save(leaveRequest);
+            leaveRequest = leaveRequestRepository.save(leaveRequest);
             requestSessionRepository.delete(requestSession);
-            resetChatState();
+            chatState.setRequestId(leaveRequest.getId());
+            chatState.setField("dokumen");
         }
 
         List<String> messages = Arrays.asList(message);
@@ -206,12 +216,120 @@ public class ChatService {
         return new Chat(messages, buttons);
     }
 
-    private Chat chatRequestOvertime() {
-        return new Chat();
+    private Chat chatRequestOvertime(String input) {
+        if (!chatState.getState().equals(REQUEST_OVERTIME)) {
+            chatState.setIsInitiation(true);
+        } else {
+            chatState.setIsInitiation(false);
+        }
+        Boolean isValid = true;
+        String message = "Tolong lampirkan dokumen";
+        String type = "overtime";
+        List<String> neededFields = OVERTIME_REQUEST_FIELDS;
+
+        User user = authService.getCurrentUser();
+        RequestSession requestSession = requestSessionRepository
+                .findFirstByUserAndType(user, type);
+        if (requestSession == null) {
+            requestSession = new RequestSession(user, type);
+            message = "Request session created";
+        } else {
+            if (!chatState.getIsInitiation()) {
+                requestSession.addData(chatState.getField(), input);
+            }
+            for (String field : neededFields) {
+                String value = requestSession.getValue(field);
+                if (isEmpty(value)) {
+                    message = "Tolong masukkan " + field;
+                    isValid = false;
+                    chatState.setField(field);
+                    break;
+                }
+            }
+        }
+
+        requestSessionRepository.save(requestSession);
+
+        if (isValid) {
+            //save data to repository & delete this request session
+            String title = requestSession.getValue("judul");
+            String description = requestSession.getValue("keterangan");
+            Long eventDate = Long.parseLong(requestSession.getValue("tanggal"));
+            Long start = Long.parseLong(requestSession.getValue("jam mulai"));
+            Long end = Long.parseLong(requestSession.getValue("jam selesai"));
+
+            OvertimeRequest overtimeRequest = new OvertimeRequest(
+                    title, description, eventDate, start, end, user);
+            overtimeRequestRepository.save(overtimeRequest);
+            requestSessionRepository.delete(requestSession);
+            chatState.setRequestId(overtimeRequest.getId());
+            chatState.setField("dokumen");
+        }
+
+        List<String> messages = Arrays.asList(message);
+        List<String> buttons = Arrays.asList(HOME);
+
+        chatState.setState(REQUEST_OVERTIME);
+        return new Chat(messages, buttons);
     }
 
-    private Chat chatRequestReimbursement() {
-        return new Chat();
+    private Chat chatRequestReimbursement(String input) {
+        if (!chatState.getState().equals(REQUEST_REIMBURSEMENT)) {
+            chatState.setIsInitiation(true);
+        } else {
+            chatState.setIsInitiation(false);
+        }
+        Boolean isValid = true;
+        String message = "Tolong lampirkan dokumen";
+        String type = "reimbursement";
+        List<String> neededFields = REIMBURSEMENT_REQUEST_FIELDS;
+
+        User user = authService.getCurrentUser();
+        RequestSession requestSession = requestSessionRepository
+                .findFirstByUserAndType(user, type);
+        if (requestSession == null) {
+            requestSession = new RequestSession(user, type);
+            message = "Request session created";
+        } else {
+            if (!chatState.getIsInitiation()) {
+                requestSession.addData(chatState.getField(), input);
+            }
+            for (String field : neededFields) {
+                String value = requestSession.getValue(field);
+                if (isEmpty(value)) {
+                    message = "Tolong masukkan " + field;
+                    isValid = false;
+                    chatState.setField(field);
+                    break;
+                }
+            }
+        }
+
+        requestSessionRepository.save(requestSession);
+
+        if (isValid) {
+            //save data to repository & delete this request session
+            String title = requestSession.getValue("judul");
+            String description = requestSession.getValue("keterangan");
+            Long eventDate = Long.parseLong(requestSession.getValue("tanggal"));
+            Long amount = Long.parseLong(requestSession.getValue("jumlah"));
+
+            RequestType requestType = requestTypeRepository.findOne(
+                    Long.parseLong(requestSession.getValue("jenis pengajuan reimbursement"))
+            );
+            ReimbursementRequest reimbursementRequest = new ReimbursementRequest(
+                    title, description, eventDate, amount, requestType, user);
+            reimbursementRequestRepository.save(reimbursementRequest);
+            requestSessionRepository.delete(requestSession);
+            chatState.setRequestId(reimbursementRequest.getId());
+            chatState.setField("dokumen");
+        }
+
+        List<String> messages = Arrays.asList(message);
+        List<String> buttons = Arrays.asList(HOME);
+
+        chatState.setState(REQUEST_REIMBURSEMENT);
+        return new Chat(messages, buttons);
     }
 
     private Chat chatEvents() {
@@ -255,9 +373,66 @@ public class ChatService {
         return new Chat(messages, buttons);
     }
 
+    public Chat saveAttachment(MultipartFile file) {
+        String message = "Dokumen berhasil ditambahkan";
+        String successMessage = "Data lengkap, pengajuan sudah dibuat!";
+        String requestId = chatState.getRequestId();
+
+        if (chatState.getState().equals(REQUEST_LEAVE)) {
+            uploadLeaveRequestAttachment(file, requestId);
+        } else if (chatState.getState().equals(REQUEST_OVERTIME)) {
+            uploadOvertimeRequestAttachment(file, requestId);
+        } else if (chatState.getState().equals(REQUEST_REIMBURSEMENT)) {
+            uploadReimbursementRequestAttachment(file, requestId);
+        }
+
+        List<String> messages = Arrays.asList(message, successMessage);
+        List<String> buttons = Arrays.asList(HOME);
+        resetChatState();
+        return new Chat(messages, buttons);
+    }
+
+    private void uploadReimbursementRequestAttachment(MultipartFile file, String requestId) {
+        ReimbursementRequest request = reimbursementRequestRepository.findOne(requestId);
+        String pathName = saveFileToDirectory(file);
+        ReimbursementRequestAttachment a = new ReimbursementRequestAttachment(request.getId(), pathName);
+        reimbursementRequestAttachmentRepository.save(a);
+    }
+
+    private void uploadOvertimeRequestAttachment(MultipartFile file, String requestId) {
+        OvertimeRequest request = overtimeRequestRepository.findOne(requestId);
+        String pathName = saveFileToDirectory(file);
+        OvertimeRequestAttachment a = new OvertimeRequestAttachment(request.getId(), pathName);
+        overtimeRequestAttachmentRepository.save(a);
+    }
+
+    private void uploadLeaveRequestAttachment(MultipartFile file, String requestId) {
+        LeaveRequest request = leaveRequestRepository.findOne(requestId);
+        String pathName = saveFileToDirectory(file);
+        LeaveRequestAttachment a = new LeaveRequestAttachment(request.getId(), pathName);
+        leaveRequestAttachmentRepository.save(a);
+    }
+
     private void resetChatState() {
         chatState.setState("");
         chatState.setField("");
         chatState.setIsInitiation(true);
+        chatState.setRequestId("");
+    }
+
+    private String saveFileToDirectory (MultipartFile file) {
+        String pathName = getPath(file.getOriginalFilename());
+        try {
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(directoryPath + pathName);
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return pathName;
+    }
+
+    private String getPath(String fileName) {
+        return "attachments/" + UUID.randomUUID().toString() + fileName;
     }
 }
