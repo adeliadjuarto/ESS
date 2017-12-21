@@ -1,5 +1,7 @@
 <mat-toolbar color="primary" >
-    {{menuTitle}}
+    <mat-icon *ngIf="!!menuTitle"
+              (click)="back()">keyboard_arrow_left</mat-icon>
+    <span>{{menuTitle}}</span>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
