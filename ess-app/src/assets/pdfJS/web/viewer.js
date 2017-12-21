@@ -1171,11 +1171,6 @@ var pdfjsWebLibs;
      } else {
       params['file'] = params['file'].concat('&').concat(param[0]).concat('=').concat(param[1]);
      }
-
-    if (key === 'file') {
-      params['file'] = params['file'].concat('=');
-      params['file'] = params['file'].concat(param[2]);
-     }
     }
     return params;
    }

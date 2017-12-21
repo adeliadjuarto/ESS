@@ -16,6 +16,6 @@ export const ENDPOINT = {
 
     SUFFIX: {
         CURRENT: '/current',
-        LATEST: '/latest'
+        PROCESSED: '/processed'
     }
 };

@@ -46,11 +46,11 @@ public class PayrollApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping("/payroll/latest")
-    public Payroll getLatestPayroll() throws Exception {
+    @RequestMapping("/payroll/processed")
+    public List<Payroll> getProcessedPayroll() throws Exception {
         Long userId = authService.getCurrentUser().getId();
         String payrollStatus = "processed";
-        return payrollRepository.findFirstByUserIdAndPayrollStatusOrderByMonthDesc(userId, payrollStatus);
+        return payrollRepository.findByUserIdAndPayrollStatus(userId, payrollStatus);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

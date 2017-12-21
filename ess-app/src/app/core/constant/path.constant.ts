@@ -5,6 +5,10 @@ export const PATH = {
         PREFIX: 'prefix'
     },
 
+    PARAM: {
+        ID: ':id'
+    },
+
     ROOT: '/',
     EMPTY: '',
 
@@ -16,6 +20,7 @@ export const PATH = {
     REQUEST: 'request',
     STATUS: 'status',
     PAYROLL: 'payroll',
+    PAYROLL_SLIP: 'slip',
     CALENDAR: 'calendar',
 
     LEAVE: 'leave',

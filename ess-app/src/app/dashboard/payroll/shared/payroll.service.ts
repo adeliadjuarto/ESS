@@ -24,7 +24,7 @@ export class PayrollService extends DataService<Payroll> {
   }
 
   fetchLatestPayroll() {
-    let endpoint = `${this.endpoint}${ENDPOINT.SUFFIX.LATEST}`;
+    let endpoint = `${this.endpoint}${ENDPOINT.SUFFIX.PROCESSED}`;
 
     return this.apiService.get(endpoint).map(response => response.to(ResponseType.Json));
   }
@@ -37,8 +37,8 @@ export class PayrollService extends DataService<Payroll> {
 
   fetchLatestPayrollSuccess(result) {
     this.store.dispatch({
-      type: PayrollAction.FETCH_LATEST_PAYROLL_SUCCESS,
-      payload: result
+      type: PayrollAction.FETCH_PROCESSED_PAYROLLS_SUCCESS,
+      payload: result.reverse()
     })
   }
 
@@ -49,10 +49,6 @@ export class PayrollService extends DataService<Payroll> {
     })
   }
 
-  fetchDocumentDownload(id: string) {
-    let endpoint = `${this.endpoint}/${id}/download`;
 
-    return this.apiService.get(endpoint).map(response => response.to(ResponseType.Json));
-  }
 
 }
