@@ -20,6 +20,7 @@ export const PATH = {
     REQUEST: 'request',
     STATUS: 'status',
     PAYROLL: 'payroll',
+    PAYROLL_SLIP: 'slip',
     CALENDAR: 'calendar',
 
     LEAVE: 'leave',

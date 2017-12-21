@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
+import { PATH } from './../../core/constant/index';
 import { Payroll } from './shared/payroll.model';
 import { AppState } from './../../app.reducer';
 import { DashboardAction } from './../shared/dashboard.action';
@@ -16,8 +17,8 @@ import { PayrollService } from './shared/payroll.service';
 export class PayrollComponent implements OnInit {
 
   public currentDate: string;
-  public latestPayroll: Payroll;
-  public currentPayroll: Payroll;
+  public currentPayrollStatus: string = '';
+  public latestProcessedPayroll: string = '';
 
   private dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -32,8 +33,12 @@ export class PayrollComponent implements OnInit {
     });
     this.store.select((state: AppState) => state.payrollState).subscribe(payrollState => {
       if (payrollState) {
-        this.latestPayroll = payrollState.latestPayroll;
-        this.currentPayroll = payrollState.currentPayroll;
+        if (payrollState.currentPayroll) {
+          this.currentPayrollStatus = payrollState.currentPayroll.payrollStatus;
+        }
+        if (payrollState.processedPayrolls.length > 0) {
+          this.latestProcessedPayroll = payrollState.processedPayrolls[0].monthName;
+        }
       }
     })
     this.currentDate = new Date().toLocaleDateString('en-GB', this.dateOptions);
@@ -43,8 +48,7 @@ export class PayrollComponent implements OnInit {
   }
 
   redirectToPayrollSlip() {
-    console.log(this.route);
-    this.router.navigate([this.latestPayroll.id], { relativeTo: this.route });
+    this.router.navigate([PATH.PAYROLL_SLIP], { relativeTo: this.route });
   }
 
 }

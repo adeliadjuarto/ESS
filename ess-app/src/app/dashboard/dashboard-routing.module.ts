@@ -56,7 +56,7 @@ const routes: Routes = [
             component: PayrollComponent
           },
           {
-            path: PATH.PARAM.ID,
+            path: PATH.PAYROLL_SLIP,
             component: PayrollViewerComponent
           }
         ]
