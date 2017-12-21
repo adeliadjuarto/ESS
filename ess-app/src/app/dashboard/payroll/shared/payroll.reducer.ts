@@ -4,17 +4,12 @@ import { PayrollAction } from './payroll.action';
 import { Payroll } from './payroll.model';
 
 export interface PayrollState {
-    latestPayroll: Payroll;
+    processedPayrolls: Payroll[];
     currentPayroll: Payroll;
 }
 
 export const initialState: PayrollState = {
-    latestPayroll: {
-        id: '',
-        monthName: '',
-        payrollFile: null,
-        payrollStatus: ''
-    },
+    processedPayrolls: [],
     currentPayroll: {
         id: '',
         monthName: '',
@@ -25,14 +20,14 @@ export const initialState: PayrollState = {
 
 export function reducer(state: PayrollState = initialState, action: Action) {
   switch (action.type) {
-    case(PayrollAction.FETCH_LATEST_PAYROLL_SUCCESS):
+    case(PayrollAction.FETCH_PROCESSED_PAYROLLS_SUCCESS):
         return Object.assign({}, state, {
-            latestPayroll: action.payload,
+            processedPayrolls: action.payload,
             currentPayroll: state.currentPayroll
         });
     case(PayrollAction.FETCH_PAYROLL_SUCCESS):
         return Object.assign({}, state, {
-            latestPayroll: state.latestPayroll,
+            processedPayrolls: state.processedPayrolls,
             currentPayroll: action.payload
         })
     default:
