@@ -5,6 +5,7 @@
   <title>Employee Self Service</title>
   <base href="/">
 
+  <link rel="manifest" href="manifest.json">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -12,5 +13,36 @@
 </head>
 <body>
   <app-root></app-root>
+  <script src="assets/idb-keyval-min.js"></script>
+  <script src="assets/lodash.min.js"></script>
 </body>
 </html>
+<script>
+window.updateAvailable = new Promise(function(resolve, reject) {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./ess-SW.js').then(function(reg) {
+      reg.onupdatefound = function() {
+        var installingWorker = reg.installing;
+
+        installingWorker.onstatechange = function() {
+          switch (installingWorker.state) {
+            case 'installed':
+              if (navigator.serviceWorker.controller) {
+                resolve(true);
+              } else {
+                resolve(false);
+              }
+              break;
+
+            case 'redundant':
+              resolve(false);
+              break;
+          }
+        };
+      };
+    }).catch(function(e) {
+      console.error('Error during service worker registration:', e);
+    });
+  }
+})
+</script>
