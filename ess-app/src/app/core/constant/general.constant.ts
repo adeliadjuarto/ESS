@@ -20,3 +20,18 @@ export const ICON = {
 
 export const BACKGROUND = {
 }
+
+export const MONTH = [
+  ['Jan', 'Januari'],
+  ['Feb', 'Februari'],
+  ['Mar', 'Maret'],
+  ['Apr', 'April'],
+  ['Mei', 'May'],
+  ['Jun', 'Juni'],
+  ['Jul', 'Juli'],
+  ['Aug', 'Agustus'],
+  ['Sep', 'September'],
+  ['Okt', 'Oktober'],
+  ['Nov', 'November'],
+  ['Des', 'Desember']
+]
