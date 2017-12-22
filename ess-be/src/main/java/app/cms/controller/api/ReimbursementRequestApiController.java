@@ -34,17 +34,20 @@ public class ReimbursementRequestApiController {
     @Autowired
     private ReimbursementRequestAttachmentRepository attachmentRepository;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/reimbursement-requests")
     public Iterable<ReimbursementRequest> getRequest() throws Exception {
         User user = authService.getCurrentUser();
         return reimbursementRequestRepository.findByUserAndIsActive(user, true);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/reimbursement-requests/{id}")
     public ReimbursementRequest getRequestDetail(@PathVariable("id") String id) throws Exception {
         return reimbursementRequestRepository.findOne(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/reimbursement-requests", method = RequestMethod.POST)
     public String createRequest(@RequestParam("title") String title,
                                 @RequestParam("description") String description,
@@ -67,6 +70,7 @@ public class ReimbursementRequestApiController {
         return "Reimbursement request successfully created!";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/reimbursement-requests/{id}", method = RequestMethod.DELETE)
     public String deleteRequest(@PathVariable("id") String id) throws Exception {
         List<ReimbursementRequestAttachment> attachments = attachmentRepository.findByRequestId(id);
@@ -80,6 +84,7 @@ public class ReimbursementRequestApiController {
         return "Reimbursement request successfully deleted!";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/reimbursement-requests/{id}/reject", method = RequestMethod.POST)
     public String rejectRequest(@PathVariable("id") String id,
                                 @RequestParam("notes") String notes) throws Exception {
@@ -90,6 +95,7 @@ public class ReimbursementRequestApiController {
         return "You have rejected this request";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/reimbursement-requests/{id}/approve")
     public String approveRequest(@PathVariable("id") String id) throws Exception {
         ReimbursementRequest request = reimbursementRequestRepository.findOne(id);

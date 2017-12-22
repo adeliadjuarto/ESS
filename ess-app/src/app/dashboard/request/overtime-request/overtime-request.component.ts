@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { mapKeys } from 'lodash';
 
+import { AppState } from './../../../app.reducer';
 import { Overtime } from './../shared/request.interface';
 import { OvertimeRequestService } from './shared/overtime-request.service';
 import { DashboardAction } from './../../shared/dashboard.action';
@@ -20,6 +21,7 @@ export class OvertimeRequestComponent implements OnInit {
   requestDescription: string;
   requestDate: Date;
   requestAttachment: File[];
+  userId: string;
 
   sliderValue: any = [0, 0];
   sliderConfig = {
@@ -38,7 +40,11 @@ export class OvertimeRequestComponent implements OnInit {
     this.store.dispatch({
       type: DashboardAction.CHANGE_TITLE,
       payload: 'Overtime'
-    })
+    });
+
+    this.store.select((state: AppState) => state.userState).subscribe((state) => {
+      this.userId = state.id;
+    });
   }
 
   ngOnInit() {
@@ -65,16 +71,10 @@ export class OvertimeRequestComponent implements OnInit {
         eventDate: eventDate,
         startTime: startTime,
         endTime: endTime,
-        requestTypeId: 1,
-        userId: '1',
         'attachments[]': this.requestAttachment
       };
 
-      let request = new FormData();
-
-      mapKeys(formRequest, (value, key) => request.append(key, value));
-
-      this.requestService.create(request);
+      this.requestService.createRequest(formRequest);
     } else {
       console.log('nay');
     }

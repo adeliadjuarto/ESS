@@ -5,6 +5,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatInputModule,
+  MatIconModule,
   MatMenuModule,
   MatSidenavModule,
   MatGridListModule,
@@ -12,7 +13,8 @@ import {
   MatSelectModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatSliderModule
+  MatSliderModule,
+  MatTabsModule
 } from '@angular/material';
 import 'hammerjs/hammer';
 
@@ -22,6 +24,7 @@ import 'hammerjs/hammer';
     MatButtonModule,
     MatCardModule,
     MatInputModule,
+    MatIconModule,
     MatMenuModule,
     MatSidenavModule,
     MatGridListModule,
@@ -29,7 +32,8 @@ import 'hammerjs/hammer';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSliderModule
+    MatSliderModule,
+    MatTabsModule
   ],
   declarations: [
   ],
@@ -38,6 +42,7 @@ import 'hammerjs/hammer';
     MatButtonModule,
     MatCardModule,
     MatInputModule,
+    MatIconModule,
     MatMenuModule,
     MatSidenavModule,
     MatGridListModule,
@@ -45,7 +50,8 @@ import 'hammerjs/hammer';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSliderModule
+    MatSliderModule,
+    MatTabsModule
   ],
 
 })

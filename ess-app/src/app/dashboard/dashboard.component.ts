@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
 import { AppState } from './../app.reducer';
 import { DashboardAction } from './shared/dashboard.action';
 import { UserAction } from './account/shared/user.action';
+import { NotificationService } from './../shared/notification/notification.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,8 +16,12 @@ import { UserAction } from './account/shared/user.action';
 export class DashboardComponent implements OnInit {
 
   menuTitle: string = '';
+  updatePromise: Promise<boolean> = window['updateAvailable'] || null;
 
-  constructor(private store: Store<any>) {
+  constructor(private store: Store<any>,
+              private notification: NotificationService,
+              private router: Router,
+              private route: ActivatedRoute) {
 
     this.store.dispatch({ type: DashboardAction.INIT });
     this.store.dispatch({ type: UserAction.CHANGE_USER, payload: '1'});
@@ -29,6 +35,17 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.updatePromise) {
+      this.updatePromise.then(updateAvailable => {
+        if (updateAvailable) {
+          this.notification.show('New Content Available. Please refresh.');
+        }
+      });
+    }
+  }
+
+  public back() {
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
 }

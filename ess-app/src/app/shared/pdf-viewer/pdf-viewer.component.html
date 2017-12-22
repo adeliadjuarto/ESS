@@ -1,4 +1,4 @@
-  <pdf-viewer [src]="pdfSrc" 
-              [original-size]="false"
-              style="display: block;"
-  ></pdf-viewer>
+<div #pdfViewer class="pdf-viewer" [ngStyle]="{'height':getClassHeight()}">
+  <iframe width="{{width}}" height="{{height}}" frameborder="0" [src]="pdfUrl">
+    PDF File </iframe>
+</div>

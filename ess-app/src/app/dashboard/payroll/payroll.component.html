@@ -1,17 +1,19 @@
 <div class="container">
 
   <div class="date">
-    Today is October 31st, 2017
+    Today is {{currentDate}}
   </div>
 
   <div class="status">
-    Your payroll status for this month is PENDING
+    Your payroll status for this month is {{currentPayrollStatus}}
   </div>
 
   <div class="last-payroll">
-    Last payroll was at: September 29th, 2017
+    Last payroll was at: {{latestProcessedPayroll}}
   </div>
 
-  <app-pdf-viewer></app-pdf-viewer>
+  <button (click)="redirectToPayrollSlip()">
+    View Payroll Slip(s)
+  </button>
 
 </div>

@@ -16,6 +16,7 @@ import { LoginToken } from '../../core/network/authentication/token/login-token.
 import { TokenService } from '../../core/network/authentication/token/token.service';
 import { Credential } from '../../core/network/shared/model/credential.model';
 import { AuthenticationAction } from './login.action';
+import { UserAction } from './../../dashboard/account/shared/user.action';
 import { LoginState } from './login.reducer';
 
 @Injectable()
@@ -45,6 +46,8 @@ export class LoginService {
         this.store.dispatch({ type: AuthenticationAction.LOGIN_COMPLETE, payload: result });
 
         if (result.success && result.data) {
+          console.log(result.data);
+          this.store.dispatch({ type: UserAction.CHANGE_USER, payload: result.data.id});
           let token: LoginToken = new LoginToken(Math.random().toString(36).substr(2, 5));
           this.token.store(GENERAL.TOKEN.SESSION, token);
           this.token.store(GENERAL.TOKEN.USER, result.data);

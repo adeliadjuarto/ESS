@@ -5,9 +5,9 @@ import { MaterialModule } from './../shared/material/material.module';
 import { DashboardComponent } from './dashboard.component';
 import { MenuComponent } from './menu/menu.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { ChatComponent } from './chat/chat.component';
+import { ChatModule } from './chat/chat.module';
 import { RequestModule } from './request/request.module';
-import { StatusComponent } from './status/status.component';
+import { StatusModule } from './status/status.module';
 import { PayrollModule } from './payroll/payroll.module';
 import { CalendarModule } from './calendar/calendar.module';
 
@@ -16,15 +16,15 @@ import { CalendarModule } from './calendar/calendar.module';
     CommonModule,
     DashboardRoutingModule,
     MaterialModule,
+    ChatModule,
     RequestModule,
     CalendarModule,
-    PayrollModule
+    PayrollModule,
+    StatusModule
   ],
   declarations: [
     DashboardComponent,
     MenuComponent,
-    ChatComponent,
-    StatusComponent,
   ]
 })
 export class DashboardModule { }
