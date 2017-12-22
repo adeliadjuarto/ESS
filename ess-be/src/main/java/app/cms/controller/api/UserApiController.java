@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Created by adeliadjuarto on 10/5/17.
  */
@@ -23,5 +25,14 @@ public class UserApiController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
         return user;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping("/users/subordinates")
+    public Iterable<User> getUserSubordinates() throws Exception {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        List<User> subordinates = userRepository.findByIsActiveTrueAndSuperordinate(user);
+        return subordinates;
     }
 }
