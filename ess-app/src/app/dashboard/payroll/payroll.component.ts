@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
+import { PATH } from './../../core/constant/index';
 import { Payroll } from './shared/payroll.model';
 import { AppState } from './../../app.reducer';
 import { DashboardAction } from './../shared/dashboard.action';
@@ -15,12 +17,14 @@ import { PayrollService } from './shared/payroll.service';
 export class PayrollComponent implements OnInit {
 
   public currentDate: string;
-  public latestPayroll: Payroll;
-  public currentPayroll: Payroll;
+  public currentPayrollStatus: string = '';
+  public latestProcessedPayroll: string = '';
 
   private dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
 
   constructor(private store: Store<any>,
+              private router: Router,
+              private route: ActivatedRoute,
               private service: PayrollService) {
     this.service.fetchPayroll();
     this.store.dispatch({
@@ -29,17 +33,22 @@ export class PayrollComponent implements OnInit {
     });
     this.store.select((state: AppState) => state.payrollState).subscribe(payrollState => {
       if (payrollState) {
-        this.latestPayroll = payrollState.latestPayroll;
-        this.currentPayroll = payrollState.currentPayroll;
-      }
-      if (this.latestPayroll.id) {
-        this.service.fetchDocumentDownload(this.latestPayroll.id);
+        if (payrollState.currentPayroll) {
+          this.currentPayrollStatus = payrollState.currentPayroll.payrollStatus;
+        }
+        if (payrollState.processedPayrolls.length > 0) {
+          this.latestProcessedPayroll = payrollState.processedPayrolls[0].monthName;
+        }
       }
     })
     this.currentDate = new Date().toLocaleDateString('en-GB', this.dateOptions);
   }
 
   ngOnInit() {
+  }
+
+  redirectToPayrollSlip() {
+    this.router.navigate([PATH.PAYROLL_SLIP], { relativeTo: this.route });
   }
 
 }

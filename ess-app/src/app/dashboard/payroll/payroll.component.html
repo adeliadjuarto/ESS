@@ -5,13 +5,15 @@
   </div>
 
   <div class="status">
-    Your payroll status for this month is {{currentPayroll.payrollStatus}}
+    Your payroll status for this month is {{currentPayrollStatus}}
   </div>
 
   <div class="last-payroll">
-    Last payroll was at: {{latestPayroll.monthName}}
+    Last payroll was at: {{latestProcessedPayroll}}
   </div>
 
-  <app-pdf-viewer></app-pdf-viewer>
+  <button (click)="redirectToPayrollSlip()">
+    View Payroll Slip(s)
+  </button>
 
 </div>

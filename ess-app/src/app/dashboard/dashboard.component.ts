@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
@@ -18,8 +19,10 @@ export class DashboardComponent implements OnInit {
   updatePromise: Promise<boolean> = window['updateAvailable'] || null;
 
   constructor(private store: Store<any>,
-              private notification: NotificationService) {
-
+              private notification: NotificationService,
+              private router: Router,
+              private route: ActivatedRoute) {
+    
     this.store.dispatch({ type: DashboardAction.INIT });
     this.store.dispatch({ type: UserAction.CHANGE_USER, payload: '1'});
 
@@ -39,6 +42,10 @@ export class DashboardComponent implements OnInit {
         }
       });
     }
+  }
+
+  public back() {
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
 }

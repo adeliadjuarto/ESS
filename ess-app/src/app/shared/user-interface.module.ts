@@ -4,7 +4,7 @@ import { MaterialModule } from './material/material.module';
 
 import { NotificationModule } from './notification/notification.module';
 import { CircularRangeSliderComponent } from './circular-range-slider/circular-range-slider.component';
-import { PdfViewersComponent } from './pdf-viewer/pdf-viewer.component';
+import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 
 @NgModule({
   imports: [
@@ -14,11 +14,11 @@ import { PdfViewersComponent } from './pdf-viewer/pdf-viewer.component';
   exports: [
     NotificationModule,
     MaterialModule,
-    PdfViewersComponent
+    PdfViewerComponent
   ],
   declarations: [
     CircularRangeSliderComponent,
-    PdfViewersComponent
+    PdfViewerComponent
   ]
 })
 export class UIModule { }
