@@ -22,13 +22,15 @@ export class MessageService {
     }, this.initialMessage);
   }
 
-  sendMessage(chatMessage: string) {
+  sendMessage(chatToDisplay: string, chatToSend?: string) {
     let message: Message = new Message();
     message.sender = 'you';
-    message.text = [chatMessage];
+    message.text = [chatToDisplay];
 
     this.addMessage(message);
-    this.chatService.parse(chatMessage).subscribe(data => this.botReply(data));
+    let sentChat = chatToSend ? chatToSend : chatToDisplay;
+
+    this.chatService.parse(sentChat).subscribe(data => this.botReply(data));
   }
 
   private addMessage(message: Message) {
