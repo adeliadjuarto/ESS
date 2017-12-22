@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
               private notification: NotificationService,
               private router: Router,
               private route: ActivatedRoute) {
-    
+
     this.store.dispatch({ type: DashboardAction.INIT });
     this.store.dispatch({ type: UserAction.CHANGE_USER, payload: '1'});
 
