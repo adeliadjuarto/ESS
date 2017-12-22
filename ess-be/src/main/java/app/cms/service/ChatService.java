@@ -174,18 +174,20 @@ public class ChatService {
             requestSession = new RequestSession(user, type);
             message = "Request session created";
             isValid = false;
-        } else {
-            if (!chatState.getIsInitiation()) {
-                requestSession.addData(chatState.getField(), input);
-            }
-            for (String field : neededFields) {
-                String value = requestSession.getValue(field);
-                if (isEmpty(value)) {
-                    message = "Tolong masukkan " + field;
-                    isValid = false;
-                    chatState.setField(field);
-                    break;
+        }
+        if (!chatState.getIsInitiation()) {
+            requestSession.addData(chatState.getField(), input);
+        }
+        for (String field : neededFields) {
+            String value = requestSession.getValue(field);
+            if (isEmpty(value)) {
+                message = "Tolong masukkan " + field;
+                if (field.equals("tanggal mulai") || field.equals("tanggal selesai")) {
+                    message += " (Format: dd mmm yyyy (22 Des 2017) atau dd MMM yyyy (22 Desember 2017))";
                 }
+                isValid = false;
+                chatState.setField(field);
+                break;
             }
         }
 
@@ -233,20 +235,23 @@ public class ChatService {
                 .findFirstByUserAndType(user, type);
         if (requestSession == null) {
             requestSession = new RequestSession(user, type);
-            message = "Request session created";
             isValid = false;
-        } else {
-            if (!chatState.getIsInitiation()) {
-                requestSession.addData(chatState.getField(), input);
-            }
-            for (String field : neededFields) {
-                String value = requestSession.getValue(field);
-                if (isEmpty(value)) {
-                    message = "Tolong masukkan " + field;
-                    isValid = false;
-                    chatState.setField(field);
-                    break;
+        }
+        if (!chatState.getIsInitiation()) {
+            requestSession.addData(chatState.getField(), input);
+        }
+        for (String field : neededFields) {
+            String value = requestSession.getValue(field);
+            if (isEmpty(value)) {
+                message = "Tolong masukkan " + field;
+                if (field.equals("tanggal")) {
+                    message += " (Format: dd mmm yyyy (22 Des 2017) atau dd MMM yyyy (22 Desember 2017))";
+                } else if (field.equals("jam mulai") || field.equals("jam selesai")) {
+                    message += " (Format: hh:mm (12:30))";
                 }
+                isValid = false;
+                chatState.setField(field);
+                break;
             }
         }
 
@@ -291,20 +296,21 @@ public class ChatService {
                 .findFirstByUserAndType(user, type);
         if (requestSession == null) {
             requestSession = new RequestSession(user, type);
-            message = "Request session created";
             isValid = false;
-        } else {
-            if (!chatState.getIsInitiation()) {
-                requestSession.addData(chatState.getField(), input);
-            }
-            for (String field : neededFields) {
-                String value = requestSession.getValue(field);
-                if (isEmpty(value)) {
-                    message = "Tolong masukkan " + field;
-                    isValid = false;
-                    chatState.setField(field);
-                    break;
+        }
+        if (!chatState.getIsInitiation()) {
+            requestSession.addData(chatState.getField(), input);
+        }
+        for (String field : neededFields) {
+            String value = requestSession.getValue(field);
+            if (isEmpty(value)) {
+                message = "Tolong masukkan " + field;
+                if (field.equals("tanggal")) {
+                    message += " (Format: dd mmm yyyy (22 Des 2017) atau dd MMM yyyy (22 Desember 2017))";
                 }
+                isValid = false;
+                chatState.setField(field);
+                break;
             }
         }
 
@@ -372,6 +378,22 @@ public class ChatService {
                 EVENTS,
                 LEAVE_BALANCE
         );
+        String currentState = chatState.getState();
+        System.out.println("Current state: "+currentState);
+        if (!isEmpty(currentState)) {
+            User user = authService.getCurrentUser();
+            String type = "";
+            if (currentState.equals(REQUEST_LEAVE)) {
+                type = "leave";
+            } else if (currentState.equals(REQUEST_OVERTIME)) {
+                type = "overtime";
+            } else if (currentState.equals(REQUEST_REIMBURSEMENT)) {
+                type = "reimbursement";
+            }
+            RequestSession requestSession = requestSessionRepository.findFirstByUserAndType(user, type);
+            requestSessionRepository.delete(requestSession);
+        }
+
         resetChatState();
         return new Chat(messages, buttons);
     }
