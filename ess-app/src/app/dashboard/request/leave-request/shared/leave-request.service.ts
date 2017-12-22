@@ -6,6 +6,8 @@ import { environment } from './../../../../../environments/environment';
 import { DataService } from './../../../../core/data.service';
 import { ApiService } from './../../../../core/network/api.service';
 import { FormRequest } from './../../shared/request.interface';
+import { NotificationService } from './../../../../shared/notification/notification.service';
+import { NotificationType } from './../../../../shared/notification/notification.enum';
 
 declare var idbKeyval;
 const key = 'pwa-sync';
@@ -13,7 +15,8 @@ const key = 'pwa-sync';
 @Injectable()
 export class LeaveRequestService extends DataService<FormRequest> {
 
-  constructor(apiService: ApiService) {
+  constructor(apiService: ApiService,
+              private notification: NotificationService) {
     super(apiService);
     super.setEndpoint('/leave-requests', FormRequest);
   }
@@ -56,6 +59,11 @@ export class LeaveRequestService extends DataService<FormRequest> {
     return reg.sync
       .register('pwa-request-sync')
       .then(() => console.log('Sync - registered for pwa-sync'))
+      .then(() => {
+        if (!navigator.onLine) {
+          this.notification.show('Offline! Request is queued', NotificationType.Error);
+        }
+      })
       .catch(() => console.log('Sync - registration failed'));
   }
 
