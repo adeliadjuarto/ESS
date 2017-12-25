@@ -33,14 +33,16 @@ export class ChatWindowComponent implements OnInit {
   addMessage(event) {
     this.textInput.nativeElement.value = '';
     if (this.lastMessage.includes('masukkan tanggal')) {
-      this.messageService.sendMessage(this.draftMessage, this.parseMessageToDateTime(this.draftMessage));
+      this.messageService.sendMessage(this.draftMessage, this.parseDateToTimestamp(this.draftMessage));
+    } else if (this.lastMessage.includes('masukkan jam')) {
+      this.messageService.sendMessage(this.draftMessage, this.parseClockHourToTimestamp(this.draftMessage));
     } else {
       this.messageService.sendMessage(this.draftMessage);
     }
   }
 
-  parseMessageToDateTime(message): string {
-    let parsedMessage = message.split(' ');
+  parseDateToTimestamp(date): string {
+    let parsedMessage = date.split(' ');
     let day = parseInt(parsedMessage[0], 10);
     let year = parseInt(parsedMessage[2], 10);
     let month;
@@ -50,6 +52,15 @@ export class ChatWindowComponent implements OnInit {
       }
     });
     return new Date(year, month, day).getTime().toString();
+  }
+
+  parseClockHourToTimestamp(clockHour) {
+    let parsedMessage = clockHour.split(':');
+    let hour = parseInt(parsedMessage[0], 10);
+    let minute = parseInt(parsedMessage[1], 10);
+
+    let timestamp = (hour * 3600 + minute * 60) * 1000;
+    return timestamp.toString();
   }
 
   scrollToBottom(): void {
