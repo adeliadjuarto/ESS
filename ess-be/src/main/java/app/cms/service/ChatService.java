@@ -9,6 +9,7 @@ import app.cms.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static app.cms.commons.MenuConstants.*;
+import static app.cms.commons.IntentConstants.*;
 import static org.springframework.util.StringUtils.isEmpty;
 
 /**
@@ -59,6 +61,8 @@ public class ChatService {
     @Autowired
     private ChatState chatState;
 
+    private final static String RASA_URL = "http://localhost:5000/parse?q=";
+
     public Chat chat(String message) throws Exception {
         String menu;
         String currentState = chatState.getState();
@@ -66,6 +70,9 @@ public class ChatService {
             menu = message;
         } else {
             menu = currentState;
+        }
+        if(!menu.equals(currentState) && !MenuConstants.contains(menu)) {
+            return chatNonPredefined(message);
         }
         switch(menu) {
             case REQUEST:
@@ -363,8 +370,19 @@ public class ChatService {
         return new Chat(messages, buttons);
     }
 
-    private Chat chatNonPredefined(String message) {
-        return new Chat(Arrays.asList(message));
+    private Chat chatNonPredefined(String message) throws Exception{
+        RestTemplate restTemplate = new RestTemplate();
+        String url = RASA_URL.concat(message);
+        ChatIntent intentResult = restTemplate.getForObject(url, ChatIntent.class);
+        System.out.println(intentResult.intent.getName());
+        switch(intentResult.intent.getName()) {
+            case LEAVE_BALANCE_REQUEST:
+                return chatLeaveBalance();
+            case LEAVE_REQUEST:
+                return chat(REQUEST_LEAVE);
+            default:
+                return new Chat();
+        }
     }
 
     public Chat newChat() {
