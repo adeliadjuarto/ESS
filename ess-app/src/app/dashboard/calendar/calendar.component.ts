@@ -18,6 +18,7 @@ import { CustomDateFormatter } from './shared/custom-date-formatter';
 import { TestData } from './shared/test-data';
 import { DashboardAction } from './../shared/dashboard.action';
 import { PATH } from './../../core/constant/index';
+import { CalendarService } from './shared/calendar.service';
 
 @Component({
   selector: 'app-calendar',
@@ -65,9 +66,11 @@ export class CalendarComponent implements OnInit {
                             })
 
   constructor(private store: Store<any>,
+              private service: CalendarService,
               private router: Router,
               private route: ActivatedRoute ) {
     this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Calendar'});
+    this.service.fetchAll().subscribe((data) => console.log(data));
   }
 
   ngOnInit() {

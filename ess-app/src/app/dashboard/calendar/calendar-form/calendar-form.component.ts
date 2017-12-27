@@ -23,7 +23,6 @@ export class CalendarFormComponent implements OnInit {
       this.store.select((state: AppState) => state.userState).subscribe(
         userState => {
           this.userId = userState.id;
-          console.log(this.userId);
         }
       )
   }
