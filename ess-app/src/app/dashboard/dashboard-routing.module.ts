@@ -13,6 +13,7 @@ import { StatusComponent } from './status/status.component';
 import { PayrollComponent } from './payroll/payroll.component';
 import { PayrollViewerComponent } from './payroll/payroll-viewer/payroll-viewer.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { ApprovalsComponent } from './approvals/approvals.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,13 @@ const routes: Routes = [
           title: 'Status'
         },
         component: StatusComponent
+      },
+      {
+        path: PATH.APPROVALS,
+        data: {
+          title: 'Approval'
+        },
+        component: ApprovalsComponent
       },
       {
         path: PATH.PAYROLL,

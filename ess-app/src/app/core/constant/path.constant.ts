@@ -21,6 +21,7 @@ export const PATH = {
     STATUS: 'status',
     PAYROLL: 'payroll',
     PAYROLL_SLIP: 'slip',
+    APPROVALS: 'approvals',
     CALENDAR: 'calendar',
 
     LEAVE: 'leave',

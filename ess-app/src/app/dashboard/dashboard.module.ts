@@ -10,6 +10,7 @@ import { RequestModule } from './request/request.module';
 import { StatusModule } from './status/status.module';
 import { PayrollModule } from './payroll/payroll.module';
 import { CalendarModule } from './calendar/calendar.module';
+import { ApprovalsModule } from './approvals/approvals.module';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { CalendarModule } from './calendar/calendar.module';
     RequestModule,
     CalendarModule,
     PayrollModule,
-    StatusModule
+    StatusModule,
+    ApprovalsModule
   ],
   declarations: [
     DashboardComponent,
