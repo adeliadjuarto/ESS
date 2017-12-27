@@ -16,12 +16,10 @@ import java.util.List;
 @Getter
 public class Event extends BaseEntity {
     public Event () {}
-    public Event (String googleEventId,
-                  String title,
+    public Event (String title,
                   Long start, Long end,
                   Boolean isAllDayEvent,
                   List<EventAttendee> eventAttendees) {
-        this.googleEventId = googleEventId;
         this.title = title;
         this.start = start;
         this.end = end;
@@ -32,8 +30,6 @@ public class Event extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "google_event_id")
-    private String googleEventId;
     private String title;
     private Boolean isAllDayEvent;
     private Long start;
