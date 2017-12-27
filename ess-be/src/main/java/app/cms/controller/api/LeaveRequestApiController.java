@@ -42,6 +42,14 @@ public class LeaveRequestApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/leave-requests", method = RequestMethod.GET)
+    public Iterable<LeaveRequest> getRequestByUserId(@RequestParam("userId") Long userId) throws Exception {
+        User user = userRepository.findOne(userId);
+        System.out.println("test");
+        return leaveRequestRepository.findByUserAndIsActive(user, true);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/leave-requests/{id}")
     public LeaveRequest getRequestDetail(@PathVariable("id") String id) throws Exception {
         return leaveRequestRepository.findOne(id);
