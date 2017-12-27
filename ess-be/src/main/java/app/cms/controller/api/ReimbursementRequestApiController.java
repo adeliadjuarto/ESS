@@ -52,7 +52,7 @@ public class ReimbursementRequestApiController {
     public String createRequest(@RequestParam("title") String title,
                                 @RequestParam("description") String description,
                                 @RequestParam("eventDate") Long eventDate,
-                                @RequestParam("amount") Integer amount,
+                                @RequestParam("amount") Long amount,
                                 @RequestParam("requestTypeId") Long requestTypeId,
                                 @RequestParam("attachments[]") MultipartFile[] attachments)
             throws Exception {

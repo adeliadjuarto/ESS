@@ -23,7 +23,7 @@ import java.util.TimeZone;
 public class ReimbursementRequest extends BaseEntity {
     public ReimbursementRequest () {}
     public ReimbursementRequest (String title, String description, Long eventDate,
-                                 Integer amount, RequestType requestType, User user) {
+                                 Long amount, RequestType requestType, User user) {
         this.title = title;
         this.description = description;
         this.eventDate = eventDate;
@@ -42,7 +42,7 @@ public class ReimbursementRequest extends BaseEntity {
     private String title;
     private String description;
     private Long eventDate;
-    private Integer amount;
+    private Long amount;
     @Column(name = "rejection_note")
     private String rejectionNote;
     @Column(name = "is_approved")
