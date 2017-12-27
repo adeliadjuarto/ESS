@@ -1,4 +1,14 @@
-<mat-card>  
+<mat-card>
+  <mat-card-content>
+    <div class="status">
+      <div class="status-title">
+        Name
+      </div>
+      <div class="status-item">
+        {{inputStatus.user.name}}
+      </div>
+    </div>
+  </mat-card-content>
   <mat-card-content>
     <div class="status">
       <div class="status-title">
@@ -86,16 +96,6 @@
       </div>
       <div class="status-item">
         {{inputStatus.amount}}
-      </div>
-    </div>
-  </mat-card-content>
-  <mat-card-content>
-    <div class="status">
-      <div class="status-title">
-        Status
-      </div>
-      <div class="status-item">
-        {{status}}
       </div>
     </div>
   </mat-card-content>

@@ -7,6 +7,7 @@ import * as fromLogin from './login/shared/login.reducer';
 import * as fromDashboard from './dashboard/shared/dashboard.reducer';
 import * as fromPayroll from './dashboard/payroll/shared/payroll.reducer';
 import * as fromStatus from './dashboard/status/shared/status.reducer';
+import * as fromApprovals from './dashboard/approvals/shared/approvals.reducer';
 import * as fromUser from './dashboard/account/shared/user.reducer';
 
 export interface AppState {
@@ -14,6 +15,7 @@ export interface AppState {
     dashboardState: fromDashboard.DashboardState;
     payrollState: fromPayroll.PayrollState;
     statusState: fromStatus.StatusState;
+    approvalsState: fromApprovals.ApprovalsState;
     userState: fromUser.UserState;
 }
 
@@ -22,6 +24,7 @@ const reducers = {
     dashboardState: fromDashboard.reducer,
     payrollState: fromPayroll.reducer,
     statusState: fromStatus.reducer,
+    approvalsState: fromApprovals.reducer,
     userState: fromUser.reducer
 };
 

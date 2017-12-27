@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../../app.reducer';
-import { Status } from '../shared/status.model';
+import { Approvals } from '../shared/approvals.model';
 import { DEFAULTS } from './../../../core/constant';
 
 @Component({
@@ -11,7 +11,7 @@ import { DEFAULTS } from './../../../core/constant';
   templateUrl: './approvals-card.component.html',
   styleUrls: ['./approvals-card.component.scss']
 })
-export class ApprovalsCardComponent<T extends Status> implements OnInit {
+export class ApprovalsCardComponent<T extends Approvals> implements OnInit {
 
   @Input() inputStatus: T;
   @Input() approvalType: string;

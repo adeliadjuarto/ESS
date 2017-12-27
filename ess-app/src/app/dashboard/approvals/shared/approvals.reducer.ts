@@ -1,39 +1,39 @@
 import { ActionReducer, Action, combineReducers } from '@ngrx/store';
-import { Status } from './status.model';
+import { Approvals } from './approvals.model';
 
-import { StatusAction as Actions } from './status.action';
+import { ApprovalsAction as Actions } from './approvals.action';
 
-export interface StatusState {
-    approvalItems: Status[];
+export interface ApprovalsState {
+    approvalItems: Approvals[];
     error;
     loading: boolean;
     success: boolean;
 }
 
-export const initialState: StatusState = {
+export const initialState: ApprovalsState = {
     approvalItems: [],
     error: null,
     loading: false,
     success: false
 };
 
-export function reducer(state: StatusState = initialState, action: Action) {
+export function reducer(state: ApprovalsState = initialState, action: Action) {
     switch (action.type) {
-        case Actions.FETCH_STATUS_BEGIN:
+        case Actions.FETCH_APPROVALS_BEGIN:
             return Object.assign({}, state, {
                 approvalItems: state.approvalItems,
                 error: null,
                 loading: true,
                 success: false,
             });
-        case Actions.FETCH_STATUS_SUCCESS:
+        case Actions.FETCH_APPROVALS_SUCCESS:
             return Object.assign({}, state, {
                 approvalItems: action.payload,
                 error: null,
                 loading: false,
                 success: true,
             });
-        case Actions.FETCH_STATUS_ERROR:
+        case Actions.FETCH_APPROVALS_ERROR:
             return Object.assign({}, state, {
                 approvalItems: state.approvalItems,
                 error: action.payload,

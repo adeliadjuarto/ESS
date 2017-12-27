@@ -6,7 +6,7 @@ import { map } from 'lodash';
 
 import { AppState } from './../../app.reducer';
 import { DashboardAction } from './../shared/dashboard.action';
-import { StatusTypes } from './../status/shared/status-types.enum';
+import { ApprovalsTypes } from './shared/approvals-types.enum';
 import { ApprovalsService } from './shared/approvals.service';
 
 @Component({
@@ -16,8 +16,8 @@ import { ApprovalsService } from './shared/approvals.service';
 })
 export class ApprovalsComponent implements OnInit, AfterContentInit {
 
-  approvalTypes = map(StatusTypes, 'title');
-  approvalTypeUrl: string = StatusTypes.Leave.url;
+  approvalTypes = map(ApprovalsTypes, 'title');
+  approvalTypeUrl: string = ApprovalsTypes.Leave.url;
   userId: string;
 
   isLoading: boolean = false;
@@ -28,11 +28,11 @@ export class ApprovalsComponent implements OnInit, AfterContentInit {
               private store: Store<any>,
               private router: Router) {
     this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Transaction Approvals'});
-    this.store.select((obj: AppState) => obj.statusState)
-              .subscribe((statusState) => {
-                if (statusState) {
-                  this.approvals = statusState.approvalItems;
-                  this.isLoading = statusState.loading;
+    this.store.select((obj: AppState) => obj.approvalsState)
+              .subscribe((approvalsState) => {
+                if (approvalsState) {
+                  this.approvals = approvalsState.approvalItems;
+                  this.isLoading = approvalsState.loading;
                 }
               });
     this.store.select((obj: AppState) => obj.userState)
@@ -44,7 +44,7 @@ export class ApprovalsComponent implements OnInit, AfterContentInit {
   }
 
   ngOnInit() {
-    this.fetchApprovalStatus(StatusTypes.Leave.url);
+    this.fetchApprovalStatus(ApprovalsTypes.Leave.url);
   }
 
   ngAfterContentInit() {
@@ -54,12 +54,12 @@ export class ApprovalsComponent implements OnInit, AfterContentInit {
   updateTab($event: any) {
     let statusType: string = $event.tab.textLabel;
     switch (statusType) {
-      case StatusTypes.Leave.title:
-        return this.fetchApprovalStatus(StatusTypes.Leave.url);
-      case StatusTypes.Overtime.title:
-        return this.fetchApprovalStatus(StatusTypes.Overtime.url);
-      case StatusTypes.Reimbursement.title:
-        return this.fetchApprovalStatus(StatusTypes.Reimbursement.url);
+      case ApprovalsTypes.Leave.title:
+        return this.fetchApprovalStatus(ApprovalsTypes.Leave.url);
+      case ApprovalsTypes.Overtime.title:
+        return this.fetchApprovalStatus(ApprovalsTypes.Overtime.url);
+      case ApprovalsTypes.Reimbursement.title:
+        return this.fetchApprovalStatus(ApprovalsTypes.Reimbursement.url);
       default:
         break;
     }
@@ -67,7 +67,7 @@ export class ApprovalsComponent implements OnInit, AfterContentInit {
 
   fetchApprovalStatus(typeEndpoint) {
     this.approvalTypeUrl = typeEndpoint;
-    // this.service.fetchApprovals(typeEndpoint);
+    this.service.fetchApprovals(typeEndpoint);
   }
 
   public get isEmpty(): boolean {
