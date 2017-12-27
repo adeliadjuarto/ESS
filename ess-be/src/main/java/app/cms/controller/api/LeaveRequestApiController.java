@@ -42,11 +42,11 @@ public class LeaveRequestApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/leave-requests", method = RequestMethod.GET)
-    public Iterable<LeaveRequest> getRequestByUserId(@RequestParam("userId") Long userId) throws Exception {
-        User user = userRepository.findOne(userId);
-        System.out.println("test");
-        return leaveRequestRepository.findByUserAndIsActive(user, true);
+    @RequestMapping(value = "/leave-approvals", method = RequestMethod.GET)
+    public Iterable<LeaveRequest> getRequestsOfSubordinate() throws Exception {
+        User user = authService.getCurrentUser();
+        List<User> subordinates = userRepository.findByIsActiveTrueAndSuperordinate(user);
+        return leaveRequestRepository.findByUserInAndIsActive(subordinates, true);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
