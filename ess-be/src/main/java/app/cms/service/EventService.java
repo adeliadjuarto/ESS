@@ -42,7 +42,7 @@ public class EventService {
             eventAttendee = new EventAttendee(user);
             eventAttendees.add(eventAttendee);
         }
-        Event event = new Event(googleEventId, start, end, eventAttendees);
+        Event event = new Event(googleEventId, summary, start, end, isAllDayEvent, eventAttendees);
         return eventRepository.save(event);
     }
 
@@ -61,7 +61,7 @@ public class EventService {
             eventAttendee = new EventAttendee(user);
             eventAttendees.add(eventAttendee);
         }
-        event.update(start, end, eventAttendees);
+        event.update(summary, start, end, isAllDayEvent, eventAttendees);
         eventRepository.save(event);
         googleCalendarService.updateEvent(event.getGoogleEventId(), start, end, summary, isAllDayEvent);
         return event;
