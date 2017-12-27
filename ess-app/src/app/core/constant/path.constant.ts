@@ -23,6 +23,8 @@ export const PATH = {
     PAYROLL_SLIP: 'slip',
     CALENDAR: 'calendar',
 
+    ADD: 'add',
+
     LEAVE: 'leave',
     OVERTIME: 'overtime',
     REIMBURSEMENT: 'reimbursement',

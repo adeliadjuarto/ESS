@@ -13,6 +13,7 @@ import { StatusComponent } from './status/status.component';
 import { PayrollComponent } from './payroll/payroll.component';
 import { PayrollViewerComponent } from './payroll/payroll-viewer/payroll-viewer.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarFormComponent } from './calendar/calendar-form/calendar-form.component';
 
 const routes: Routes = [
   {
@@ -66,7 +67,16 @@ const routes: Routes = [
         data: {
           title: 'Calendar'
         },
-        component: CalendarComponent
+        children: [
+          {
+            path: PATH.EMPTY,
+            component: CalendarComponent
+          },
+          {
+            path: PATH.ADD,
+            component: CalendarFormComponent
+          }
+        ]
       }
     ]
   },

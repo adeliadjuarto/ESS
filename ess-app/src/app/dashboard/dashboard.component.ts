@@ -24,8 +24,6 @@ export class DashboardComponent implements OnInit {
               private route: ActivatedRoute) {
 
     this.store.dispatch({ type: DashboardAction.INIT });
-    this.store.dispatch({ type: UserAction.CHANGE_USER, payload: '1'});
-
     this.store.select((state: AppState) => state.dashboardState)
         .subscribe((dashState) => {
           if (dashState) {

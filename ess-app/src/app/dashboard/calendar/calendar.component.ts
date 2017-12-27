@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import {
   startOfDay,
@@ -16,6 +17,7 @@ import { Store } from '@ngrx/store';
 import { CustomDateFormatter } from './shared/custom-date-formatter';
 import { TestData } from './shared/test-data';
 import { DashboardAction } from './../shared/dashboard.action';
+import { PATH } from './../../core/constant/index';
 
 @Component({
   selector: 'app-calendar',
@@ -62,7 +64,9 @@ export class CalendarComponent implements OnInit {
                               }
                             })
 
-  constructor(private store: Store<any>) {
+  constructor(private store: Store<any>,
+              private router: Router,
+              private route: ActivatedRoute ) {
     this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Calendar'});
   }
 
@@ -89,6 +93,10 @@ export class CalendarComponent implements OnInit {
         this.viewDate = date;
       }
     }
+  }
+
+  redirectToAddForm() {
+    this.router.navigate([PATH.ADD], { relativeTo: this.route });
   }
 
 
