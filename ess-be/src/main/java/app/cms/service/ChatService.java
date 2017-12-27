@@ -85,12 +85,8 @@ public class ChatService {
                 return chatRequestOvertime(message);
             case REQUEST_REIMBURSEMENT:
                 return chatRequestReimbursement(message);
-            case EVENTS:
-                return chatEvents();
             case LEAVE_BALANCE:
                 return chatLeaveBalance();
-            case PAYROLL_STATUS:
-                return chatPayrollStatus();
             case LEAVE_STATUS:
                 return chatLeaveStatus();
             case OVERTIME_STATUS:
@@ -155,7 +151,6 @@ public class ChatService {
         String message = "Silahkan pilih tipe status yang ingin dilihat";
         List<String> messages = Arrays.asList(message);
         List<String> buttons = Arrays.asList(
-                PAYROLL_STATUS,
                 LEAVE_STATUS,
                 OVERTIME_STATUS,
                 REIMBURSEMENT_STATUS
@@ -348,10 +343,6 @@ public class ChatService {
         return new Chat(messages, buttons);
     }
 
-    private Chat chatEvents() {
-        return new Chat();
-    }
-
     private Chat chatLeaveBalance() {
         User user = authService.getCurrentUser();
         Integer leaveBalance = user.getAnnualLeave();
@@ -393,7 +384,6 @@ public class ChatService {
         List<String> buttons = Arrays.asList(
                 REQUEST,
                 STATUS,
-                EVENTS,
                 LEAVE_BALANCE
         );
         String currentState = chatState.getState();
