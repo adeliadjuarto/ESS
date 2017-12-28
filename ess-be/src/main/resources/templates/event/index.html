@@ -7,7 +7,33 @@
     <div class="col-md-12 main-content">
         <a th:href="@{/event/create}" class="btn btn-success add-btn">Add Event</a>
         <h1>Events:</h1>
-        <iframe src="https://calendar.google.com/calendar/embed?src=0lvq02sj88pineh3c58tgro63s%40group.calendar.google.com&ctz=Asia/Jakarta" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        <table id="eventTable" border="0" class="table-striped">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="event : ${events}">
+                <td th:text="${event.title}"></td>
+                <td th:text="${event.start != null} ? ${#dates.format(event.start, 'dd MMM yyyy HH:mm')} : '-'"></td>
+                <td th:text="${event.end != null} ? ${#dates.format(event.end, 'dd MMM yyyy HH:mm')} : '-'"></td>
+                <td>
+                    <a th:href="@{/event/edit/{id}(id=${event.id})}">
+                        <button class="btn btn-xs" specification="button">
+                            <span class="fa fa-edit"></span>
+                        </button>
+                    </a>
+                    <button class="btn btn-xs" specification="button" th:onclick="'showModalDelete(&quot;'+@{/event/delete/{id}(id=${event.id})}+'&quot;)'">
+                        <span class="fa fa-trash"></span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div class="modal fade" id="modalDelete" role="dialog">
         <div class="modal-dialog modal-sm">
@@ -29,6 +55,9 @@
         </div>
     </div>
     <script>
+        $(document).ready( function () {
+            $('#eventTable').DataTable();
+        });
         function showModalDelete(url){
             $('#modalDelete').modal('show');
             $('#modalDeleteForm').attr('action', url);

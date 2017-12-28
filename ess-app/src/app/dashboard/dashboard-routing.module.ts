@@ -32,6 +32,7 @@ import { ProviderTypesResolve } from './medical-info/shared/medical-info-filter/
 import { ProviderResolve } from './medical-info/shared/provider.resolver';
 import { YearListComponent } from './hcm-info/sk-se/year-list/year-list.component';
 import { LogoutComponent } from './account/logout/logout.component';
+import { CalendarFormComponent } from './calendar/calendar-form/calendar-form.component';
 
 const routes: Routes = [
   {
@@ -205,14 +206,22 @@ const routes: Routes = [
         data: {
           title: 'Calendar'
         },
-        component: CalendarComponent
+        children: [
+          {
+            path: PATH.EMPTY,
+            component: CalendarComponent
+          },
+          {
+            path: PATH.ADD,
+            component: CalendarFormComponent
+          }
+        ]      
       },
       {
         path: PATH.LOGOUT,
         component: LogoutComponent,
         data: {
           title: 'Logout'
-        }
       }
     ]
   },

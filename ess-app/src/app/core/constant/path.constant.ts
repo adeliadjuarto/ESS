@@ -26,6 +26,8 @@ export const PATH = {
     APPROVALS: 'approvals',
     CALENDAR: 'calendar',
 
+    ADD: 'add',
+
     LEAVE: 'leave',
     OVERTIME: 'overtime',
     REIMBURSEMENT: 'reimbursement',

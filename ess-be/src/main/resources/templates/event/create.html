@@ -4,7 +4,7 @@
       layout:decorator="layouts/layout">
 <body>
 <div layout:fragment="body">
-    <form action="#" th:action="@{/event/save}" th:object="${insuranceType}" method="post">
+    <form action="#" th:action="@{/event/save}" th:object="${event}" method="post">
         <div class="subheader">
             <div class="title">Add Event</div>
             <a th:href="@{/insurance-type}"><div class="button cancel-btn">Cancel</div></a>
