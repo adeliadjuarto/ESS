@@ -15,6 +15,7 @@ import { ContactsModule } from './contacts/contacts.module';
 import { HcmInfoModule } from './hcm-info/hcm-info.module';
 import { MedicalInfoModule } from './medical-info/medical-info.module';
 import { LogoutComponent } from './account/logout/logout.component';
+import { UserService } from './account/shared/user.service';
 
 @NgModule({
   imports: [
@@ -35,6 +36,9 @@ import { LogoutComponent } from './account/logout/logout.component';
     DashboardComponent,
     MenuComponent,
     LogoutComponent
+  ],
+  providers: [
+    UserService
   ]
 })
 export class DashboardModule { }

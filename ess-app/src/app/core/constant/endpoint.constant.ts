@@ -2,7 +2,7 @@
 export const ENDPOINT = {
     LOGIN: '/login',
     LOGOUT: '/logout',
-    USER: '/user',
+    USER: '/users',
     CHANGE_PASSWORD: '/change-password',
     PAYROLL: '/payroll',
     CALENDAR: '/events',
