@@ -1,0 +1,25 @@
+<mat-card>
+    <mat-card-title>
+        <div class="name"><b>{{provider.name}}</b></div>
+    </mat-card-title>
+    <mat-card-content>
+    <div class="address">
+        <app-info-card icon="home"
+                       [content]="provider.address"
+                       actionIcon="location_on"
+                       (action)="redirectToMap(provider.id)">
+        </app-info-card>
+    </div>
+    <div class="telephone" *ngFor="let telNumber of telephone">
+        <app-info-card icon="local_phone"
+                       [content]="telNumber.number"
+                       actionIcon="call">
+        </app-info-card>
+    </div>
+    <div class="fax" *ngFor="let faxNumber of fax">
+        <app-info-card icon="business"
+                       [content]="faxNumber.number">
+        </app-info-card>
+    </div>
+    </mat-card-content>
+</mat-card>

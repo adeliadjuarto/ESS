@@ -1,0 +1,26 @@
+mat-form-field {
+    margin-left: 5vw;
+    margin-top: 7vh;
+    width: 90vw;
+    margin-bottom: -100px;
+}
+
+
+:host /deep/ [aria-required=true] .mat-select-placeholder::after {
+    content: '*';
+    font-size: 30px;
+    color: red;
+    vertical-align: -10px;
+}
+
+button {
+    margin-left: 5vw;
+    margin-top: 7vh;
+    width: 90vw;
+}
+
+.submit-btn {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 15px;
+}

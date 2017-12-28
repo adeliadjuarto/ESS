@@ -1,0 +1,19 @@
+<app-navbar button="true"
+            routePath="../../../../">
+  <app-navbar-button position="right">
+    <search-bar-xs>
+    </search-bar-xs>
+  </app-navbar-button>
+</app-navbar>
+<app-empty-state *ngIf="isEmpty"></app-empty-state>
+<div class="container">
+  <div class="sk-container">
+    <div class="list-contents" *ngFor="let skContent of filteredSK"
+         (click)="redirectToSkViewer(skContent)">
+      <div class="content-title">
+        {{skContent.title}}
+      </div>
+      <i class="material-icons icon-right">keyboard_arrow_right</i>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<app-navbar button="true" 
+            titleText="Daftar PKB"
+            routePath="../../../">
+</app-navbar>
+
+<app-empty-state *ngIf="isEmpty"></app-empty-state>
+<div class="container">
+  <div class="pkb-container">
+    <div class="list-contents" *ngFor="let pkbContent of pkbList"
+         (click)="redirectToPkbViewer(pkbContent)">
+      <div class="content-title">
+        {{pkbContent.title}}
+      </div>
+      <i class="material-icons icon-right">keyboard_arrow_right</i>
+    </div>
+  </div>
+</div>

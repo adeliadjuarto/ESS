@@ -1,0 +1,84 @@
+@import '../../../../../stylesheets/variables.scss';
+
+mat-card{
+    width: 90vw;
+    max-width: 400px;
+    padding-bottom: 20px;
+    box-shadow: none !important;
+    margin: 0 auto;
+} 
+
+.name{
+    font-size: 18px;
+    line-height: 40px;
+    color: #3B3B3B;
+}
+
+.item {
+    width: 100%;
+    min-height: 60px;
+    color: #B5B5B5;
+    font-size: 1.2em;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid $color-button;
+}
+.address {
+    line-height: 60px;
+}
+.telephone{
+    line-height: 60px;
+}
+.fax{
+    line-height: 60px;
+}
+.address-title {
+    width: 53%;
+    float: left;
+    padding-top: 15px;
+    line-height: 1.2em;
+    padding-bottom: 15px;
+    height: fit-content;
+    font-size: 0.9em;
+    -webkit-font-smoothing: antialiased;
+    margin-left: 20px;
+}
+.telephone-num {
+    width: 53%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 1.5em;
+    float: left;
+    font-size: 0.9em;
+    -webkit-font-smoothing: antialiased;
+    margin-left: 20px;
+}
+.item i{
+    line-height: 60px;
+    font-size: 2em;
+}
+
+.item .call-div i{
+    color: $color-primary;
+}
+.item .icon-div i{
+    color: #B5B5B5;
+}
+.item .call-div{
+    float: right;
+    height: 100%;
+    width: 60px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: $color-button;
+    text-align: center;
+}
+
+.item .icon-div{
+    float: left;
+    width: 15%;
+    text-align: center;
+}

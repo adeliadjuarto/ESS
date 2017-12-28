@@ -1,0 +1,8 @@
+.container {
+    text-align: center;
+}
+app-medical-details-card {
+    max-width: 400px;
+    display: inline-flex;
+    text-align: left;
+}

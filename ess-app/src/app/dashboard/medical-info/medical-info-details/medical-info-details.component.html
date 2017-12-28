@@ -1,0 +1,10 @@
+<app-loading *ngIf="isLoading"> </app-loading>
+
+<app-navbar button="true"
+            routePath="../../../">
+</app-navbar>
+<app-empty-state *ngIf="isEmpty"></app-empty-state>
+<div class="container">
+    <app-medical-details-card *ngFor="let provider of providers" [provider]="provider">
+    </app-medical-details-card>
+</div>
