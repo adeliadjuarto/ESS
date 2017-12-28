@@ -52,25 +52,27 @@ export class CalendarComponent implements OnInit {
 
   viewDate: Date = new Date();
   activeDayIsOpen: boolean = true;
-  events: CalendarEvent[] = TestData.map(data => {
-                              return {
-                                start: new Date(data.start.dateTime.value),
-                                end: new Date(data.end.dateTime.value),
-                                color: this.colors.yellow,
-                                title: data.summary + ' ('
-                                      + this.getTime(data.start.dateTime.value)
-                                      + ' - '
-                                      + this.getTime(data.end.dateTime.value)
-                                      + ')',
-                              }
-                            })
+  events: CalendarEvent[];
 
   constructor(private store: Store<any>,
               private service: CalendarService,
               private router: Router,
               private route: ActivatedRoute ) {
     this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Calendar'});
-    this.service.fetchAll().subscribe((data) => console.log(data));
+    this.service.fetchEvents()
+                .subscribe(event => this.events = event.map(data => {
+                              return {
+                                start: new Date(data.start),
+                                end: new Date(data.end),
+                                color: this.colors.yellow,
+                                title: data.title
+                                //       + ' ('
+                                //       + this.getTime(data.start)
+                                //       + ' - '
+                                //       + this.getTime(data.end)
+                                //       + ')',
+                              }
+                            }));
   }
 
   ngOnInit() {
