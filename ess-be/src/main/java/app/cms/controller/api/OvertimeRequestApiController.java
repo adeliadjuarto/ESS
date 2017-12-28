@@ -48,7 +48,7 @@ public class OvertimeRequestApiController {
     public Iterable<OvertimeRequest> getRequestsOfSubordinate() throws Exception {
         User user = authService.getCurrentUser();
         List<User> subordinates = userRepository.findByIsActiveTrueAndSuperordinate(user);
-        return overtimeRequestRepository.findByUserInAndIsActive(subordinates, true);
+        return overtimeRequestRepository.findByUserInAndIsActiveAndIsApprovedNull(subordinates, true);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

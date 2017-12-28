@@ -12,5 +12,5 @@ import java.util.List;
 public interface LeaveRequestRepository extends JpaRepository<LeaveRequest, String> {
     public List<LeaveRequest> findByIsActive(Boolean isActive);
     public List<LeaveRequest> findByUserAndIsActive(User user, Boolean isActive);
-    public List<LeaveRequest> findByUserInAndIsActive(List<User> users, Boolean isActive);
+    public List<LeaveRequest> findByUserInAndIsActiveAndIsApprovedNull(List<User> users, Boolean isActive);
 }

@@ -46,7 +46,7 @@ public class ReimbursementRequestApiController {
     public Iterable<ReimbursementRequest> getRequestsOfSubordinate() throws Exception {
         User user = authService.getCurrentUser();
         List<User> subordinates = userRepository.findByIsActiveTrueAndSuperordinate(user);
-        return reimbursementRequestRepository.findByUserInAndIsActive(subordinates, true);
+        return reimbursementRequestRepository.findByUserInAndIsActiveAndIsApprovedNull(subordinates, true);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
