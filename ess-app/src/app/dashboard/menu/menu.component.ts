@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map';
 
 import { AuthorizationService } from '../../core/network/authentication/authorization.service';
 import { MenuItem, PATH } from './../../core/constant/index';
+import { UserService } from './../account/shared/user.service';
 import { NotificationType } from '../../shared/notification/notification.enum';
 import { NotificationService } from '../../shared/notification/notification.service';
 import { BACKGROUND } from './../../core/constant';
@@ -32,11 +33,9 @@ export class MenuComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private store: Store<any>,
+              private userService: UserService,
               private authorization: AuthorizationService,
               private notification: NotificationService) {
-
-    // this.menus = this.authorization.authorizedMenus(this.route.parent.routeConfig.children)
-    //   .filter((menu: MenuItem) => menu.path !== PATH.ACCOUNT);
 
     this.store.dispatch({ type: DashboardAction.CHANGE_TITLE, payload: '' });
 
@@ -48,7 +47,12 @@ export class MenuComponent implements OnInit {
                                     disabledWhenOffline: r.data.disabledWhenOffline,
                                     description: r.data.description,
                                     iconPath: r.data.iconPath }; })
-                     .filter((menu: MenuItem) => menu.path !== PATH.ACCOUNT);
+                     .filter((menu: MenuItem) => menu.path !== PATH.LOGOUT);
+
+    this.userService.fetchSubordinates()
+                    .subscribe(subordinates => { if (subordinates.length === 0) {
+                      this.menus = this.menus.filter((menu: MenuItem) => menu.path !== PATH.APPROVALS);
+                    }});
 
     Observable.merge(
       Observable.of(navigator.onLine),

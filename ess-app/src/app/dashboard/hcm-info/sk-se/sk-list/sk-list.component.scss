@@ -1,0 +1,43 @@
+.container {
+    width: 90vw;
+    margin-left: 5vw;
+    margin-top: 2vh;
+}
+
+.title {
+    float: left;
+    font-size: 4.125vmin;
+    display: block;
+    padding-top: 1.75vh;
+    padding-bottom: 4vh;
+}
+
+.header-container {
+    display: block;
+}
+
+.search-bar-container {
+    float: right;
+    position: relative;
+    padding-top: 1.75vh;
+}
+
+.list-contents {
+    clear: left;
+    width: 90vw;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.content-title {
+    width: 85vw;
+    line-height: 35px;
+}
+
+.list-contents .icon-right {
+    position: relative;
+}

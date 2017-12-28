@@ -2,6 +2,8 @@
     <mat-icon *ngIf="!!menuTitle"
               (click)="back()">keyboard_arrow_left</mat-icon>
     <span>{{menuTitle}}</span>
+    <span *ngIf="!menuTitle" class="example-spacer"></span>
+    <mat-icon *ngIf="!menuTitle" (click)="logout()">exit_to_app</mat-icon>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

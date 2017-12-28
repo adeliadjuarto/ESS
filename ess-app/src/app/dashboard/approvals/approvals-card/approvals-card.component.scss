@@ -1,0 +1,107 @@
+.status {
+    width: 100%;
+}
+
+.status-title {
+    padding: 0px 20px;
+    width: 30%;
+    min-height: 18px;
+    display: inline-block;
+    color: #888;
+}
+
+.patient {
+    text-transform: capitalize;
+}
+
+.status-item {
+    width: 45%;
+    min-height: 18px;
+    padding: 15px 5px 15px 15px;
+    display: inline-block;
+}
+
+.see-histories {
+    width: 85%;
+    text-align: center;
+    min-height: 18px;
+    padding: 15px 5px 15px 15px;
+}
+
+.history-date {
+    width: 40%;
+}
+
+.history-status {
+    width: 20%;
+}
+
+.arrow-icon, .status-item div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.arrow-icon {
+    position: relative;
+    left: 50%;
+}
+
+mat-card {
+    margin: 0;
+    padding: 0;
+    max-width: 350px;
+    border: 1px solid teal;
+}
+
+.mat-card-content {
+    padding: 0;
+    margin: 0;
+}
+
+.mat-card-content:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+.histories:nth-child(even) {
+    background-color: #fff;
+}
+
+.pending {
+    color: #2196F3;
+}
+
+.rejected {
+    color: #D32F2F;
+}
+
+.approved {
+    color: #43A047;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.note {
+    display: flex;
+    margin-top: 10px !important;
+    margin-bottom: 5px !important;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+button {
+    height: 42px !important;
+}
+
+:host /deep/ .mat-input-underline,
+:host /deep/ .mat-input-underline .mat-input-ripple {
+  bottom: 0 !important;
+}
+
+:host /deep/ .mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}

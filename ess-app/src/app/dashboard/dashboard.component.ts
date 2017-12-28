@@ -3,10 +3,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
+import { PATH } from './../core/constant/index';
 import { AppState } from './../app.reducer';
 import { DashboardAction } from './shared/dashboard.action';
 import { UserAction } from './account/shared/user.action';
 import { NotificationService } from './../shared/notification/notification.service';
+import { LoginService } from './../login/shared/login.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +23,8 @@ export class DashboardComponent implements OnInit {
   constructor(private store: Store<any>,
               private notification: NotificationService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private service: LoginService) {
 
     this.store.dispatch({ type: DashboardAction.INIT });
     this.store.select((state: AppState) => state.dashboardState)
@@ -44,6 +47,10 @@ export class DashboardComponent implements OnInit {
 
   public back() {
     this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  logout() {
+    this.router.navigateByUrl(PATH.LOGOUT);
   }
 
 }

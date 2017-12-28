@@ -11,5 +11,6 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     public List<User> findByIsActive(Boolean isActive);
     public List<User> findByIsActiveAndIdNot(Boolean isActive, Long id);
+    public List<User> findByIsActiveTrueAndSuperordinate(User user);
     public User findByUsernameAndIsActive(String username, Boolean isActive);
 }

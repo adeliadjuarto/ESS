@@ -9,6 +9,8 @@ import { FormRequest, Leave } from './../shared/request.interface';
 import { LEAVE_TYPES } from './../../../core/constant';
 import { DashboardAction } from './../../shared/dashboard.action';
 import { LeaveRequestService } from './shared/leave-request.service';
+import { NotificationService } from './../../../shared/notification/notification.service';
+import { NotificationType } from './../../../shared/notification/notification.enum';
 
 @Component({
   selector: 'app-leave-request',
@@ -27,6 +29,8 @@ export class LeaveRequestComponent implements OnInit {
   dateTo: Date;
   requestAttachments: File[];
   userId: string;
+  errorMessage: string;
+  requestConfirm: boolean = false;
 
   sliderValue: any = [0, 0];
   sliderConfig = {
@@ -41,7 +45,8 @@ export class LeaveRequestComponent implements OnInit {
   }
 
   constructor(private store: Store<any>,
-              private requestService: LeaveRequestService) {
+              private requestService: LeaveRequestService,
+              private notification: NotificationService) {
     this.store.dispatch({
       type: DashboardAction.CHANGE_TITLE,
       payload: 'Leave'
@@ -66,20 +71,28 @@ export class LeaveRequestComponent implements OnInit {
 
   allFilesExist() {
     if (!this.requestTitle || !this.requestDescription || !this.selectedLeaveType || !this.dateFor) {
+      this.errorMessage = 'Semua input harus diisi';
       return false;
     }
     if (!this.singleDatepicker && !this.dateTo) {
       return false;
     }
     if (!this.requestAttachments) {
+      this.errorMessage = 'File bukti belum diupload';
       return false;
     }
-
     return true;
   }
 
-  submitRequest() {
+  confirmRequest() {
     if (this.allFilesExist()) {
+      this.requestConfirm = !this.requestConfirm;
+    } else {
+      this.notification.show(this.errorMessage, NotificationType.Error);
+    }
+  }
+
+  submitRequest() {
       let start = this.dateFor.getTime() + (this.sliderValue[0] * 1000);
       let end;
       if (this.singleDatepicker) {
@@ -102,10 +115,23 @@ export class LeaveRequestComponent implements OnInit {
       };
 
       this.requestService.createRequest(formRequest);
+      this.resetForm();
+  }
 
-    } else {
-      console.log('error happens');
-    }
+  dateDisplay(date: Date) {
+    let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('id-ID', dateOptions);
+  }
+
+  resetForm() {
+    this.requestConfirm = false;
+    this.dateFor = null;
+    this.dateTo = null;
+    this.requestAttachments = [];
+    this.requestTitle = '';
+    this.requestDescription = '';
+    this.selectedLeaveType = '';
+    this.sliderValue = [0, 0];
   }
 
 

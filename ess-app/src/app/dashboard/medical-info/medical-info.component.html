@@ -1,0 +1,30 @@
+<div class="container">
+    <form class = "providerSearch" #medicalForm="ngForm" (submit)="goToDetails()">
+        <mat-form-field>
+          <input matInput [(ngModel)]="selectedCity" name="city" placeholder="Kota" [matAutocomplete]="autocomplete" 
+              [formControl]="stateCtrl" required>
+          <mat-autocomplete #autocomplete="matAutocomplete">
+            <mat-option *ngFor="let city of filteredCities | async" [value]="city" style="text-transform: uppercase;">
+              {{city}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [(ngModel)]="selectedInsuranceType" name="insuranceType" placeholder="Tipe Jaminan Kesehatan">
+            <mat-option [value]="null">Lihat Semua</mat-option>
+            <mat-option *ngFor="let insuranceType of insuranceTypes" [value]="insuranceType.id">
+              {{insuranceType.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [(ngModel)]="selectedProvider" name="insuranceProvider" placeholder="Jenis Provider Kesehatan">
+            <mat-option [value]="null">Lihat Semua</mat-option>
+            <mat-option *ngFor="let provider of providers" [value]="provider.id">
+              {{provider.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button> Submit </button>
+    </form>
+</div>

@@ -1,0 +1,10 @@
+<div class="container" #myGuideContainer>
+  <div class="batik-background" [ngStyle]="{ 'background-image': 'url('+ backgroundPath +')'}">
+    <mat-grid-list [cols]="columns" rowHeight="1:1">
+      <mat-grid-tile *ngFor="let menu of menuItems" (click)="redirectTo(menu.path)">
+        <div class="menu-icon" [ngStyle]="{ 'background-image': 'url(' + menu.iconPath + ')'}">
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

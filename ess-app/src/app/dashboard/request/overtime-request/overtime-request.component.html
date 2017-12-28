@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!requestConfirm">
     <mat-form-field>
       <input #nameInput matInput placeholder="Title" [(ngModel)]="requestTitle"/>
     </mat-form-field>
@@ -14,13 +14,73 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-    <!--<mat-slider min="0" max="8" (input)="onSliderChange($event)"> </mat-slider>-->
-
     <nouislider name="slider" [config]="sliderConfig" [(ngModel)]="sliderValue"></nouislider>
 
     <div class="input-file">
       <input type="file" (change)="fileChange($event)">
     </div>
 
-    <button mat-raised-button (click)="submitRequest()">Submit Request</button>
+    <button mat-raised-button (click)="confirmRequest()">Submit Request</button>
+</div>
+
+<div class="container" *ngIf="requestConfirm">
+    <mat-card>  
+      <mat-card-content>
+        <div class="status">
+          <div class="status-title">
+            Judul
+          </div>
+          <div class="status-item">
+            {{requestTitle}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+        <div class="status">
+          <div class="status-title">
+            Keterangan
+          </div>
+          <div class="status-item">
+            {{requestDescription}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+        <div class="status">
+          <div class="status-title">
+            Dari
+          </div>
+          <div class="status-item">
+            {{start}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+        <div class="status">
+          <div class="status-title">
+            Sampai
+          </div>
+          <div class="status-item">
+            {{end}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+        <div class="status">
+          <div class="status-title">
+            File Attachment
+          </div>
+          <div class="status-item">
+            {{requestAttachment.name}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+        <div class="buttons">
+          <button mat-raised-button (click)="submitRequest()">Confirm</button>
+          <button mat-raised-button (click)="confirmRequest()">Cancel</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
 </div>

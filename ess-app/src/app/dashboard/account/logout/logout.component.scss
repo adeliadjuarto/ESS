@@ -1,0 +1,30 @@
+@import '../../../../stylesheets/variables';
+
+.container {
+  background-color: $color-base;
+  height: 100%;
+  width: 100%;
+}
+
+.text-container {
+  width: 100%;
+  padding-top: 20%;
+  text-align: center;
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+
+.button-container {
+  padding: 5px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+button {
+  width: 100%;
+  max-width: 480px;
+}

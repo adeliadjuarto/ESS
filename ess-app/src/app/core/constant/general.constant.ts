@@ -21,6 +21,11 @@ export const ICON = {
 export const BACKGROUND = {
 }
 
+export const DOCUMENT = {
+  PKB: 'pkb',
+  SK: 'sk-se'
+}
+
 export const MONTH = [
   ['Jan', 'Januari'],
   ['Feb', 'Februari'],

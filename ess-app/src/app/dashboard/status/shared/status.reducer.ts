@@ -20,7 +20,7 @@ export const initialState: StatusState = {
 export function reducer(state: StatusState = initialState, action: Action) {
     switch (action.type) {
         case Actions.FETCH_STATUS_BEGIN:
-            return Object.assign({}, state, { 
+            return Object.assign({}, state, {
                 approvalItems: state.approvalItems,
                 error: null,
                 loading: true,

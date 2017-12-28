@@ -42,6 +42,14 @@ public class LeaveRequestApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/leave-approvals", method = RequestMethod.GET)
+    public Iterable<LeaveRequest> getRequestsOfSubordinate() throws Exception {
+        User user = authService.getCurrentUser();
+        List<User> subordinates = userRepository.findByIsActiveTrueAndSuperordinate(user);
+        return leaveRequestRepository.findByUserInAndIsActiveAndIsApprovedIsNull(subordinates, true);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/leave-requests/{id}")
     public LeaveRequest getRequestDetail(@PathVariable("id") String id) throws Exception {
         return leaveRequestRepository.findOne(id);
@@ -85,7 +93,7 @@ public class LeaveRequestApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/leave-requests/{id}/reject", method = RequestMethod.POST)
+    @RequestMapping(value = "/leave-approvals/{id}/reject", method = RequestMethod.POST)
     public String rejectRequest(@PathVariable("id") String id,
                                 @RequestParam("notes") String notes) throws Exception {
         LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
@@ -96,10 +104,16 @@ public class LeaveRequestApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/leave-requests/{id}/approve")
+    @RequestMapping(value = "/leave-approvals/{id}/approve")
     public String approveRequest(@PathVariable("id") String id) throws Exception {
         LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
         leaveRequest.setIsApproved(true);
+
+        if(leaveRequest.getRequestType().getName() == "Sick Leave") {
+            Integer annualLeave = userRepository.findOne(leaveRequest.getUser().getId()).getAnnualLeave();
+            userRepository.findOne(leaveRequest.getUser().getId()).setAnnualLeave(--annualLeave);
+        }
+
         leaveRequestRepository.save(leaveRequest);
         return "You have approved this request";
     }

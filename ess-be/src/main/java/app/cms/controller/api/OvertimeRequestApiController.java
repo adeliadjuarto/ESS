@@ -44,6 +44,14 @@ public class OvertimeRequestApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/overtime-approvals")
+    public Iterable<OvertimeRequest> getRequestsOfSubordinate() throws Exception {
+        User user = authService.getCurrentUser();
+        List<User> subordinates = userRepository.findByIsActiveTrueAndSuperordinate(user);
+        return overtimeRequestRepository.findByUserInAndIsActiveAndIsApprovedNull(subordinates, true);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/overtime-requests/{id}")
     public OvertimeRequest getRequestDetail(@PathVariable("id") String id) throws Exception {
         return overtimeRequestRepository.findOne(id);

@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="name"><b>{{employeeContact.name}}</b></div>
+    <div class="information">
+        <div class="item">
+            <div class="title">Jabatan</div>
+            <div class="value">{{employeeContact.jobTitle.name}}</div>
+        </div>
+        <div class="item">
+            <div class="title">Cabang / Divisi</div>
+            <div class="value">{{employeeContact.branch.name}}</div>
+        </div>
+        <div class="item">
+            <div class="title">Wilayah</div>
+            <div class="value">{{employeeContact.region.name}}</div>
+        </div>
+    </div>
+    <div class="contact" *ngFor="let phoneNumber of employeeContact.phoneNumber">
+        <app-info-card [icon]="phoneNumber.icon"
+                       [content]="phoneNumber.number"
+                       [extension]="phoneNumber.extension"
+                       actionIcon="call">
+        </app-info-card>
+    </div>
+</div>

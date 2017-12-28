@@ -13,6 +13,25 @@ import { StatusComponent } from './status/status.component';
 import { PayrollComponent } from './payroll/payroll.component';
 import { PayrollViewerComponent } from './payroll/payroll-viewer/payroll-viewer.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { ApprovalsComponent } from './approvals/approvals.component';
+import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
+import { ContactsComponent } from './contacts/contacts.component';
+import { ContactsResolve } from './contacts/shared/contacts.resolver';
+import { DocumentYearsResolve } from './hcm-info/shared/document-years/document-years.resolver';
+import { HcmInfoComponent } from './hcm-info/hcm-info.component';
+import { PkbComponent } from './hcm-info/pkb/pkb.component';
+import { PkbViewerComponent } from './hcm-info/pkb/pkb-viewer/pkb-viewer.component';
+import { SkListComponent } from './hcm-info/sk-se/sk-list/sk-list.component';
+import { SkViewerComponent } from './hcm-info/sk-se/sk-viewer/sk-viewer.component';
+import { MedicalInfoDetailsComponent } from './medical-info/medical-info-details/medical-info-details.component';
+import { MedicalInfoDetailMapComponent } from './medical-info/medical-info-detail-map/medical-info-detail-map.component';
+import { MedicalInfoComponent } from './medical-info/medical-info.component';
+import { InsuranceTypesResolve } from './medical-info/shared/medical-info-filter/insurance-types.resolver';
+import { ProviderCitiesResolve } from './medical-info/shared/medical-info-filter/provider-cities.resolver';
+import { ProviderTypesResolve } from './medical-info/shared/medical-info-filter/provider-types.resolver';
+import { ProviderResolve } from './medical-info/shared/provider.resolver';
+import { YearListComponent } from './hcm-info/sk-se/year-list/year-list.component';
+import { LogoutComponent } from './account/logout/logout.component';
 import { CalendarFormComponent } from './calendar/calendar-form/calendar-form.component';
 
 const routes: Routes = [
@@ -33,6 +52,119 @@ const routes: Routes = [
         }
       },
       {
+        path: PATH.HCM_INFO,
+        data: {
+          title: 'HCM Info',
+        },
+        children: [
+          {
+            path: PATH.EMPTY,
+            component: HcmInfoComponent,
+          },
+          {
+            path: PATH.PKB,
+            data: {
+              title: 'PKB',
+            },
+            children: [
+              {
+                path: PATH.EMPTY,
+                component: PkbComponent,
+                resolve: {
+                  documentYears: DocumentYearsResolve
+                }
+              },
+              {
+                path: PATH.PARAM.ID,
+                component: PkbViewerComponent,
+              },
+            ],
+          },
+          {
+            path: PATH.SK_SE,
+            data: {
+              title: 'SK/SE',
+            },
+            children: [
+              {
+                path: PATH.EMPTY,
+                component: YearListComponent,
+                resolve: {
+                  documentYears: DocumentYearsResolve
+                }
+              },
+              {
+                path: PATH.PARAM.YEAR,
+                children: [
+                  {
+                    path: PATH.EMPTY,
+                    component: SkListComponent,
+                  },
+                  {
+                    path: PATH.PARAM.ID,
+                    component: SkViewerComponent,
+                  },
+                ]
+              },
+            ]
+          },
+        ]
+      },
+      {
+        path: PATH.MEDICAL_INFO,
+        canActivate: [AuthorizedGuard],
+        data: {
+          title: 'Medical Provider Info',
+        },
+        children: [
+          {
+            path: PATH.EMPTY,
+            component: MedicalInfoComponent,
+            resolve: {
+              insuranceTypes: InsuranceTypesResolve,
+              providerCities: ProviderCitiesResolve,
+              providerTypes: ProviderTypesResolve
+            }
+          },
+          {
+            path: PATH.DETAILS,
+            children: [
+              {
+                path: PATH.EMPTY,
+                component: MedicalInfoDetailsComponent
+              },
+              {
+                path: `${PATH.MAP}/${PATH.PARAM.ID}`,
+                component: MedicalInfoDetailMapComponent,
+                resolve: {
+                  provider: ProviderResolve
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        path: PATH.CONTACTS,
+        canActivate: [AuthorizedGuard],
+        data: {
+          title: 'Contacts',
+        },
+        children: [
+          {
+            path: PATH.EMPTY,
+            component: ContactsComponent,
+          },
+          {
+            path:  PATH.PARAM.ID,
+            component: ContactDetailComponent,
+            resolve: {
+              contact: ContactsResolve
+            }
+          },
+        ]
+      },
+      {
         path: PATH.REQUEST,
         data: {
           title: 'Request'
@@ -45,6 +177,13 @@ const routes: Routes = [
           title: 'Status'
         },
         component: StatusComponent
+      },
+      {
+        path: PATH.APPROVALS,
+        data: {
+          title: 'Approval'
+        },
+        component: ApprovalsComponent
       },
       {
         path: PATH.PAYROLL,
@@ -77,6 +216,13 @@ const routes: Routes = [
             component: CalendarFormComponent
           }
         ]
+      },
+      {
+        path: PATH.LOGOUT,
+        component: LogoutComponent,
+        data: {
+          title: 'Logout'
+        }
       }
     ]
   },

@@ -1,0 +1,12 @@
+<div class="item">
+    <div class="icon-div"><i class="material-icons">{{icon}}</i></div>
+    <span>{{contentDisplay}}</span>
+    <div class="call-div" *ngIf="actionIcon === 'call'">
+        <a href="tel:{{content}}">
+        <i class="material-icons">{{actionIcon}}</i>
+        </a>
+    </div>
+    <div class="call-div" *ngIf="actionIcon && actionIcon !== 'call'" (click)="action.emit()">
+        <i class="material-icons">{{actionIcon}}</i>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+.contact-container{
+    width: 90vw;
+    margin: 0px auto;
+}
+.contact-alphabet{
+    width: 10vw;
+    display: table-cell;
+    vertical-align: top;
+    line-height: 10vh;
+    color: #ccc;
+    font-size: 7vh;
+}
+.contact-list{
+    width: 85vw;
+    display: table-cell;
+    margin: 0px;
+}
+.contact-list ul{
+    list-style: none;
+    margin: 0px;
+    padding: 0;
+}
+.contact-list ul li{
+    line-height: 10vh;
+    height: 10vh;
+    margin: 0px;
+    padding-left: 5px;
+    border-bottom: 1px solid #ccc;
+    font-size: 3vh;
+}
+.employee-name{
+    width: 75%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+.icon-right{
+    float: right;
+    line-height: 10vh;
+    padding-right: 10px;
+}
+.emergency-icon{
+    margin-left: 5%;
+}
+.search-result-title {
+    padding-top: 10px;
+    padding-left: 40px;
+    color: #aac;
+}
+.contacts {
+    padding: 10px;
+    padding-bottom: 75px;
+}
+
+.emergency-button {
+    position: fixed;
+    width: 90%;
+    min-height: 56px;
+    margin-left: 5vw;
+    bottom: 2%;
+}
+
+.emergency-button-container {
+    position: fixed;
+    height: 64px;
+    width: 100%;
+    bottom: 0;
+    background-color: #fff;
+}
+
+.loading-spinner {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    vertical-align: center;
+}
+
+@media screen and (min-width: 600px) {
+    .emergency-button {
+        min-height: 64px;
+    }
+}

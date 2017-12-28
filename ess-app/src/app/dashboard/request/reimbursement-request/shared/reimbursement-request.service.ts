@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { mapKeys } from 'lodash';
 
+import { ENDPOINT } from './../../../../core/constant/index';
 import { environment } from './../../../../../environments/environment';
 import { DataService } from './../../../../core/data.service';
 import { ApiService } from './../../../../core/network/api.service';
@@ -18,25 +19,31 @@ export class ReimbursementRequestService extends DataService<FormRequest> {
   constructor(apiService: ApiService,
               private notification: NotificationService) {
     super(apiService);
-    super.setEndpoint('/reimbursement-requests', FormRequest);
+    super.setEndpoint(ENDPOINT.REQUEST.REIMBURSEMENT, FormRequest);
   }
 
-    createRequest(request) {
+  createRequest(request) {
     let url = `${environment.apiUrl}${this.endpoint}`;
     let requestWrapper = { url: url, request: request };
     this.sendRequest(requestWrapper);
   }
 
   sendRequest(request) {
-    this.addToSync(request)
-        .then(msg => navigator.serviceWorker.ready)
-        .then(reg => this.registerSyncEvent(reg))
-        .catch(() => console.log('meh'))
-        .catch(() => {
-          let requestForm = new FormData();
-          mapKeys(request.request, (value, mapKey) => {requestForm.append(mapKey, value)});
-          this.create(requestForm);
-        });
+    if (!navigator.onLine) {
+      this.addToSync(request)
+          .then(msg => navigator.serviceWorker.ready)
+          .then(reg => this.registerSyncEvent(reg))
+          .catch(() => console.log('meh'))
+          .catch(() => {
+            let requestForm = new FormData();
+            mapKeys(request.request, (value, mapKey) => {requestForm.append(mapKey, value)});
+            this.create(requestForm);
+          });
+    } else {
+      let requestForm = new FormData();
+      mapKeys(request.request, (value, mapKey) => {requestForm.append(mapKey, value)});
+      this.create(requestForm).subscribe(data => this.notification.show(data));
+    }
   }
 
   addToSync(request) {

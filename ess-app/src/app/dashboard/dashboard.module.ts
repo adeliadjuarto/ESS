@@ -10,6 +10,12 @@ import { RequestModule } from './request/request.module';
 import { StatusModule } from './status/status.module';
 import { PayrollModule } from './payroll/payroll.module';
 import { CalendarModule } from './calendar/calendar.module';
+import { ApprovalsModule } from './approvals/approvals.module';
+import { ContactsModule } from './contacts/contacts.module';
+import { HcmInfoModule } from './hcm-info/hcm-info.module';
+import { MedicalInfoModule } from './medical-info/medical-info.module';
+import { LogoutComponent } from './account/logout/logout.component';
+import { UserService } from './account/shared/user.service';
 
 @NgModule({
   imports: [
@@ -20,11 +26,19 @@ import { CalendarModule } from './calendar/calendar.module';
     RequestModule,
     CalendarModule,
     PayrollModule,
-    StatusModule
+    StatusModule,
+    ApprovalsModule,
+    ContactsModule,
+    MedicalInfoModule,
+    HcmInfoModule
   ],
   declarations: [
     DashboardComponent,
     MenuComponent,
+    LogoutComponent
+  ],
+  providers: [
+    UserService
   ]
 })
 export class DashboardModule { }

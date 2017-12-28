@@ -1,0 +1,13 @@
+<mat-tab-group (selectChange)="updateTab($event)">
+    <mat-tab *ngFor="let approvalType of approvalTypes" label="{{approvalType}}">
+    </mat-tab>
+</mat-tab-group>
+<div class="container">
+  <div class="approval-container">
+    <div class="approvals" *ngFor="let approval of approvals">
+      <app-approvals-card [inputStatus]="approval"
+                          [approvalType]="approvalTypeUrl">
+      </app-approvals-card>
+    </div>
+  </div>
+</div>

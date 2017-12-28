@@ -8,6 +8,8 @@ import { REIMBURSEMENT_TYPES } from './../../../core/constant';
 import { DashboardAction } from './../../shared/dashboard.action';
 import { ReimbursementRequestService } from './shared/reimbursement-request.service';
 import { Reimbursement } from './../shared/request.interface';
+import { NotificationService } from './../../../shared/notification/notification.service';
+import { NotificationType } from './../../../shared/notification/notification.enum';
 
 @Component({
   selector: 'app-reimbursement-request',
@@ -27,8 +29,12 @@ export class ReimbursementRequestComponent implements OnInit {
   userId: string;
   requestAttachments: File[];
 
+  requestConfirm: boolean = false;
+  errorMessage: string;
+
   constructor(private store: Store<any>,
-              private requestService: ReimbursementRequestService) {
+              private requestService: ReimbursementRequestService,
+              private notification: NotificationService) {
     this.store.dispatch({
       type: DashboardAction.CHANGE_TITLE,
       payload: 'Reimbursement'
@@ -45,6 +51,14 @@ export class ReimbursementRequestComponent implements OnInit {
     this.requestAttachments = event.target.files[0];
   }
 
+  confirmRequest() {
+    if (this.requestValid()) {
+      this.requestConfirm = !this.requestConfirm;
+    } else {
+      this.notification.show(this.errorMessage, NotificationType.Error);
+    }
+  }
+
   submitRequest() {
     let eventDate = this.eventDate.getTime();
 
@@ -58,7 +72,45 @@ export class ReimbursementRequestComponent implements OnInit {
     };
 
     this.requestService.createRequest(formRequest);
+    this.resetForm();
+  }
 
+  dateDisplay(date: Date) {
+    let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('id-ID', dateOptions);
+  }
+
+  currencyDisplay(amountString: string) {
+    let amount = parseInt(amountString, 10);
+    return amount.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+  }
+
+  requestValid() {
+    if (!this.title || !this.description) {
+      this.errorMessage = 'Semua input harus diisi';
+      return false;
+    }
+
+    if (this.eventDate.getTime() > Date.now()) {
+      this.errorMessage = 'Tanggal melebihi tanggal hari ini'
+      return false;
+    }
+
+    if (!this.requestAttachments) {
+      this.errorMessage = 'File bukti belum diupload';
+      return false;
+    }
+
+    return true;
+  }
+
+  resetForm() {
+    this.requestConfirm = false;
+    this.eventDate = null;
+    this.requestAttachments = [];
+    this.title = '';
+    this.description = '';
+    this.amount = null;
   }
 
 }

@@ -42,6 +42,14 @@ public class ReimbursementRequestApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/reimbursement-approvals")
+    public Iterable<ReimbursementRequest> getRequestsOfSubordinate() throws Exception {
+        User user = authService.getCurrentUser();
+        List<User> subordinates = userRepository.findByIsActiveTrueAndSuperordinate(user);
+        return reimbursementRequestRepository.findByUserInAndIsActiveAndIsApprovedNull(subordinates, true);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/reimbursement-requests/{id}")
     public ReimbursementRequest getRequestDetail(@PathVariable("id") String id) throws Exception {
         return reimbursementRequestRepository.findOne(id);
