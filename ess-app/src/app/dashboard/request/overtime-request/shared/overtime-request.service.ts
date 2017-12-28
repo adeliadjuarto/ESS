@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { mapKeys } from 'lodash';
 
+import { ENDPOINT } from './../../../../core/constant/index';
 import { environment } from './../../../../../environments/environment';
 import { DataService } from './../../../../core/data.service';
 import { ApiService } from './../../../../core/network/api.service';
@@ -18,7 +19,7 @@ export class OvertimeRequestService extends DataService<FormRequest> {
   constructor(apiService: ApiService,
               private notification: NotificationService) {
     super(apiService);
-    super.setEndpoint('/overtime-requests', FormRequest);
+    super.setEndpoint(ENDPOINT.REQUEST.OVERTIME, FormRequest);
   }
 
   createRequest(request) {
