@@ -11,6 +11,9 @@ import { StatusModule } from './status/status.module';
 import { PayrollModule } from './payroll/payroll.module';
 import { CalendarModule } from './calendar/calendar.module';
 import { ApprovalsModule } from './approvals/approvals.module';
+import { ContactsModule } from './contacts/contacts.module';
+import { HcmInfoModule } from './hcm-info/hcm-info.module';
+import { MedicalInfoModule } from './medical-info/medical-info.module';
 
 @NgModule({
   imports: [
@@ -22,7 +25,10 @@ import { ApprovalsModule } from './approvals/approvals.module';
     CalendarModule,
     PayrollModule,
     StatusModule,
-    ApprovalsModule
+    ApprovalsModule,
+    ContactsModule,
+    MedicalInfoModule,
+    HcmInfoModule
   ],
   declarations: [
     DashboardComponent,

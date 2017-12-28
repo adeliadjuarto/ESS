@@ -9,7 +9,6 @@ import 'rxjs/add/operator/map';
 
 import { AppState } from './../../app.reducer';
 import { PATH } from './../../core/constant/index';
-import { BACKGROUND } from './../../core/constant';
 import { MedicalInfoService } from './shared/medical-info.service';
 import { NotificationType } from './../../shared/notification/notification.enum';
 import { NotificationService } from './../../shared/notification/notification.service';
@@ -32,7 +31,6 @@ export class MedicalInfoComponent implements OnInit {
 
   stateCtrl: FormControl;
   filteredCities: Observable<string[]>;
-  backgroundPath: string = BACKGROUND.MENU_BOTTOM;
 
   constructor(private store: Store<any>,
               private router: Router,

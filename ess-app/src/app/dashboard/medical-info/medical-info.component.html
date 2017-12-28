@@ -4,7 +4,6 @@
 </app-navbar>
 
 <div class="container">
-  <div class="batik-background" [ngStyle]="{ 'background-image': 'url('+ backgroundPath +')'}">
     <form class = "providerSearch" #medicalForm="ngForm" (submit)="goToDetails()">
         <mat-form-field>
           <input matInput [(ngModel)]="selectedCity" name="city" placeholder="Kota" [matAutocomplete]="autocomplete" 
@@ -33,5 +32,4 @@
         </mat-form-field>
         <button mat-raised-button> Submit </button>
     </form>
-  </div>
 </div>

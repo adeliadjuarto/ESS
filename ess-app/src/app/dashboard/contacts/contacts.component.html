@@ -20,7 +20,7 @@
 
 <app-empty-state *ngIf="isEmpty && !isLoading"></app-empty-state>
 
-<div class="emergency-button-container">
+<!--<div class="emergency-button-container">
   <button mat-raised-button
           class="emergency-button"
           [ngClass]="buttonTitle.toLowerCase()"
@@ -28,15 +28,12 @@
     {{buttonTitle}} Contacts
     <i class="material-icons emergency-icon">{{ icon }}</i>
   </button>
-</div>
+</div>-->
 
 <div class="contacts" *ngIf="isSearching || !searchToggle">
   <div *ngFor="let alphabet of alphabets" class="contact-container">
     <div class="contact-alphabet" *ngIf="!isSearching">{{ alphabet }}</div>
-    <div class="contact-list"
-         infiniteScroll
-         [infiniteScrollDisabled]="infiniteScrollDisabled"
-         (scrolled)="onScroll()">
+    <div class="contact-list">
       <ul>
         <li *ngFor="let employee of results[alphabet]" (click)="redirectToDetails(employee.id)">
           <span class="employee-name">{{ employee.name }}</span>

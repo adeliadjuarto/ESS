@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import moment from 'moment';
 
 import { AppState } from '../../../../app.reducer';
 import { HcmInfoService } from '../../shared/hcm-info.service';

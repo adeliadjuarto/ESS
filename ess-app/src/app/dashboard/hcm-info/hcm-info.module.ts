@@ -12,8 +12,6 @@ import { SkListComponent } from './sk-se/sk-list/sk-list.component';
 import { HcmInfoService } from './shared/hcm-info.service';
 import { DocumentYearsService } from './shared/document-years/document-years.service';
 import { DocumentYearsResolve } from './shared/document-years/document-years.resolver';
-import { PdfUrlResolve } from './shared/pdf-url/pdf-url.resolver';
-import { PdfUrlService } from './shared/pdf-url/pdf-url.service';
 import { YearListComponent } from './sk-se/year-list/year-list.component';
 import { PkbViewerComponent } from './pkb/pkb-viewer/pkb-viewer.component';
 
@@ -39,8 +37,6 @@ import { PkbViewerComponent } from './pkb/pkb-viewer/pkb-viewer.component';
     HcmInfoService,
     DocumentYearsService,
     DocumentYearsResolve,
-    PdfUrlService,
-    PdfUrlResolve
   ]
 })
 export class HcmInfoModule { }

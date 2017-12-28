@@ -40,7 +40,6 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   filteredEmployees: Array<Contact>;
   page: number = 0;
   firstPage: number = 0;
-  infiniteScrollDisabled: boolean = false;
   emergencyContactsToggle: boolean = false;
   public icon: string = 'warning';
 
@@ -50,19 +49,6 @@ export class ContactsComponent implements OnInit, AfterViewInit {
               private contactsService: ContactsService,
               private store: Store<any>,
               private route: ActivatedRoute ) {
-    let { jobTitles, regions } = this.route.snapshot.data;
-
-    this.filters.push({
-      title: FILTER.POSITION.TITLE,
-      label: FILTER.POSITION.LABEL,
-      selection: jobTitles
-    });
-
-    this.filters.push({
-      title: FILTER.REGIONS.TITLE,
-      label: FILTER.REGIONS.LABEL,
-      selection: regions
-    });
 
     this.fetchFirstPage();
     this.store.select((obj: AppState) => obj.contactsState)
@@ -91,7 +77,7 @@ export class ContactsComponent implements OnInit, AfterViewInit {
       });
     this.searchBarLgComponent.searchToggle$
       .subscribe(toggle => {
-        this.searchToggle = this.infiniteScrollDisabled = toggle;
+        this.searchToggle = toggle;
         if (!this.searchToggle && !this.emergencyContactsToggle) {
           this.searchQueryFilter = {};
           this.fetchFirstPage();
@@ -131,8 +117,6 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   fetchContacts(emergency: boolean) {
     if (emergency) {
       this.searchBarLgComponent.resetSearch();
-      this.infiniteScrollDisabled = false;
-      this.contactsService.fetchEmergencyContacts();
       this.icon = null;
     } else {
       this.fetchFirstPage();

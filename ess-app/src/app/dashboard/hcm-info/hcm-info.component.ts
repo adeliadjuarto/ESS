@@ -12,13 +12,12 @@ import { BACKGROUND } from './../../core/constant';
 export class HcmInfoComponent implements OnInit {
 
   public menuItems: Array<MenuItem> = Array<MenuItem>();
-  public backgroundPath: string = BACKGROUND.MENU_BOTTOM;
   @ViewChild('myGuideContainer') private container: ElementRef;
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.menuItems = this.route.parent.routeConfig.children
       .filter((r: Route) => r.path !== '')
-      .map((r: Route) => { return { title: r.data.title, path: r.path, iconPath: r.data.iconPath }; });
+      .map((r: Route) => { return { title: r.data.title, path: r.path }; });
   }
 
   ngOnInit() {

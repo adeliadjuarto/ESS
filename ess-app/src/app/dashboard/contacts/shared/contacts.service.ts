@@ -79,18 +79,4 @@ export class ContactsService extends DataService<Contact> {
                           .map((response: Response) => response.to(ResponseType.list));
   }
 
-  fetchEmergencyContacts() {
-    this.fetchEmergencyContactList().subscribe(
-      this.fetchContactsSuccess.bind(this)
-    );
-  }
-
-  fetchEmergencyContactList() {
-    let endpoint = `${this.endpoint}/${ENDPOINT.SUFFIX.EMERGENCY}`;
-
-    return this.apiService.get(endpoint)
-                          .map((response: Response) => response.to(ResponseType.list));
-
-  }
-
 }

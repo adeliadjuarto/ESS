@@ -6,7 +6,8 @@ export const PATH = {
     },
 
     PARAM: {
-        ID: ':id'
+        ID: ':id',
+        YEAR: ':year'
     },
 
     ROOT: '/',
@@ -28,4 +29,11 @@ export const PATH = {
     OVERTIME: 'overtime',
     REIMBURSEMENT: 'reimbursement',
 
+    HCM_INFO: 'hcm-info',
+    SK_SE: 'sk-se',
+    PKB: 'pkb',
+    MEDICAL_INFO: 'medical-info',
+    DETAILS: 'details',
+    MAP: 'map',
+    CONTACTS: 'contacts',
 };

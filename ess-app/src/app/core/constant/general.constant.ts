@@ -20,3 +20,8 @@ export const ICON = {
 
 export const BACKGROUND = {
 }
+
+export const DOCUMENT = {
+  PKB: 'pkb',
+  SK: 'sk-se'
+}
