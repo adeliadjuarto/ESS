@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { PdfViewerModule } from './../../shared/pdf-viewer/pdf-viewer.module';
+import { PdfViewerComponent } from './../../shared/pdf-viewer/pdf-viewer.component';
 import { SearchBarModule } from './../../shared/search-bar/search-bar.module';
 import { UIModule } from './../../shared/user-interface.module';
 import { HcmInfoComponent } from './hcm-info.component';
@@ -21,7 +21,6 @@ import { PkbViewerComponent } from './pkb/pkb-viewer/pkb-viewer.component';
   imports: [
     CommonModule,
     UIModule,
-    PdfViewerModule,
     SearchBarModule
   ],
   declarations: [
@@ -30,7 +29,8 @@ import { PkbViewerComponent } from './pkb/pkb-viewer/pkb-viewer.component';
     SkViewerComponent,
     SkListComponent,
     YearListComponent,
-    PkbViewerComponent
+    PkbViewerComponent,
+    PdfViewerComponent
   ],
   exports: [
     RouterModule,
