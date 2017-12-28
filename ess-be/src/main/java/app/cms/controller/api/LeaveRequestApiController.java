@@ -93,7 +93,7 @@ public class LeaveRequestApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/leave-requests/{id}/reject", method = RequestMethod.POST)
+    @RequestMapping(value = "/leave-approvals/{id}/reject", method = RequestMethod.POST)
     public String rejectRequest(@PathVariable("id") String id,
                                 @RequestParam("notes") String notes) throws Exception {
         LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
@@ -104,7 +104,7 @@ public class LeaveRequestApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/leave-requests/{id}/approve")
+    @RequestMapping(value = "/leave-approvals/{id}/approve")
     public String approveRequest(@PathVariable("id") String id) throws Exception {
         LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
         leaveRequest.setIsApproved(true);
