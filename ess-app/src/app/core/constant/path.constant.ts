@@ -14,6 +14,7 @@ export const PATH = {
     EMPTY: '',
 
     LOGIN: 'login',
+    LOGOUT: 'logout',
     DASHBOARD: 'dashboard',
     ACCOUNT: 'my-account',
 

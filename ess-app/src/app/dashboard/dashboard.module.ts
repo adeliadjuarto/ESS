@@ -14,6 +14,7 @@ import { ApprovalsModule } from './approvals/approvals.module';
 import { ContactsModule } from './contacts/contacts.module';
 import { HcmInfoModule } from './hcm-info/hcm-info.module';
 import { MedicalInfoModule } from './medical-info/medical-info.module';
+import { LogoutComponent } from './account/logout/logout.component';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { MedicalInfoModule } from './medical-info/medical-info.module';
   declarations: [
     DashboardComponent,
     MenuComponent,
+    LogoutComponent
   ]
 })
 export class DashboardModule { }

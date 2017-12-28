@@ -48,7 +48,7 @@ export class MenuComponent implements OnInit {
                                     disabledWhenOffline: r.data.disabledWhenOffline,
                                     description: r.data.description,
                                     iconPath: r.data.iconPath }; })
-                     .filter((menu: MenuItem) => menu.path !== PATH.ACCOUNT);
+                     .filter((menu: MenuItem) => menu.path !== PATH.LOGOUT);
 
     Observable.merge(
       Observable.of(navigator.onLine),

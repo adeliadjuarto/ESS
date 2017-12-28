@@ -1,0 +1,55 @@
+@import '../../../stylesheets/variables.scss';
+
+.item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 60px;
+    color: #B5B5B5;
+    font-size: 1.2em;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid $color-button;
+    vertical-align: -webkit-baseline-middle;
+}
+
+.item i{
+    font-size: 2em;
+    line-height: inherit;
+}
+.item .call-div i{
+    color: $color-primary;
+}
+.item .icon-div i{
+    color: #B5B5B5;
+}
+.item .call-div{
+    float: right;
+    height: 100%;
+    width: 60px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: $color-button;
+    text-align: center;
+}
+
+.item .icon-div{
+    float: left;
+    width: 15%;
+    text-align: center;
+}
+
+span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    width: 65%;
+    color: #000;
+}
+
+a {
+    text-decoration: none;
+}

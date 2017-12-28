@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
+import { PATH } from './../core/constant/index';
 import { AppState } from './../app.reducer';
 import { DashboardAction } from './shared/dashboard.action';
 import { UserAction } from './account/shared/user.action';
@@ -48,6 +49,10 @@ export class DashboardComponent implements OnInit {
 
   public back() {
     this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  logout() {
+    this.router.navigateByUrl(PATH.LOGOUT);
   }
 
 }
