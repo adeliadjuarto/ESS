@@ -18,8 +18,6 @@ import java.util.List;
 @Service
 public class EventService {
     @Autowired
-    private GoogleCalendarService googleCalendarService;
-    @Autowired
     private UserRepository userRepository;
     @Autowired
     private EventRepository eventRepository;
@@ -33,7 +31,6 @@ public class EventService {
                            String summary,
                            Long[] userIds,
                            Boolean isAllDayEvent) throws IOException {
-        String googleEventId = googleCalendarService.addEvent(start, end, summary, isAllDayEvent);
         List<EventAttendee> eventAttendees = new ArrayList<>();
         EventAttendee eventAttendee = null;
         User user = null;
@@ -42,7 +39,7 @@ public class EventService {
             eventAttendee = new EventAttendee(user);
             eventAttendees.add(eventAttendee);
         }
-        Event event = new Event(googleEventId, summary, start, end, isAllDayEvent, eventAttendees);
+        Event event = new Event(summary, start, end, isAllDayEvent, eventAttendees);
         return eventRepository.save(event);
     }
 
@@ -63,7 +60,6 @@ public class EventService {
         }
         event.update(summary, start, end, isAllDayEvent, eventAttendees);
         eventRepository.save(event);
-        googleCalendarService.updateEvent(event.getGoogleEventId(), start, end, summary, isAllDayEvent);
         return event;
     }
 
@@ -71,6 +67,5 @@ public class EventService {
         Event event = eventRepository.findOne(id);
         event.setIsActive(false);
         eventRepository.save(event);
-        googleCalendarService.deleteEvent(event.getGoogleEventId());
     }
 }

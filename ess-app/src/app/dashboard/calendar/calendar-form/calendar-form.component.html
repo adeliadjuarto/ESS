@@ -1,0 +1,22 @@
+<div class="container">
+    <mat-form-field>
+      <input #nameInput matInput placeholder="Description" [(ngModel)]="eventForm.description"/>
+    </mat-form-field>
+
+    <div class="from-to-datepicker">
+      <mat-form-field id="datepicker-left">
+        <input name="dateFor" matInput placeholder="Start" [(ngModel)]="eventForm.start"
+               [matDatepicker]="pickerFor" (click)="pickerFor.open()"/>
+        <mat-datepicker-toggle matSuffix [for]="pickerFor"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFor></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field id="datepicker-right">
+        <input name="dateTo" matInput placeholder="End" [(ngModel)]="eventForm.end"
+               [matDatepicker]="pickerTo" (click)="pickerTo.open()" />
+        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button (click)="submitRequest()">Submit Request</button>
+</div>
