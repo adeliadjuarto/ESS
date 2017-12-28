@@ -46,7 +46,7 @@ public class LeaveRequestApiController {
     public Iterable<LeaveRequest> getRequestsOfSubordinate() throws Exception {
         User user = authService.getCurrentUser();
         List<User> subordinates = userRepository.findByIsActiveTrueAndSuperordinate(user);
-        return leaveRequestRepository.findByUserInAndIsActive(subordinates, true);
+        return leaveRequestRepository.findByUserInAndIsActiveAndIsApprovedNull(subordinates, true);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

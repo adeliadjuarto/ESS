@@ -12,5 +12,5 @@ import java.util.List;
 public interface ReimbursementRequestRepository extends JpaRepository<ReimbursementRequest, String> {
     public List<ReimbursementRequest> findByIsActive(Boolean isActive);
     public List<ReimbursementRequest> findByUserAndIsActive(User user, Boolean isActive);
-    public List<ReimbursementRequest> findByUserInAndIsActive(List<User> users, Boolean isActive);
+    public List<ReimbursementRequest> findByUserInAndIsActiveAndIsApprovedNull(List<User> users, Boolean isActive);
 }
