@@ -215,13 +215,14 @@ const routes: Routes = [
             path: PATH.ADD,
             component: CalendarFormComponent
           }
-        ]      
+        ]
       },
       {
         path: PATH.LOGOUT,
         component: LogoutComponent,
         data: {
           title: 'Logout'
+        }
       }
     ]
   },
