@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!requestConfirm">
     <mat-form-field>
       <mat-select placeholder="Type" [(ngModel)]="selectedLeaveType" name="leaveType" (change)="doStuff()">
         <mat-option *ngFor = "let type of leaveTypes" [value]="type">
@@ -46,5 +46,77 @@
       <input type="file" (change)="fileChange($event)">
     </div>
 
-    <button mat-raised-button (click)="submitRequest()">Submit Request</button>
+    <button mat-raised-button (click)="confirmRequest()">Submit Request</button>
+</div>
+
+<div class="container" *ngIf="requestConfirm">
+    <mat-card>  
+      <mat-card-content>
+        <div class="status">
+          <div class="status-title">
+            Judul
+          </div>
+          <div class="status-item">
+            {{requestTitle}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+        <div class="status">
+          <div class="status-title">
+            Keterangan
+          </div>
+          <div class="status-item">
+            {{requestDescription}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+        <div class="status">
+          <div class="status-title">
+            Tipe
+          </div>
+          <div class="status-item">
+            {{selectedLeaveType}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content *ngIf="dateFor">
+        <div class="status">
+          <div class="status-title">
+            Dari
+          </div>
+          <div class="status-item">
+            {{dateDisplay(dateFor)}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content *ngIf="dateTo">
+        <div class="status">
+          <div class="status-title">
+            Sampai
+          </div>
+          <div class="status-item">
+            {{dateDisplay(dateTo)}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+        <div class="status">
+          <div class="status-title">
+            File Attachment
+          </div>
+          <div class="status-item">
+            {{requestAttachments.name}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+        <div class="buttons">
+          <button mat-raised-button (click)="submitRequest()">Confirm</button>
+          <button mat-raised-button (click)="confirmRequest()">Cancel</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
 </div>

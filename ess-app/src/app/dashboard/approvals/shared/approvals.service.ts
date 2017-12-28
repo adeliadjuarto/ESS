@@ -53,6 +53,11 @@ export class ApprovalsService extends DataService<Approvals> {
     });
   }
 
-
+  approveRequest(url, note?) {
+    let form = new FormData();
+    form.append('notes', note);
+    return this.apiService.post(url, form)
+                          .map((response: Response) => response.to(ResponseType.Text));
+  }
 
 }

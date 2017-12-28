@@ -1,0 +1,29 @@
+.container {
+    width: 90vw;
+    margin: 5vw;
+}
+
+.approvals {
+    display: inline-block; 
+    margin-top: 10px;
+    width: 100%;
+    max-width: 352px;
+    text-align: left;
+}
+
+.approval-container {
+    text-align: center;
+}
+
+:host /deep/ .mat-tab-labels {
+    justify-content: space-around;
+}
+:host /deep/ .mat-tab-label {
+    width: 100%;
+}
+
+@media screen and (min-width: 1000px) {
+    .approvals {
+        max-width: 400px;
+    }
+}

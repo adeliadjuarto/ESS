@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { UIModule } from './../../shared/user-interface.module';
 import { ApprovalsComponent } from './approvals.component';
@@ -9,7 +10,8 @@ import { ApprovalsService } from './shared/approvals.service';
 @NgModule({
   imports: [
     CommonModule,
-    UIModule
+    FormsModule,
+    UIModule,
   ],
   declarations: [
     ApprovalsComponent,

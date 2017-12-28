@@ -101,12 +101,32 @@
   </mat-card-content>
   <mat-card-content>
     <div class="buttons">
-      <button>
-        Hai
+      <button (click)="submitApproval('approve')">
+        Approve
       </button>
 
-      <button>
-        Hey
+      <button (click)="submitApproval('reject')">
+        Reject
+      </button>
+    </div>
+  </mat-card-content>
+  <mat-card-content *ngIf="!!approvalSubmission">
+    <div class="note">
+      <mat-form-field *ngIf="approvalSubmission==='reject'"
+                      floatPlaceholder="never">
+        <input #nameInput matInput placeholder="Rejection Note" [(ngModel)]="rejectionNote"/>
+      </mat-form-field>
+
+      <div *ngIf="approvalSubmission==='approve'">
+        Are you sure you want to approve this request?
+      </div>
+
+      <button (click)="approveRequest()">
+        Submit
+      </button>
+
+      <button (click)="submitApproval()">
+        Cancel
       </button>
     </div>
   </mat-card-content>

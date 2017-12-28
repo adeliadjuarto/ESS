@@ -6,6 +6,8 @@ export const ENDPOINT = {
     CHANGE_PASSWORD: '/change-password',
     PAYROLL: '/payroll',
     CALENDAR: '/events',
+    PROVIDERS: '/buzz-backend/providers',
+    DOCUMENTS: '/buzz-backend/documents',
 
     REQUEST_TYPES: '/request-types',
     REQUEST: {

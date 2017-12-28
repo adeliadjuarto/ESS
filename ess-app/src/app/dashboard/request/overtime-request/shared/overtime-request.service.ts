@@ -21,22 +21,28 @@ export class OvertimeRequestService extends DataService<FormRequest> {
     super.setEndpoint('/overtime-requests', FormRequest);
   }
 
-    createRequest(request) {
+  createRequest(request) {
     let url = `${environment.apiUrl}${this.endpoint}`;
     let requestWrapper = { url: url, request: request };
     this.sendRequest(requestWrapper);
   }
 
   sendRequest(request) {
-    this.addToSync(request)
-        .then(msg => navigator.serviceWorker.ready)
-        .then(reg => this.registerSyncEvent(reg))
-        .catch(() => console.log('meh'))
-        .catch(() => {
-          let requestForm = new FormData();
-          mapKeys(request.request, (value, mapKey) => {requestForm.append(mapKey, value)});
-          this.create(requestForm);
-        });
+    if (!navigator.onLine) {
+      this.addToSync(request)
+          .then(msg => navigator.serviceWorker.ready)
+          .then(reg => this.registerSyncEvent(reg))
+          .catch(() => console.log('meh'))
+          .catch(() => {
+            let requestForm = new FormData();
+            mapKeys(request.request, (value, mapKey) => {requestForm.append(mapKey, value)});
+            this.create(requestForm);
+          });
+    } else {
+      let requestForm = new FormData();
+      mapKeys(request.request, (value, mapKey) => {requestForm.append(mapKey, value)});
+      this.create(requestForm).subscribe(data => this.notification.show(data));
+    }
   }
 
   addToSync(request) {

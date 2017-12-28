@@ -108,6 +108,12 @@ public class LeaveRequestApiController {
     public String approveRequest(@PathVariable("id") String id) throws Exception {
         LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
         leaveRequest.setIsApproved(true);
+
+        if(leaveRequest.getRequestType().getName() == "Sick Leave") {
+            Integer annualLeave = userRepository.findOne(leaveRequest.getUser().getId()).getAnnualLeave();
+            userRepository.findOne(leaveRequest.getUser().getId()).setAnnualLeave(--annualLeave);
+        }
+
         leaveRequestRepository.save(leaveRequest);
         return "You have approved this request";
     }
