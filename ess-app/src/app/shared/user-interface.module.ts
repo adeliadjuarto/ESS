@@ -8,15 +8,21 @@ import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { EmptyStateComponent } from './empty-state/empty-state.component';
 import { InfoCardComponent } from './info-card/info-card.component';
 import { LoadingComponent } from './loading/loading.component';
+import { SearchBarModule } from './search-bar/search-bar.module';
+import { SearchFilterModule } from './search-filter/search-filter.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    SearchBarModule,
+    SearchFilterModule
   ],
   exports: [
     NotificationModule,
     MaterialModule,
+    SearchBarModule,
+    SearchFilterModule,
     PdfViewerComponent,
     EmptyStateComponent,
     InfoCardComponent,

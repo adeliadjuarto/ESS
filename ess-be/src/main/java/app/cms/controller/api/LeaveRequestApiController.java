@@ -109,7 +109,7 @@ public class LeaveRequestApiController {
         LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
         leaveRequest.setIsApproved(true);
 
-        if(leaveRequest.getRequestType().getName() == "Sick Leave") {
+        if(leaveRequest.getRequestType().getName() == "Annual Leave") {
             Integer annualLeave = userRepository.findOne(leaveRequest.getUser().getId()).getAnnualLeave();
             userRepository.findOne(leaveRequest.getUser().getId()).setAnnualLeave(--annualLeave);
         }

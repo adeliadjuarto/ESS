@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, Route } from '@angular/router';
 
+import { Store } from '@ngrx/store';
+
+import { DashboardAction } from './../shared/dashboard.action';
 import { MenuItem, PATH } from './../../core/constant/index';
-import { BACKGROUND } from './../../core/constant';
 
 @Component({
   selector: 'app-hcm-info',
@@ -14,7 +16,8 @@ export class HcmInfoComponent implements OnInit {
   public menuItems: Array<MenuItem> = Array<MenuItem>();
   @ViewChild('myGuideContainer') private container: ElementRef;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private store: Store<any>) {
+    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'HCM Info'});
     this.menuItems = this.route.parent.routeConfig.children
       .filter((r: Route) => r.path !== '')
       .map((r: Route) => { return { title: r.data.title, path: r.path }; });

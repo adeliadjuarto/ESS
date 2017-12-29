@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
+import { DashboardAction } from './../../../shared/dashboard.action';
 import { AppState } from '../../../../app.reducer';
 import { HcmInfoService } from '../../shared/hcm-info.service';
 import { DocumentsAction as Action } from '../../shared/hcm-info.action';
@@ -18,9 +19,11 @@ export class PkbViewerComponent implements OnInit {
 
   url: string;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,
+              private store: Store<any>) {
     let  { url } = this.route.snapshot.data;
     this.url = url;
+    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'PKB'});
   }
 
   ngOnInit() {

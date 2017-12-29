@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
+import { DashboardAction } from './../../../shared/dashboard.action';
 import { AppState } from '../../../../app.reducer';
 import { HcmInfoService } from '../../shared/hcm-info.service';
 import { Document } from './../../shared/document.model';
@@ -27,6 +28,8 @@ export class SkListComponent implements OnInit, AfterViewInit {
               private router: Router,
               private route: ActivatedRoute,
               private hcmInfoService: HcmInfoService) {
+
+              this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'SK / SE'});
 
               this.store.select((appState: AppState) => appState.hcmInfoState)
                         .subscribe((hcmInfoState) => {

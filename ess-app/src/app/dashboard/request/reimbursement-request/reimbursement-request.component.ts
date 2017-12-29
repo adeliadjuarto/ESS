@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { values, mapKeys } from 'lodash';
+import { mapKeys } from 'lodash';
 import { Store } from '@ngrx/store';
 
 import { AppState } from './../../../app.reducer';
@@ -18,9 +18,9 @@ import { NotificationType } from './../../../shared/notification/notification.en
 })
 export class ReimbursementRequestComponent implements OnInit {
 
-  types = values(REIMBURSEMENT_TYPES);
+  types = REIMBURSEMENT_TYPES;
 
-  selectedType: string;
+  selectedType: any;
   title: string;
   description: string;
   eventDate: Date;
@@ -67,7 +67,7 @@ export class ReimbursementRequestComponent implements OnInit {
         description: this.description,
         eventDate: eventDate,
         amount: this.amount,
-        requestTypeId: 1,
+        requestTypeId: this.selectedType.id,
         'attachments[]': this.requestAttachments
     };
 
@@ -111,6 +111,7 @@ export class ReimbursementRequestComponent implements OnInit {
     this.title = '';
     this.description = '';
     this.amount = null;
+    this.selectedType = null;
   }
 
 }

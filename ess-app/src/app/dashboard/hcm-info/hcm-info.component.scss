@@ -1,29 +1,6 @@
 @import '../../../stylesheets/variables.scss';
 
 mat-grid-tile {
-    background: transparent;
-}
-
-.menu-icon {
-    width: 100%;
-    height: 100%;
-    background-size: 85%;
-    background-repeat: no-repeat;
-    background-position: center;
-    cursor: pointer;   
-}
-
-.menu-info {
-    text-align: center;
-    background-color: rgba(13, 98, 172, 0.9);
-    color: $color-white;
-    width: 100%;
-    height: 100%;
-}
-
-.menu-info .title {
-    width: 100%;
-    height: 100%;
-    padding-top: 45%;
-    color: $color-tertiary;
+    background-color: #1fc584 !important;
+    color: #fff;
 }

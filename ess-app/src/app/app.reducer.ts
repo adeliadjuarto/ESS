@@ -9,7 +9,6 @@ import * as fromPayroll from './dashboard/payroll/shared/payroll.reducer';
 import * as fromStatus from './dashboard/status/shared/status.reducer';
 import * as fromApprovals from './dashboard/approvals/shared/approvals.reducer';
 import * as fromUser from './dashboard/account/shared/user.reducer';
-import * as fromContacts from './dashboard/contacts/shared/contacts.reducer';
 import * as fromMedicalInfo from './dashboard/medical-info/shared/medical-info.reducer';
 import * as fromSearchBar from './shared/search-bar/search-bar.reducer';
 import * as fromSearchFilter from './shared/search-filter/search-filter.reducer';
@@ -22,12 +21,10 @@ export interface AppState {
     statusState: fromStatus.StatusState;
     approvalsState: fromApprovals.ApprovalsState;
     userState: fromUser.UserState;
-    contactsState: fromContacts.State;
     medicalInfoState: fromMedicalInfo.State;
     searchBarState: fromSearchBar.State;
     searchFilterState: fromSearchFilter.State;
     hcmInfoState: fromHcmInfo.State;
-
 }
 
 const reducers = {
@@ -37,12 +34,10 @@ const reducers = {
     statusState: fromStatus.reducer,
     approvalsState: fromApprovals.reducer,
     userState: fromUser.reducer,
-    contactsState: fromContacts.reducer,
     medicalInfoState: fromMedicalInfo.reducer,
     searchBarState: fromSearchBar.reducer,
     searchFilterState: fromSearchFilter.reducer,
     hcmInfoState: fromHcmInfo.reducer,
-
 };
 
 export const prodReducer: ActionReducer<AppState> = combineReducers(reducers);

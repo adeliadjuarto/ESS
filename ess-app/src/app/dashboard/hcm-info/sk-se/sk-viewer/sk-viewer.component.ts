@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
+import { DashboardAction } from './../../../shared/dashboard.action';
+
 @Component({
   selector: 'app-sk-viewer',
   templateUrl: './sk-viewer.component.html',
@@ -14,6 +16,7 @@ export class SkViewerComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private store: Store<any>) {
+    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'SK / SE'});
     let  { url } = this.route.snapshot.data;
     this.url = url;
   }

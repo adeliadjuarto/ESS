@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
+import { DashboardAction } from './../../shared/dashboard.action';
 import { Provider } from '../shared/provider.model';
 import { MedicalInfoService } from '../shared/medical-info.service';
 import { AppState } from '../../../app.reducer';
@@ -19,6 +20,7 @@ export class MedicalInfoDetailsComponent implements OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute,
     private medicalInfoService: MedicalInfoService, private store: Store<any>) {
+    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Provider Tunjangan Medis'});
     this.store.select((obj: AppState) => obj.medicalInfoState)
       .subscribe((medicalInfoState) => {
         if (medicalInfoState) {

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../../../app.reducer';
+import { DashboardAction } from './../../../shared/dashboard.action';
 import { HcmInfoService } from '../../shared/hcm-info.service';
 import { DocumentsAction as Action } from '../../shared/hcm-info.action';
 import { SearchBarXsComponent } from './../../../../shared/search-bar/search-bar-xs/search-bar-xs.component';
@@ -26,6 +27,7 @@ export class YearListComponent implements OnInit {
               private route: ActivatedRoute,
               private hcmInfoService: HcmInfoService) {
 
+              this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'SK / SE'});
               this.store.select((appState: AppState) => appState.hcmInfoState)
                         .subscribe((hcmInfoState) => {
                           if (hcmInfoState) {
