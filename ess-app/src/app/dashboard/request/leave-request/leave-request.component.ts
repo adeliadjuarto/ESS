@@ -19,8 +19,8 @@ import { NotificationType } from './../../../shared/notification/notification.en
 })
 export class LeaveRequestComponent implements OnInit {
 
-  selectedLeaveType: string;
-  leaveTypes = values(LEAVE_TYPES);
+  selectedLeaveType: any;
+  leaveTypes = LEAVE_TYPES;
   singleDatepicker: boolean = false;
 
   requestTitle: string;
@@ -61,7 +61,7 @@ export class LeaveRequestComponent implements OnInit {
   }
 
   doStuff() {
-    this.selectedLeaveType === LEAVE_TYPES.PARTIAL_DAY_LEAVE ? this.singleDatepicker = true : this.singleDatepicker = false;
+    this.selectedLeaveType === 7 ? this.singleDatepicker = true : this.singleDatepicker = false;
     this.sliderValue = [0, 0];
   }
 
@@ -110,7 +110,7 @@ export class LeaveRequestComponent implements OnInit {
         description: this.requestDescription,
         start: start,
         end: end,
-        requestTypeId: 1,
+        requestTypeId: this.selectedLeaveType.id,
         'attachments[]': this.requestAttachments
       };
 
@@ -130,7 +130,7 @@ export class LeaveRequestComponent implements OnInit {
     this.requestAttachments = [];
     this.requestTitle = '';
     this.requestDescription = '';
-    this.selectedLeaveType = '';
+    this.selectedLeaveType = null;
     this.sliderValue = [0, 0];
   }
 

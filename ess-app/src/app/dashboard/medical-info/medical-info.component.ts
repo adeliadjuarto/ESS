@@ -8,6 +8,7 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
 import { AppState } from './../../app.reducer';
+import { DashboardAction } from './../shared/dashboard.action';
 import { PATH } from './../../core/constant/index';
 import { MedicalInfoService } from './shared/medical-info.service';
 import { NotificationType } from './../../shared/notification/notification.enum';
@@ -37,6 +38,7 @@ export class MedicalInfoComponent implements OnInit {
               private medicalInfoService: MedicalInfoService,
               private route: ActivatedRoute,
               private notification: NotificationService) {
+      this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Provider Tunjangan Medis'});
       this.insuranceTypes = this.route.snapshot.data['insuranceTypes'];
       this.cities = this.route.snapshot.data['providerCities'];
       this.providers = this.route.snapshot.data['providerTypes'];
@@ -88,7 +90,7 @@ export class MedicalInfoComponent implements OnInit {
         queryParams : {city: this.selectedCity, provider: this.selectedProvider, insurance: this.selectedInsuranceType}
       });
     } else {
-      this.notification.show('Field \'Kota\' must be filled', NotificationType.Error)
+      this.notification.show('Field \'Kota\' harus diisi', NotificationType.Error)
     }
 
   }

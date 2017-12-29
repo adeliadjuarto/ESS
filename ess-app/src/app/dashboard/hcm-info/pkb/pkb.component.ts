@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
+import { DashboardAction } from './../../shared/dashboard.action';
 import { AppState } from '../../../app.reducer';
 import { HcmInfoService } from '../shared/hcm-info.service';
 import { DocumentsAction as Actions } from '../shared/hcm-info.action';
@@ -25,6 +26,7 @@ export class PkbComponent implements OnInit {
     this.store.dispatch({ type: Actions.RESET });
     let filter: any = { category: DOCUMENT.PKB, year: year };
     this.hcmInfoService.fetchAllDocuments(filter);
+    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'PKB'});
 
     this.store.select((appState: AppState) => appState.hcmInfoState)
               .subscribe((hcmInfoState) => {

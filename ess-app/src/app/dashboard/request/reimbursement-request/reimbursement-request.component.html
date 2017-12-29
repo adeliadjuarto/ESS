@@ -3,7 +3,7 @@
     <mat-form-field>
       <mat-select placeholder="Type" [(ngModel)]="selectedType" name="reimbursementType" >
         <mat-option *ngFor = "let type of types" [value]="type">
-            {{type}}
+            {{type.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -58,7 +58,7 @@
             Tipe
           </div>
           <div class="status-item">
-            {{selectedType}}
+            {{selectedType.name}}
           </div>
         </div>
       </mat-card-content>

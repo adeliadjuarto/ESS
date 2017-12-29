@@ -14,9 +14,6 @@ import { PayrollComponent } from './payroll/payroll.component';
 import { PayrollViewerComponent } from './payroll/payroll-viewer/payroll-viewer.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ApprovalsComponent } from './approvals/approvals.component';
-import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
-import { ContactsComponent } from './contacts/contacts.component';
-import { ContactsResolve } from './contacts/shared/contacts.resolver';
 import { DocumentYearsResolve } from './hcm-info/shared/document-years/document-years.resolver';
 import { HcmInfoComponent } from './hcm-info/hcm-info.component';
 import { PkbComponent } from './hcm-info/pkb/pkb.component';
@@ -112,7 +109,6 @@ const routes: Routes = [
       },
       {
         path: PATH.MEDICAL_INFO,
-        canActivate: [AuthorizedGuard],
         data: {
           title: 'Medical Provider Info',
         },
@@ -142,26 +138,6 @@ const routes: Routes = [
               }
             ]
           }
-        ]
-      },
-      {
-        path: PATH.CONTACTS,
-        canActivate: [AuthorizedGuard],
-        data: {
-          title: 'Contacts',
-        },
-        children: [
-          {
-            path: PATH.EMPTY,
-            component: ContactsComponent,
-          },
-          {
-            path:  PATH.PARAM.ID,
-            component: ContactDetailComponent,
-            resolve: {
-              contact: ContactsResolve
-            }
-          },
         ]
       },
       {

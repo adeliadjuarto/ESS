@@ -18,7 +18,7 @@ export class ApprovalsCardComponent<T extends Approvals> implements OnInit {
 
   @Input() inputStatus: T;
   @Input() approvalType: string = '';
-  approvalSubmission: string = '';
+  approvalSubmission: string;
   rejectionNote: string = '';
 
   constructor(private service: ApprovalsService,
@@ -33,6 +33,10 @@ export class ApprovalsCardComponent<T extends Approvals> implements OnInit {
 
   approveRequest() {
     let endpoint = `${this.approvalType}/${this.inputStatus.id}/${this.approvalSubmission}`;
+    if (this.approvalSubmission === 'reject' && !this.rejectionNote) {
+      this.notification.show('Keterangan harus diisi', NotificationType.Error);
+      return;
+    }
     if (this.rejectionNote) {
       this.service.approveRequest(endpoint, this.rejectionNote)
                   .subscribe(response => {

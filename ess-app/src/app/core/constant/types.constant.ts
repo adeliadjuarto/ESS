@@ -1,13 +1,29 @@
-export const LEAVE_TYPES = {
-    SICK_LEAVE: 'Sick Leave',
-    UNPAID_LEAVE: 'Unpaid Leave',
-    ANNUAL_LEAVE: 'Annual Leave',
-    PARTIAL_DAY_LEAVE: 'Partial Day Leave'
-}
+export const LEAVE_TYPES = [
+    {
+        id: 1,
+        name: 'Sick Leave'
+    },
+    {
+        id: 3,
+        name: 'Annual Leave'
+    },
+    {
+        id: 6,
+        name: 'Unpaid Leave'
+    },
+    {
+        id: 7,
+        name: 'Hourly Leave'
+    },
+];
 
-export const REIMBURSEMENT_TYPES = {
-    MEDICAL_REIMBURSEMENT: 'Medical',
-    TRANSPORT_REIMBURSEMENT: 'Transportation',
-    MEETING_EXPENSES_REIMBURSEMENT: 'Meeting Expenses'
-}
-
+export const REIMBURSEMENT_TYPES = [
+    {
+        id: 4,
+        name: 'Medical'
+    },
+    {
+        id: 5,
+        name: 'Meal'
+    },
+];

@@ -12,6 +12,10 @@ export class RequestService extends DataService<FormRequest> {
     super.setEndpoint('/leave-requests', FormRequest);
   }
 
+  fetchRequestTypes() {
+    
+  }
+
 
 
 }

@@ -106,7 +106,7 @@
       </button>
 
       <button (click)="submitApproval('reject')">
-        Reject
+        Tolak
       </button>
     </div>
   </mat-card-content>
@@ -114,11 +114,11 @@
     <div class="note">
       <mat-form-field *ngIf="approvalSubmission==='reject'"
                       floatPlaceholder="never">
-        <input #nameInput matInput placeholder="Rejection Note" [(ngModel)]="rejectionNote"/>
+        <input #nameInput matInput placeholder="Keterangan" [(ngModel)]="rejectionNote"/>
       </mat-form-field>
 
       <div *ngIf="approvalSubmission==='approve'">
-        Are you sure you want to approve this request?
+        Konfirmasi penyetujuan request?
       </div>
 
       <button (click)="approveRequest()">

@@ -18,7 +18,6 @@ import { PkbViewerComponent } from './pkb/pkb-viewer/pkb-viewer.component';
   imports: [
     CommonModule,
     UIModule,
-    SearchBarModule
   ],
   declarations: [
     HcmInfoComponent,
