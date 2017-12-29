@@ -1,3 +1,11 @@
+<div class="header">
+  <div class="greeting-message">
+    <p>Hi, {{user.name}}</p>
+    <p>Selamat datang di aplikasi ESS. <br> Silahkan pilih menu di bawah untuk memulai.</p>
+  </div>
+</div>
+
+
 <div class="container" #menuContainer>
   <mat-grid-list [cols]="columns" rowHeight="1:1">
     <mat-grid-tile *ngFor="let menu of menus" (click)="redirectTo(menu)">

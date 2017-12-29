@@ -19,10 +19,10 @@ export class CalendarFormComponent implements OnInit {
 
   constructor(private service: CalendarService,
               private store: Store<any>) {
-      this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Add Event'});
+      this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Tambah Event'});
       this.store.select((state: AppState) => state.userState).subscribe(
         userState => {
-          this.userId = userState.id;
+          this.userId = userState.user.id;
         }
       )
   }

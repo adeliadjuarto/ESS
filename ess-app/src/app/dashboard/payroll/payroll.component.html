@@ -1,19 +1,9 @@
-<div class="container">
+<mat-form-field>
+  <mat-select [(ngModel)]="selectedPayroll" name="month" placeholder="Bulan">
+    <mat-option *ngFor="let processedPayroll of processedPayrolls" [value]="processedPayroll">
+      {{processedPayroll.monthName}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 
-  <div class="date">
-    Today is {{currentDate}}
-  </div>
-
-  <div class="status">
-    Your payroll status for this month is {{currentPayrollStatus}}
-  </div>
-
-  <div class="last-payroll">
-    Last payroll was at: {{latestProcessedPayroll}}
-  </div>
-
-  <button (click)="redirectToPayrollSlip()">
-    View Payroll Slip(s)
-  </button>
-
-</div>
+<app-pdf-viewer *ngIf="selectedPayroll" [id]="selectedPayroll.id"></app-pdf-viewer>

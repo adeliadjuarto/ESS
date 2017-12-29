@@ -2,7 +2,7 @@
   <mat-card-content>
     <div class="status">
       <div class="status-title">
-        Title
+        Judul
       </div>
       <div class="status-item">
         {{inputStatus.title}}
@@ -12,7 +12,7 @@
   <mat-card-content>
     <div class="status">
       <div class="status-title">
-        Description
+        Keterangan
       </div>
       <div class="status-item">
         {{inputStatus.description}}
@@ -22,7 +22,7 @@
   <mat-card-content *ngIf="inputStatus.requestType">
     <div class="status">
       <div class="status-title">
-        Category
+        Tipe
       </div>
       <div class="status-item">
         {{inputStatus.requestType.name}}
@@ -32,57 +32,57 @@
   <mat-card-content *ngIf="inputStatus.eventDate">
     <div class="status">
       <div class="status-title">
-        Date
+        Tanggal
       </div>
       <div class="status-item">
-        {{inputStatus.eventDate}}
+        {{dateDisplay(inputStatus.eventDate)}}
       </div>
     </div>
   </mat-card-content>
   <mat-card-content *ngIf="inputStatus.start">
     <div class="status">
       <div class="status-title">
-        Start
+        Dari
       </div>
       <div class="status-item">
-        {{inputStatus.start}}
+        {{dateDisplay(inputStatus.start)}}
       </div>
     </div>
   </mat-card-content>
   <mat-card-content *ngIf="inputStatus.startTime">
     <div class="status">
       <div class="status-title">
-        Start
+        Dari
       </div>
       <div class="status-item">
-        {{inputStatus.startTime}}
+        {{dateDisplay(inputStatus.startTime)}}
       </div>
     </div>
   </mat-card-content>
     <mat-card-content *ngIf="inputStatus.end">
     <div class="status">
       <div class="status-title">
-        End
+        Sampai
       </div>
       <div class="status-item">
-        {{inputStatus.end}}
+        {{dateDisplay(inputStatus.end)}}
       </div>
     </div>
   </mat-card-content>
   <mat-card-content *ngIf="inputStatus.endTime">
     <div class="status">
       <div class="status-title">
-        End
+        Sampai
       </div>
       <div class="status-item">
-        {{inputStatus.endTime}}
+        {{dateDisplay(inputStatus.endTime)}}
       </div>
     </div>
   </mat-card-content>
   <mat-card-content *ngIf="inputStatus.amount">
     <div class="status">
       <div class="status-title">
-        Amount
+        Jumlah
       </div>
       <div class="status-item">
         {{inputStatus.amount}}
@@ -102,7 +102,7 @@
   <mat-card-content *ngIf="inputStatus.rejectionNote">
     <div class="status">
       <div class="status-title">
-        Note
+        Catatan
       </div>
       <div class="status-item">
         {{inputStatus.rejectionNote}}

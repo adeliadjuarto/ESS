@@ -11,7 +11,6 @@ import { ChatComponent } from './chat/chat.component';
 import { RequestComponent } from './request/request.component';
 import { StatusComponent } from './status/status.component';
 import { PayrollComponent } from './payroll/payroll.component';
-import { PayrollViewerComponent } from './payroll/payroll-viewer/payroll-viewer.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ApprovalsComponent } from './approvals/approvals.component';
 import { DocumentYearsResolve } from './hcm-info/shared/document-years/document-years.resolver';
@@ -51,7 +50,7 @@ const routes: Routes = [
       {
         path: PATH.HCM_INFO,
         data: {
-          title: 'HCM Info',
+          title: 'Informasi HCM',
         },
         children: [
           {
@@ -110,7 +109,7 @@ const routes: Routes = [
       {
         path: PATH.MEDICAL_INFO,
         data: {
-          title: 'Medical Provider Info',
+          title: 'Provider Tunjangan Medis',
         },
         children: [
           {
@@ -143,44 +142,35 @@ const routes: Routes = [
       {
         path: PATH.REQUEST,
         data: {
-          title: 'Request'
+          title: 'Pengajuan Request'
         },
         loadChildren: 'app/dashboard/request/request.module#RequestModule'
       },
       {
         path: PATH.STATUS,
         data: {
-          title: 'Status'
+          title: 'Status Request'
         },
         component: StatusComponent
       },
       {
         path: PATH.APPROVALS,
         data: {
-          title: 'Approval'
+          title: 'Penyetujuan Request'
         },
         component: ApprovalsComponent
       },
       {
         path: PATH.PAYROLL,
         data: {
-          title: 'Payroll'
+          title: 'Slip Gaji'
         },
-        children: [
-          {
-            path: PATH.EMPTY,
-            component: PayrollComponent
-          },
-          {
-            path: PATH.PAYROLL_SLIP,
-            component: PayrollViewerComponent
-          }
-        ]
+        component: PayrollComponent
       },
       {
         path: PATH.CALENDAR,
         data: {
-          title: 'Calendar'
+          title: 'Kalender Personal'
         },
         children: [
           {

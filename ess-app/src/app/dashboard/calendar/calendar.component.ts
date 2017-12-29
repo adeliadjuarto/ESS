@@ -58,7 +58,7 @@ export class CalendarComponent implements OnInit {
               private service: CalendarService,
               private router: Router,
               private route: ActivatedRoute ) {
-    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Calendar'});
+    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Kalender'});
     this.service.fetchEvents()
                 .subscribe(event => this.events = event.map(data => {
                               return {

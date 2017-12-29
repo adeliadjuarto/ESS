@@ -22,7 +22,7 @@ const routes: Routes = [
         path: PATH.LEAVE,
         component: LeaveRequestComponent,
         data: {
-          title: 'Leave',
+          title: 'Cuti',
         }
       },
       {
@@ -36,7 +36,7 @@ const routes: Routes = [
         path: PATH.OVERTIME,
         component: OvertimeRequestComponent,
         data: {
-          title: 'Overtime'
+          title: 'Lembur'
         }
       }
     ]

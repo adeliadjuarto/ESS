@@ -37,10 +37,10 @@ export class ReimbursementRequestComponent implements OnInit {
               private notification: NotificationService) {
     this.store.dispatch({
       type: DashboardAction.CHANGE_TITLE,
-      payload: 'Reimbursement'
+      payload: 'Pengajuan Reimbursement'
     });
     this.store.select((state: AppState) => state.userState).subscribe((state) => {
-      this.userId = state.id;
+      this.userId = state.user.id;
     });
   }
 
@@ -93,11 +93,6 @@ export class ReimbursementRequestComponent implements OnInit {
 
     if (this.eventDate.getTime() > Date.now()) {
       this.errorMessage = 'Tanggal melebihi tanggal hari ini'
-      return false;
-    }
-
-    if (!this.requestAttachments) {
-      this.errorMessage = 'File bukti belum diupload';
       return false;
     }
 

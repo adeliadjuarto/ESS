@@ -6,3 +6,28 @@
 mat-icon {
     color: black;
 }
+
+button {
+    background-color: green !important;
+    color: white !important;
+}
+
+.add-button {
+    float: right;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.button-container {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.calendar-btn {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}

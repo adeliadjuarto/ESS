@@ -15,6 +15,7 @@ import { NotificationType } from '../../shared/notification/notification.enum';
 import { NotificationService } from '../../shared/notification/notification.service';
 import { BACKGROUND } from './../../core/constant';
 import { DashboardAction } from './../shared/dashboard.action';
+import { AppState } from './../../app.reducer';
 
 @Component({
   selector: 'app-menu',
@@ -27,6 +28,7 @@ export class MenuComponent implements OnInit {
   public menuInfo: boolean = false;
   public infoIcon: boolean = true;
   public onlineToggle: boolean;
+  public user: any = { name: 'User' };
 
   @ViewChild('menuContainer') private container: ElementRef;
 
@@ -38,6 +40,12 @@ export class MenuComponent implements OnInit {
               private notification: NotificationService) {
 
     this.store.dispatch({ type: DashboardAction.CHANGE_TITLE, payload: '' });
+    this.store.select((state: AppState) => state.userState)
+              .subscribe(state => {
+                if (state.user) {
+                  this.user = state.user;
+                }
+              });
 
     this.menus = this.route.parent.routeConfig.children
                      .filter((r: Route) => r.data )
@@ -79,7 +87,7 @@ export class MenuComponent implements OnInit {
   }
 
   public get columns(): number {
-    return Math.ceil(this.container.nativeElement.offsetWidth / 300);
+    return Math.ceil(this.container.nativeElement.offsetWidth / 150);
   }
 
   public menuDisabled(menu): string {

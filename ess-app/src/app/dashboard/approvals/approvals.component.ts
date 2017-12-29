@@ -27,7 +27,7 @@ export class ApprovalsComponent implements OnInit, AfterContentInit {
   constructor(private service: ApprovalsService,
               private store: Store<any>,
               private router: Router) {
-    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Transaction Approvals'});
+    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Penyetujuan Transaksi'});
     this.store.select((obj: AppState) => obj.approvalsState)
               .subscribe((approvalsState) => {
                 if (approvalsState) {
@@ -38,7 +38,7 @@ export class ApprovalsComponent implements OnInit, AfterContentInit {
     this.store.select((obj: AppState) => obj.userState)
               .subscribe((userState) => {
                 if (userState) {
-                  this.userId = userState.id;
+                  this.userId = userState.user.id;
                 }
               })
   }

@@ -36,4 +36,9 @@ export class StatusCardComponent<T extends Status> implements OnInit {
     return '';
   }
 
+  dateDisplay(date: string) {
+    let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(date).toLocaleDateString('id-ID', dateOptions);
+  }
+
 }

@@ -1,12 +1,13 @@
 import { Action } from '@ngrx/store';
 import { UserAction } from './user.action';
+import { User } from './user.model';
 
 export interface UserState {
-    id: string
+    user: User;
 }
 
 export const initialState: UserState = {
-    id: ''
+    user: null
 };
 
 export function reducer(state: UserState = initialState, action: Action) {
@@ -16,7 +17,7 @@ export function reducer(state: UserState = initialState, action: Action) {
 
     case UserAction.CHANGE_USER:
       return Object.assign({}, state, {
-          id: action.payload
+          user: action.payload
       });
 
     default:

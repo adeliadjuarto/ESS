@@ -23,7 +23,7 @@ export class RequestComponent implements OnInit {
               private store: Store<any>) {
     this.store.dispatch({
       type: DashboardAction.CHANGE_TITLE,
-      payload: 'Request'
+      payload: 'Pengajuan Request'
     })
 
     this.menus = this.route.parent.routeConfig.children
