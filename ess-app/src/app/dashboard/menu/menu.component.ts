@@ -54,7 +54,7 @@ export class MenuComponent implements OnInit {
                                     title: r.data.title,
                                     disabledWhenOffline: r.data.disabledWhenOffline,
                                     description: r.data.description,
-                                    iconPath: r.data.iconPath }; })
+                                    icon: r.data.icon }; })
                      .filter((menu: MenuItem) => menu.path !== PATH.LOGOUT);
 
     this.userService.fetchSubordinates()

@@ -20,6 +20,10 @@ import { DashboardAction } from './../shared/dashboard.action';
 import { PATH } from './../../core/constant/index';
 import { CalendarService } from './shared/calendar.service';
 
+const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
+  'Agustus', 'September', 'Oktober', 'November', 'Desember'
+];
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -53,6 +57,7 @@ export class CalendarComponent implements OnInit {
   viewDate: Date = new Date();
   activeDayIsOpen: boolean = true;
   events: CalendarEvent[];
+  monthNumber: number = new Date().getMonth();
 
   constructor(private store: Store<any>,
               private service: CalendarService,
@@ -76,6 +81,18 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  changeMonth(increment: number) {
+    if (increment === 0 ) {
+       this.monthNumber = new Date().getMonth();
+    } else {
+      this.monthNumber = this.monthNumber + increment;
+    }
+  }
+
+  public get month(): string {
+    return monthNames[this.monthNumber - 1];
   }
 
   getTime(timestamp) {

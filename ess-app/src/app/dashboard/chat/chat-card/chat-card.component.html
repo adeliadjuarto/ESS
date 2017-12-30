@@ -1,4 +1,4 @@
-<div class="message" *ngIf="message">
+<div [ngClass]="{'message': true, 'align-right': message.sender==='you' } " *ngIf="message">
   <app-chat-message [message]="message">
   </app-chat-message>
 </div>

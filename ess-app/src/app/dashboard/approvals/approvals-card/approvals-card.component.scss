@@ -91,6 +91,7 @@ mat-card {
     margin-bottom: 5px !important;
     margin-left: 5vw;
     margin-right: 5vw;
+    justify-content: space-between;
 }
 
 button {
@@ -104,4 +105,11 @@ button {
 
 :host /deep/ .mat-form-field-wrapper {
   padding-bottom: 0 !important;
+}
+
+mat-icon {
+    font-size: 48px;
+    height: auto !important;
+    width: auto !important;
+    color: #1fc584;
 }

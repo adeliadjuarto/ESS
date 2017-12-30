@@ -4,11 +4,23 @@
 }
 
 mat-icon {
-    color: black;
+    font-size: 45px;
+    width: auto !important;
+    color: white !important;
+}
+
+.month {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 7px;
+}
+
+:host /deep/ .mat-fab .mat-button-wrapper {
+    padding: 5px;
 }
 
 button {
-    background-color: green !important;
+    background-color: #1fc584 !important;
     color: white !important;
 }
 

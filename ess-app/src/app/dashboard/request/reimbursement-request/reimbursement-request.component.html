@@ -27,7 +27,9 @@
       <input type="file" (change)="fileChange($event)">
     </div>
 
-    <button mat-raised-button (click)="confirmRequest()">Submit Request</button>
+    <div class="buttons">
+      <button mat-raised-button (click)="confirmRequest()">Submit Pengajuan Request</button>
+    </div>
 </div>
 
 <div class="container" *ngIf="requestConfirm">

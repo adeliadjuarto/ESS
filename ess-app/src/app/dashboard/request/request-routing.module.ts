@@ -23,20 +23,23 @@ const routes: Routes = [
         component: LeaveRequestComponent,
         data: {
           title: 'Cuti',
+          icon: 'event_busy'
         }
       },
       {
         path: PATH.REIMBURSEMENT,
         component: ReimbursementRequestComponent,
         data: {
-          title: 'Reimbursement'
+          title: 'Reimbursement',
+          icon: 'monetization_on'
         }
       },
       {
         path: PATH.OVERTIME,
         component: OvertimeRequestComponent,
         data: {
-          title: 'Lembur'
+          title: 'Lembur',
+          icon: 'alarm_add'
         }
       }
     ]

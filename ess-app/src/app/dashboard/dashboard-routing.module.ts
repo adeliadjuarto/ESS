@@ -45,12 +45,14 @@ const routes: Routes = [
         component: ChatComponent,
         data: {
           title: 'Chat',
+          icon: 'chat'
         }
       },
       {
         path: PATH.HCM_INFO,
         data: {
           title: 'Informasi HCM',
+          icon: 'import_contacts'
         },
         children: [
           {
@@ -61,6 +63,7 @@ const routes: Routes = [
             path: PATH.PKB,
             data: {
               title: 'PKB',
+              icon: 'chrome_reader_mode'
             },
             children: [
               {
@@ -80,6 +83,7 @@ const routes: Routes = [
             path: PATH.SK_SE,
             data: {
               title: 'SK/SE',
+              icon: 'description'
             },
             children: [
               {
@@ -110,6 +114,7 @@ const routes: Routes = [
         path: PATH.MEDICAL_INFO,
         data: {
           title: 'Provider Tunjangan Medis',
+          icon: 'local_hospital'
         },
         children: [
           {
@@ -142,35 +147,40 @@ const routes: Routes = [
       {
         path: PATH.REQUEST,
         data: {
-          title: 'Pengajuan Request'
+          title: 'Pengajuan Request',
+          icon: 'move_to_inbox'
         },
         loadChildren: 'app/dashboard/request/request.module#RequestModule'
       },
       {
         path: PATH.STATUS,
         data: {
-          title: 'Status Request'
+          title: 'Status Request',
+          icon: 'assignment'
         },
         component: StatusComponent
       },
       {
         path: PATH.APPROVALS,
         data: {
-          title: 'Penyetujuan Request'
+          title: 'Penyetujuan Request',
+          icon: 'supervisor_account'
         },
         component: ApprovalsComponent
       },
       {
         path: PATH.PAYROLL,
         data: {
-          title: 'Slip Gaji'
+          title: 'Slip Gaji',
+          icon: 'account_balance'
         },
         component: PayrollComponent
       },
       {
         path: PATH.CALENDAR,
         data: {
-          title: 'Kalender Personal'
+          title: 'Kalender Personal',
+          icon: 'perm_contact_calendar'
         },
         children: [
           {

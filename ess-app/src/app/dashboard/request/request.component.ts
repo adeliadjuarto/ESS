@@ -33,7 +33,7 @@ export class RequestComponent implements OnInit {
                                 title: r.data.title,
                                 disabledWhenOffline: r.data.disabledWhenOffline,
                                 description: r.data.description,
-                                iconPath: r.data.iconPath }; })
+                                icon: r.data.icon }; })
                  .filter((menu: MenuItem) => menu.path !== PATH.ACCOUNT);
   }
 
@@ -45,7 +45,7 @@ export class RequestComponent implements OnInit {
   }
 
   public get columns(): number {
-    return Math.ceil(this.container.nativeElement.offsetWidth / 300);
+    return Math.ceil(this.container.nativeElement.offsetWidth / 150);
   }
 
   @HostListener('window:resize')

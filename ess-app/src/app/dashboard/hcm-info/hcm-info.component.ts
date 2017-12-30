@@ -20,7 +20,7 @@ export class HcmInfoComponent implements OnInit {
     this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Informasi HCM'});
     this.menuItems = this.route.parent.routeConfig.children
       .filter((r: Route) => r.path !== '')
-      .map((r: Route) => { return { title: r.data.title, path: r.path }; });
+      .map((r: Route) => { return { title: r.data.title, path: r.path, icon: r.data.icon }; });
   }
 
   ngOnInit() {
