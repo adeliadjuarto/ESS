@@ -1,28 +1,28 @@
 <div class="container" *ngIf="!requestConfirm">
     <mat-form-field>
-      <mat-select placeholder="Type" [(ngModel)]="selectedLeaveType" name="leaveType" (change)="doStuff()">
+      <mat-select placeholder="Tipe Pengajuan" [(ngModel)]="selectedLeaveType" name="leaveType" (change)="doStuff()">
         <mat-option *ngFor = "let type of leaveTypes" [value]="type">
             {{type.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <input #nameInput matInput placeholder="Title" [(ngModel)]="requestTitle"/>
+      <input #nameInput matInput placeholder="Judul" [(ngModel)]="requestTitle"/>
     </mat-form-field>
 
     <mat-form-field>
-      <input #nameInput matInput placeholder="Description" [(ngModel)]="requestDescription"/>
+      <input #nameInput matInput placeholder="Keterangan" [(ngModel)]="requestDescription"/>
     </mat-form-field>
 
     <div class="from-to-datepicker" *ngIf="!singleDatepicker">
       <mat-form-field id="datepicker-left">
-        <input name="dateFor" matInput placeholder="From" [(ngModel)]="dateFor"
+        <input name="dateFor" matInput placeholder="Dari" [(ngModel)]="dateFor"
                [matDatepicker]="pickerFor" (click)="pickerFor.open()"/>
         <mat-datepicker-toggle matSuffix [for]="pickerFor"></mat-datepicker-toggle>
         <mat-datepicker #pickerFor></mat-datepicker>
       </mat-form-field>
       <mat-form-field id="datepicker-right">
-        <input name="dateTo" matInput placeholder="To" [(ngModel)]="dateTo"
+        <input name="dateTo" matInput placeholder="Sampai" [(ngModel)]="dateTo"
                [matDatepicker]="pickerTo" (click)="pickerTo.open()" />
         <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
         <mat-datepicker #pickerTo></mat-datepicker>
@@ -32,7 +32,7 @@
     <div class="single-datepicker" *ngIf="singleDatepicker">
 
       <mat-form-field>
-        <input matInput placeholder="Pick A Date" [(ngModel)]="dateFor"
+        <input matInput placeholder="Pilih Tanggal" [(ngModel)]="dateFor"
                [matDatepicker]="picker" (click)="picker.open()" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -43,10 +43,14 @@
     </div>
 
     <div class="input-file">
-      <input type="file" (change)="fileChange($event)">
+      <label for="file-input">Upload bukti (opsional)</label>
+      <br>
+      <input id="file-input" type="file" (change)="fileChange($event)" placeholder="Upload bukti (opsional)">
     </div>
 
-    <button mat-raised-button (click)="confirmRequest()">Submit Request</button>
+    <div class="buttons">
+      <button mat-raised-button (click)="confirmRequest()">Submit Pengajuan Request</button>
+    </div>
 </div>
 
 <div class="container" *ngIf="requestConfirm">
@@ -101,7 +105,7 @@
           </div>
         </div>
       </mat-card-content>
-      <mat-card-content>
+      <mat-card-content *ngIf="requestAttachments">
         <div class="status">
           <div class="status-title">
             File Attachment

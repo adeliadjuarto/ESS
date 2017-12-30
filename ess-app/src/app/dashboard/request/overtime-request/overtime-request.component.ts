@@ -48,11 +48,11 @@ export class OvertimeRequestComponent implements OnInit {
               private notification: NotificationService) {
     this.store.dispatch({
       type: DashboardAction.CHANGE_TITLE,
-      payload: 'Overtime'
+      payload: 'Pengajuan Lembur'
     });
 
     this.store.select((state: AppState) => state.userState).subscribe((state) => {
-      this.userId = state.id;
+      this.userId = state.user.id;
     });
   }
 
@@ -105,11 +105,6 @@ export class OvertimeRequestComponent implements OnInit {
 
     if (this.requestDate.getTime() > Date.now()) {
       this.errorMessage = 'Tanggal melebihi tanggal hari ini'
-      return false;
-    }
-
-    if (!this.requestAttachment) {
-      this.errorMessage = 'File bukti belum diupload';
       return false;
     }
 

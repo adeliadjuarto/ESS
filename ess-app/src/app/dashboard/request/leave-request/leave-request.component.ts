@@ -49,11 +49,11 @@ export class LeaveRequestComponent implements OnInit {
               private notification: NotificationService) {
     this.store.dispatch({
       type: DashboardAction.CHANGE_TITLE,
-      payload: 'Leave'
+      payload: 'Pengajuan Cuti'
     });
 
     this.store.select((state: AppState) => state.userState).subscribe((state) => {
-      this.userId = state.id;
+      this.userId = state.user.id;
     });
   }
 
@@ -75,10 +75,6 @@ export class LeaveRequestComponent implements OnInit {
       return false;
     }
     if (!this.singleDatepicker && !this.dateTo) {
-      return false;
-    }
-    if (!this.requestAttachments) {
-      this.errorMessage = 'File bukti belum diupload';
       return false;
     }
     return true;

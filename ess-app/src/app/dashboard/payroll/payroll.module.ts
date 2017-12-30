@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { PayrollComponent } from './payroll.component';
 import { PayrollService } from './shared/payroll.service';
 import { UIModule } from './../../shared/user-interface.module';
-import { PayrollViewerComponent } from './payroll-viewer/payroll-viewer.component';
 
 @NgModule({
   imports: [
@@ -15,7 +14,6 @@ import { PayrollViewerComponent } from './payroll-viewer/payroll-viewer.componen
   ],
   declarations: [
     PayrollComponent,
-    PayrollViewerComponent
   ],
   providers: [
     PayrollService

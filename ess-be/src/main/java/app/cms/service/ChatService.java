@@ -165,7 +165,7 @@ public class ChatService {
             chatState.setIsInitiation(false);
         }
         Boolean isValid = true;
-        String message = "Tolong lampirkan dokumen";
+        String message = "Data lengkap, pengajuan sudah dibuat!";
         String type = "leave";
         List<String> neededFields = LEAVE_REQUEST_FIELDS;
 
@@ -194,7 +194,7 @@ public class ChatService {
         }
 
         requestSessionRepository.save(requestSession);
-
+        chatState.setState(REQUEST_LEAVE);
         if (isValid) {
             //save data to repository & delete this request session
             String title = requestSession.getValue("judul");
@@ -209,15 +209,13 @@ public class ChatService {
                     title, description, start, end, requestType, user);
             leaveRequest = leaveRequestRepository.save(leaveRequest);
             requestSessionRepository.delete(requestSession);
-            chatState.setRequestId(leaveRequest.getId());
-            chatState.setField("dokumen");
+            resetChatState();
+//            chatState.setRequestId(leaveRequest.getId());
+//            chatState.setField("dokumen");
         }
 
         List<String> messages = Arrays.asList(message);
         List<String> buttons = Arrays.asList(HOME);
-
-
-        chatState.setState(REQUEST_LEAVE);
         return new Chat(messages, buttons);
     }
 
@@ -228,7 +226,7 @@ public class ChatService {
             chatState.setIsInitiation(false);
         }
         Boolean isValid = true;
-        String message = "Tolong lampirkan dokumen";
+        String message = "Data lengkap, pengajuan sudah dibuat!";
         String type = "overtime";
         List<String> neededFields = OVERTIME_REQUEST_FIELDS;
 
@@ -258,7 +256,7 @@ public class ChatService {
         }
 
         requestSessionRepository.save(requestSession);
-
+        chatState.setState(REQUEST_OVERTIME);
         if (isValid) {
             //save data to repository & delete this request session
             String title = requestSession.getValue("judul");
@@ -271,14 +269,13 @@ public class ChatService {
                     title, description, eventDate, start, end, user);
             overtimeRequestRepository.save(overtimeRequest);
             requestSessionRepository.delete(requestSession);
-            chatState.setRequestId(overtimeRequest.getId());
-            chatState.setField("dokumen");
+            resetChatState();
+//            chatState.setRequestId(overtimeRequest.getId());
+//            chatState.setField("dokumen");
         }
 
         List<String> messages = Arrays.asList(message);
         List<String> buttons = Arrays.asList(HOME);
-
-        chatState.setState(REQUEST_OVERTIME);
         return new Chat(messages, buttons);
     }
 
@@ -289,7 +286,7 @@ public class ChatService {
             chatState.setIsInitiation(false);
         }
         Boolean isValid = true;
-        String message = "Tolong lampirkan dokumen";
+        String message = "Data lengkap, pengajuan sudah dibuat!";
         String type = "reimbursement";
         List<String> neededFields = REIMBURSEMENT_REQUEST_FIELDS;
 
@@ -317,7 +314,7 @@ public class ChatService {
         }
 
         requestSessionRepository.save(requestSession);
-
+        chatState.setState(REQUEST_REIMBURSEMENT);
         if (isValid) {
             //save data to repository & delete this request session
             String title = requestSession.getValue("judul");
@@ -332,14 +329,13 @@ public class ChatService {
                     title, description, eventDate, amount, requestType, user);
             reimbursementRequestRepository.save(reimbursementRequest);
             requestSessionRepository.delete(requestSession);
-            chatState.setRequestId(reimbursementRequest.getId());
-            chatState.setField("dokumen");
+            resetChatState();
+//            chatState.setRequestId(reimbursementRequest.getId());
+//            chatState.setField("dokumen");
         }
 
         List<String> messages = Arrays.asList(message);
         List<String> buttons = Arrays.asList(HOME);
-
-        chatState.setState(REQUEST_REIMBURSEMENT);
         return new Chat(messages, buttons);
     }
 
@@ -348,7 +344,7 @@ public class ChatService {
         Integer leaveBalance = user.getAnnualLeave();
         String message = "Sisa jatah cuti tahunan anda adalah " + leaveBalance + " hari.";
         List<String> messages = Arrays.asList(message);
-        List<String> buttons = Arrays.asList(HOME);
+        List<String> buttons = Arrays.asList(REQUEST_LEAVE, HOME);
         return new Chat(messages, buttons);
     }
 

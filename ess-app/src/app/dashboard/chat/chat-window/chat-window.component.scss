@@ -15,10 +15,12 @@ input {
 
 .message {
     width: 100%;
+    border-radius: 5px 5px 5px 0px !important;
 }
 
 .align-right {
     text-align: right;
+    border-radius: 5px 5px 0px 5px !important;
 }
 
 .message-list {
