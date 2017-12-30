@@ -45,7 +45,7 @@
         Tanggal
       </div>
       <div class="status-item">
-        {{inputStatus.eventDate}}
+        {{dateDisplay(inputStatus.eventDate)}}
       </div>
     </div>
   </mat-card-content>
@@ -55,7 +55,7 @@
         Dari
       </div>
       <div class="status-item">
-        {{inputStatus.start}}
+        {{dateDisplay(inputStatus.start)}}
       </div>
     </div>
   </mat-card-content>
@@ -65,7 +65,7 @@
         Dari
       </div>
       <div class="status-item">
-        {{inputStatus.startTime}}
+        {{dateDisplay(inputStatus.startTime)}}
       </div>
     </div>
   </mat-card-content>
@@ -75,7 +75,7 @@
         Sampai
       </div>
       <div class="status-item">
-        {{inputStatus.end}}
+        {{dateDisplay(inputStatus.end)}}
       </div>
     </div>
   </mat-card-content>
@@ -85,7 +85,7 @@
         Sampai
       </div>
       <div class="status-item">
-        {{inputStatus.endTime}}
+        {{dateDisplay(inputStatus.endTime)}}
       </div>
     </div>
   </mat-card-content>
@@ -109,24 +109,18 @@
   <mat-card-content *ngIf="!!approvalSubmission">
     <div class="note">
       <mat-form-field *ngIf="approvalSubmission==='reject'"
-                      floatPlaceholder="never">
+                      floatPlaceholder="never"
+                      class="rejection-note">
         <input #nameInput matInput placeholder="Keterangan" [(ngModel)]="rejectionNote"/>
       </mat-form-field>
 
-      <div *ngIf="approvalSubmission==='approve'">
+      <div class="confirmation" *ngIf="approvalSubmission==='approve'">
         Konfirmasi penyetujuan request?
       </div>
 
       <mat-icon (click)="approveRequest()">check</mat-icon>
       <mat-icon (click)="submitApproval()">close</mat-icon>
 
-      <!--<button (click)="approveRequest()">
-        Submit
-      </button>
-      <span class="spacer"></span>
-      <button (click)="submitApproval()">
-        Cancel
-      </button>-->
     </div>
   </mat-card-content>
 </mat-card>

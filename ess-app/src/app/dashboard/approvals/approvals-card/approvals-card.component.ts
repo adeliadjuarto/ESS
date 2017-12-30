@@ -52,4 +52,12 @@ export class ApprovalsCardComponent<T extends Approvals> implements OnInit {
     }
   }
 
+  dateDisplay(date: string) {
+    let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    if (new Date(date).toString() === 'Invalid Date') {
+      return date;
+    }
+    return new Date(date).toLocaleDateString('id-ID', dateOptions);
+  }
+
 }
