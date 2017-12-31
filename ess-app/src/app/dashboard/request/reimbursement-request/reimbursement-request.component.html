@@ -1,30 +1,32 @@
 
 <div class="container" *ngIf="!requestConfirm">
     <mat-form-field>
-      <mat-select placeholder="Type" [(ngModel)]="selectedType" name="reimbursementType" >
+      <mat-select placeholder="Tipe" [(ngModel)]="selectedType" name="reimbursementType" >
         <mat-option *ngFor = "let type of types" [value]="type">
             {{type.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <input #nameInput matInput placeholder="Title" name="title" [(ngModel)]="title"/>
+      <input #nameInput matInput placeholder="Judul" name="title" [(ngModel)]="title"/>
     </mat-form-field>
     <mat-form-field>
-      <input #descriptionInput matInput placeholder="Description" name="description" [(ngModel)]="description"/>
+      <input #descriptionInput matInput placeholder="Keterangan" name="description" [(ngModel)]="description"/>
     </mat-form-field>
     <mat-form-field>
       <input matInput [matDatepicker]="picker" name="date" [(ngModel)]="eventDate"
-             (click)="picker.open()" placeholder="Choose date"/>
+             (click)="picker.open()" placeholder="Pilih Tanggal"/>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
-      <input #amountInput matInput name="amount" placeholder="Amount" [(ngModel)]="amount"/>
+      <input #amountInput matInput name="amount" placeholder="Jumlah" [(ngModel)]="amount"/>
     </mat-form-field>
 
     <div class="input-file">
-      <input type="file" (change)="fileChange($event)">
+      <label for="file-input">Upload bukti (opsional)</label>
+      <br>
+      <input id="file-input" type="file" (change)="fileChange($event)" placeholder="Upload bukti (opsional)">
     </div>
 
     <div class="buttons">
