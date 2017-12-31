@@ -75,7 +75,7 @@ public class LeaveRequestApiController {
             attachmentRepository.save(a);
         }
 
-        return "Leave request successfully created!";
+        return "Request cuti telah dibuat dan menunggu approval!";
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -89,7 +89,7 @@ public class LeaveRequestApiController {
         LeaveRequest leaveRequest = leaveRequestRepository.findOne(id);
         leaveRequest.setIsActive(false);
         leaveRequestRepository.save(leaveRequest);
-        return "Leave request successfully deleted!";
+        return "Request cuti telah dihapus!";
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -100,7 +100,7 @@ public class LeaveRequestApiController {
         leaveRequest.setIsApproved(false);
         leaveRequest.setRejectionNote(notes);
         leaveRequestRepository.save(leaveRequest);
-        return "You have rejected this request";
+        return "Request telah ditolak";
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -115,7 +115,7 @@ public class LeaveRequestApiController {
         }
 
         leaveRequestRepository.save(leaveRequest);
-        return "You have approved this request";
+        return "Request telah disetujui";
     }
 
     private String saveFileToDirectory (MultipartFile file) {

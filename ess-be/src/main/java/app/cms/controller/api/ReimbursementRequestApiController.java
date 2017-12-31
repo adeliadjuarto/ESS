@@ -75,7 +75,7 @@ public class ReimbursementRequestApiController {
             attachmentRepository.save(a);
         }
 
-        return "Reimbursement request successfully created!";
+        return "Request reimbursement telah dibuat dan menunggu approval!";
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -89,7 +89,7 @@ public class ReimbursementRequestApiController {
         ReimbursementRequest request = reimbursementRequestRepository.findOne(id);
         request.setIsActive(false);
         reimbursementRequestRepository.save(request);
-        return "Reimbursement request successfully deleted!";
+        return "Request reimbursement telah dihapus!";
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -100,7 +100,7 @@ public class ReimbursementRequestApiController {
         request.setIsApproved(false);
         request.setRejectionNote(notes);
         reimbursementRequestRepository.save(request);
-        return "You have rejected this request";
+        return "Request telah ditolak";
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -109,7 +109,7 @@ public class ReimbursementRequestApiController {
         ReimbursementRequest request = reimbursementRequestRepository.findOne(id);
         request.setIsApproved(true);
         reimbursementRequestRepository.save(request);
-        return "You have approved this request";
+        return "Request telah disetujui";
     }
 
     private String saveFileToDirectory (MultipartFile file) {
