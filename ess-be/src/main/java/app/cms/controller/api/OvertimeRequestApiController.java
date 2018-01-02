@@ -94,7 +94,7 @@ public class OvertimeRequestApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/overtime-requests/{id}/reject", method = RequestMethod.POST)
+    @RequestMapping(value = "/overtime-approvals/{id}/reject", method = RequestMethod.POST)
     public String rejectRequest(@PathVariable("id") String id,
                                 @RequestParam("notes") String notes) throws Exception {
         OvertimeRequest request = overtimeRequestRepository.findOne(id);
@@ -105,7 +105,7 @@ public class OvertimeRequestApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/overtime-requests/{id}/approve")
+    @RequestMapping(value = "/overtime-approvals/{id}/approve")
     public String approveRequest(@PathVariable("id") String id) throws Exception {
         OvertimeRequest request = overtimeRequestRepository.findOne(id);
         request.setIsApproved(true);

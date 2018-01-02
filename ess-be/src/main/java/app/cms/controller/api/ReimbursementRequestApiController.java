@@ -93,7 +93,7 @@ public class ReimbursementRequestApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/reimbursement-requests/{id}/reject", method = RequestMethod.POST)
+    @RequestMapping(value = "/reimbursement-approvals/{id}/reject", method = RequestMethod.POST)
     public String rejectRequest(@PathVariable("id") String id,
                                 @RequestParam("notes") String notes) throws Exception {
         ReimbursementRequest request = reimbursementRequestRepository.findOne(id);
@@ -104,7 +104,7 @@ public class ReimbursementRequestApiController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/reimbursement-requests/{id}/approve")
+    @RequestMapping(value = "/reimbursement-approvals/{id}/approve")
     public String approveRequest(@PathVariable("id") String id) throws Exception {
         ReimbursementRequest request = reimbursementRequestRepository.findOne(id);
         request.setIsApproved(true);

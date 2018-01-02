@@ -71,11 +71,6 @@ export class CalendarComponent implements OnInit {
                                 end: new Date(data.end),
                                 color: this.colors.yellow,
                                 title: data.title
-                                //       + ' ('
-                                //       + this.getTime(data.start)
-                                //       + ' - '
-                                //       + this.getTime(data.end)
-                                //       + ')',
                               }
                             }));
   }
@@ -92,7 +87,7 @@ export class CalendarComponent implements OnInit {
   }
 
   public get month(): string {
-    return monthNames[this.monthNumber - 1];
+    return monthNames[this.monthNumber];
   }
 
   getTime(timestamp) {

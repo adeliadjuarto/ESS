@@ -10,16 +10,12 @@
                        (action)="redirectToMap(provider.id)">
         </app-info-card>
     </div>
-    <div class="telephone" *ngFor="let telNumber of telephone">
-        <app-info-card icon="local_phone"
-                       [content]="telNumber.number"
-                       actionIcon="call">
-        </app-info-card>
-    </div>
-    <div class="fax" *ngFor="let faxNumber of fax">
-        <app-info-card icon="business"
-                       [content]="faxNumber.number">
-        </app-info-card>
-    </div>
+    <app-info-card icon="local_phone"
+                   [content]="provider.telephone"
+                   actionIcon="call">
+    </app-info-card>
+    <app-info-card icon="business"
+                   [content]="provider.fax">
+    </app-info-card>
     </mat-card-content>
 </mat-card>

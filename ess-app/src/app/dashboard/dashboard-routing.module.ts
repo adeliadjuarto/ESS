@@ -113,7 +113,7 @@ const routes: Routes = [
       {
         path: PATH.MEDICAL_INFO,
         data: {
-          title: 'Provider Tunjangan Medis',
+          title: 'Penyedia Tunjangan Medis',
           icon: 'local_hospital'
         },
         children: [

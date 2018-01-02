@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!requestConfirm">
     <mat-form-field>
       <input #nameInput matInput placeholder="Deskripsi" [(ngModel)]="eventForm.description"/>
     </mat-form-field>
@@ -18,5 +18,47 @@
       </mat-form-field>
     </div>
 
-    <button mat-raised-button (click)="submitRequest()">Submit Request</button>
+    <button mat-raised-button (click)="confirmRequest()">Tambah Event</button>
+</div>
+
+<div class="container" *ngIf="requestConfirm">
+    <mat-card>  
+      <mat-card-content>
+        <div class="status">
+          <div class="status-title">
+            Deskripsi
+          </div>
+          <div class="status-item">
+            {{eventForm.description}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content *ngIf="eventForm.start">
+        <div class="status">
+          <div class="status-title">
+            Dari
+          </div>
+          <div class="status-item">
+            {{dateDisplay(eventForm.start)}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content *ngIf="eventForm.end">
+        <div class="status">
+          <div class="status-title">
+            Sampai
+          </div>
+          <div class="status-item">
+            {{dateDisplay(eventForm.end)}}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+        <div class="buttons">
+          <button mat-raised-button (click)="submitRequest()">Confirm</button>
+          <button mat-raised-button (click)="confirmRequest()">Cancel</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
 </div>

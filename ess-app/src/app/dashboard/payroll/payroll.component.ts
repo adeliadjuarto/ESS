@@ -24,7 +24,7 @@ export class PayrollComponent implements OnInit {
     this.service.fetchPayroll();
     this.store.dispatch({
       type: DashboardAction.CHANGE_TITLE,
-      payload: 'Payroll'
+      payload: 'Slip Gaji'
     });
     this.store.select((state: AppState) => state.payrollState).subscribe(payrollState => {
       if (payrollState) {
