@@ -17,7 +17,7 @@ import java.text.DateFormatSymbols;
 @Getter
 public class Payroll extends BaseEntity {
     public Payroll () {}
-    public Payroll (User user, Integer month) {
+    public Payroll (User user, String month) {
         this.user = user;
         this.month = month;
         this.payrollStatus = "pending";
@@ -31,10 +31,10 @@ public class Payroll extends BaseEntity {
     @JsonIgnore
     private User user;
     private String path;
-    private Integer month;
+    private String month;
     private String payrollStatus;
 
-    public String getMonthName () {
-        return new DateFormatSymbols().getMonths()[this.month-1];
-    }
+//    public String getMonthName () {
+//        return new DateFormatSymbols().getMonths()[this.month-1];
+//    }
 }

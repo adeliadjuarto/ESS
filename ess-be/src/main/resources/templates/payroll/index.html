@@ -18,7 +18,7 @@
             <tbody>
                 <tr th:each="payroll : ${payrolls}">
                     <td th:text="${payroll.user.name}"></td>
-                    <td th:text="${payroll.getMonthName()}"></td>
+                    <td th:text="${payroll.month}"></td>
                     <td th:text="${payroll.payrollStatus}"></td>
                     <td>
                         <span th:if="${payroll.payrollStatus != 'processed'}">

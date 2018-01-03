@@ -362,7 +362,7 @@ public class ChatService {
 
     private Chat chatPayrollStatus() throws Exception {
         Payroll current = payrollApiController.getCurrentPayroll();
-        String message = "Status gaji anda pada bulan " + current.getMonthName() +
+        String message = "Status gaji anda pada bulan " + current.getMonth() +
                          ": " + current.getPayrollStatus();
         List<String> messages = Arrays.asList(message);
         List<String> buttons = Arrays.asList(HOME);

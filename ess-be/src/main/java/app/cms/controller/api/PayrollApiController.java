@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +43,9 @@ public class PayrollApiController {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         Integer month = cal.get(Calendar.MONTH);
-        return payrollRepository.findByUserIdAndMonth(userId, month);
+        Integer year = cal.get(Calendar.YEAR);
+        String monthString = getMonthName(month) + year.toString();
+        return payrollRepository.findByUserIdAndMonth(userId, monthString);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -75,12 +78,18 @@ public class PayrollApiController {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         Integer month = cal.get(Calendar.MONTH);
+        Integer year = cal.get(Calendar.YEAR);
+        String monthString = getMonthName(month) + " " + year.toString();
 
         List<User> users = userRepository.findByIsActive(true);
         for (User user : users) {
-            Payroll payroll = new Payroll(user, month);
+            Payroll payroll = new Payroll(user, monthString);
             payrollRepository.save(payroll);
         }
         return "Empty payrolls have been generated!";
+    }
+
+    private String getMonthName (Integer month) {
+        return new DateFormatSymbols().getMonths()[month];
     }
 }

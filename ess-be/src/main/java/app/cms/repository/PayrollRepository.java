@@ -9,7 +9,7 @@ import java.util.List;
  * Created by adeliadjuarto on 11/1/17.
  */
 public interface PayrollRepository extends JpaRepository<Payroll, Long> {
-    public Payroll findByUserIdAndMonth(Long userId, Integer month);
+    public Payroll findByUserIdAndMonth(Long userId, String month);
 
     public List<Payroll> findByUserIdAndPayrollStatus(Long userId, String payrollStatus);
 
