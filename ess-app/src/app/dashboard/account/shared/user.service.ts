@@ -19,6 +19,11 @@ export class UserService extends DataService<User> {
     super.setEndpoint(ENDPOINT.USER, User);
   }
 
+  public fetchCurrent(): Observable<User> {
+    return this.apiService.get(`${this.endpoint}/current`)
+                          .map(response => response.to(ResponseType.Json));
+  }
+
   public fetchSubordinates(): Observable<User[]> {
     return this.apiService.get(`${this.endpoint}/subordinates`)
       .map((response: Response) => response.to(ResponseType.Json));

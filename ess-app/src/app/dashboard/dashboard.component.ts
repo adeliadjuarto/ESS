@@ -8,7 +8,7 @@ import { AppState } from './../app.reducer';
 import { DashboardAction } from './shared/dashboard.action';
 import { UserAction } from './account/shared/user.action';
 import { NotificationService } from './../shared/notification/notification.service';
-import { LoginService } from './../login/shared/login.service';
+import { UserService } from './account/shared/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
               private notification: NotificationService,
               private router: Router,
               private route: ActivatedRoute,
-              private service: LoginService) {
+              private service: UserService) {
 
     this.store.dispatch({ type: DashboardAction.INIT });
     this.store.select((state: AppState) => state.dashboardState)
@@ -32,7 +32,11 @@ export class DashboardComponent implements OnInit {
           if (dashState) {
             this.menuTitle = dashState.title;
           }
-        })
+        });
+    this.service.fetchCurrent().subscribe(data => {
+          console.log(data);
+          this.store.dispatch({ type: UserAction.CHANGE_USER, payload: data});
+    });
   }
 
   ngOnInit() {

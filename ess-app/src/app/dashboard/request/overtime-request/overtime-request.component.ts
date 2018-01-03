@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { mapKeys } from 'lodash';
 
 import { AppState } from './../../../app.reducer';
+import { ENDPOINT } from './../../../core/constant';
 import { Overtime } from './../shared/request.interface';
 import { OvertimeRequestService } from './shared/overtime-request.service';
 import { DashboardAction } from './../../shared/dashboard.action';
@@ -11,6 +12,9 @@ import { FormRequest } from './../shared/request.interface';
 import { TimeFormatter } from './../shared/time-formatter';
 import { NotificationService } from './../../../shared/notification/notification.service';
 import { NotificationType } from './../../../shared/notification/notification.enum';
+
+declare var idbKeyval;
+const key = 'pwa-sync';
 
 @Component({
   selector: 'app-overtime-request',
@@ -43,6 +47,9 @@ export class OvertimeRequestComponent implements OnInit {
   start: string;
   end: string;
 
+  pendingRequests: number = 0;
+  pendingMessage: boolean = false;
+
   constructor(private store: Store<any>,
               private requestService: OvertimeRequestService,
               private notification: NotificationService) {
@@ -54,6 +61,7 @@ export class OvertimeRequestComponent implements OnInit {
     this.store.select((state: AppState) => state.userState).subscribe((state) => {
       this.userId = state.user.id;
     });
+    this.getPendingMessages();
   }
 
   ngOnInit() {
@@ -94,8 +102,8 @@ export class OvertimeRequestComponent implements OnInit {
     };
     this.requestService.createRequest(formRequest);
     this.resetForm();
+    this.getPendingMessages();
   }
-
 
   requestValid() {
     if (!this.requestTitle || !this.requestDescription) {
@@ -118,6 +126,16 @@ export class OvertimeRequestComponent implements OnInit {
     this.requestTitle = '';
     this.requestDescription = '';
     this.sliderValue = [0, 0];
+  }
+
+  getPendingMessages() {
+    idbKeyval.get(key)
+         .then((pendingReqs: any[]) => {
+           if (pendingReqs) {
+            this.pendingRequests = pendingReqs.filter(data => data.url.includes(ENDPOINT.REQUEST.OVERTIME)).length;
+           }
+         })
+         .then(() => this.pendingMessage = this.pendingRequests > 0 ? true : false);
   }
 
 }

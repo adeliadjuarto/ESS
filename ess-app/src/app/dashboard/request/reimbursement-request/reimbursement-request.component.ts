@@ -4,12 +4,15 @@ import { mapKeys } from 'lodash';
 import { Store } from '@ngrx/store';
 
 import { AppState } from './../../../app.reducer';
-import { REIMBURSEMENT_TYPES } from './../../../core/constant';
+import { REIMBURSEMENT_TYPES, ENDPOINT } from './../../../core/constant';
 import { DashboardAction } from './../../shared/dashboard.action';
 import { ReimbursementRequestService } from './shared/reimbursement-request.service';
 import { Reimbursement } from './../shared/request.interface';
 import { NotificationService } from './../../../shared/notification/notification.service';
 import { NotificationType } from './../../../shared/notification/notification.enum';
+
+declare var idbKeyval;
+const key = 'pwa-sync';
 
 @Component({
   selector: 'app-reimbursement-request',
@@ -32,6 +35,9 @@ export class ReimbursementRequestComponent implements OnInit {
   requestConfirm: boolean = false;
   errorMessage: string;
 
+  pendingRequests: number = 0;
+  pendingMessage: boolean = false;
+
   constructor(private store: Store<any>,
               private requestService: ReimbursementRequestService,
               private notification: NotificationService) {
@@ -42,6 +48,7 @@ export class ReimbursementRequestComponent implements OnInit {
     this.store.select((state: AppState) => state.userState).subscribe((state) => {
       this.userId = state.user.id;
     });
+    this.getPendingMessages();
   }
 
   ngOnInit() {
@@ -73,6 +80,7 @@ export class ReimbursementRequestComponent implements OnInit {
 
     this.requestService.createRequest(formRequest);
     this.resetForm();
+    this.getPendingMessages();
   }
 
   dateDisplay(date: Date) {
@@ -107,6 +115,16 @@ export class ReimbursementRequestComponent implements OnInit {
     this.description = '';
     this.amount = null;
     this.selectedType = null;
+  }
+
+  getPendingMessages() {
+    idbKeyval.get(key)
+         .then((pendingReqs: any[]) => {
+           if (pendingReqs) {
+            this.pendingRequests = pendingReqs.filter(data => data.url.includes(ENDPOINT.REQUEST.REIMBURSEMENT)).length;
+           }
+         })
+         .then(() => this.pendingMessage = this.pendingRequests > 0 ? true : false);
   }
 
 }

@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -168,6 +169,7 @@ public class ChatService {
         String message = "Data lengkap, pengajuan sudah dibuat!";
         String type = "leave";
         List<String> neededFields = LEAVE_REQUEST_FIELDS;
+        List<String> buttons = new ArrayList<>();
 
         User user = authService.getCurrentUser();
         RequestSession requestSession = requestSessionRepository
@@ -186,6 +188,9 @@ public class ChatService {
                 message = "Tolong masukkan " + field;
                 if (field.equals("tanggal mulai") || field.equals("tanggal selesai")) {
                     message += " (Format: dd mmm yyyy (22 Des 2017) atau dd MMM yyyy (22 Desember 2017))";
+                }
+                if (field.equals("jenis pengajuan cuti")) {
+                    buttons = Arrays.asList("Sick Leave", "Annual Leave", "Unpaid Leave");
                 }
                 isValid = false;
                 chatState.setField(field);
@@ -210,12 +215,12 @@ public class ChatService {
             leaveRequest = leaveRequestRepository.save(leaveRequest);
             requestSessionRepository.delete(requestSession);
             resetChatState();
-//            chatState.setRequestId(leaveRequest.getId());
-//            chatState.setField("dokumen");
         }
 
         List<String> messages = Arrays.asList(message);
-        List<String> buttons = Arrays.asList(HOME);
+        if(buttons.isEmpty()) {
+            buttons = Arrays.asList(HOME);
+        }
         return new Chat(messages, buttons);
     }
 
@@ -289,6 +294,7 @@ public class ChatService {
         String message = "Data lengkap, pengajuan sudah dibuat!";
         String type = "reimbursement";
         List<String> neededFields = REIMBURSEMENT_REQUEST_FIELDS;
+        List<String> buttons = new ArrayList<>();
 
         User user = authService.getCurrentUser();
         RequestSession requestSession = requestSessionRepository
@@ -306,6 +312,10 @@ public class ChatService {
                 message = "Tolong masukkan " + field;
                 if (field.equals("tanggal")) {
                     message += " (Format: dd mmm yyyy (22 Des 2017) atau dd MMM yyyy (22 Desember 2017))";
+                }
+
+                if (field.equals("jenis pengajuan reimbursement")) {
+                    buttons = Arrays.asList("Medical", "Meal");
                 }
                 isValid = false;
                 chatState.setField(field);
@@ -335,7 +345,9 @@ public class ChatService {
         }
 
         List<String> messages = Arrays.asList(message);
-        List<String> buttons = Arrays.asList(HOME);
+        if (buttons.isEmpty()) {
+            buttons = Arrays.asList(HOME);
+        }
         return new Chat(messages, buttons);
     }
 
@@ -367,6 +379,12 @@ public class ChatService {
                 return chatLeaveBalance();
             case LEAVE_REQUEST:
                 return chat(REQUEST_LEAVE);
+            case OVERTIME_REQUEST:
+                return chat(REQUEST_OVERTIME);
+            case REIMBURSEMENT_REQUEST:
+                return chat(REQUEST_REIMBURSEMENT);
+            case SEE_STATUS:
+                return chatStatus();
             default:
                 return new Chat();
         }

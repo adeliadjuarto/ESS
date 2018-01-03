@@ -6,11 +6,14 @@ import { values, mapKeys } from 'lodash';
 import { AppState } from './../../../app.reducer';
 import { TimeFormatter } from './../shared/time-formatter';
 import { FormRequest, Leave } from './../shared/request.interface';
-import { LEAVE_TYPES } from './../../../core/constant';
+import { LEAVE_TYPES, ENDPOINT } from './../../../core/constant';
 import { DashboardAction } from './../../shared/dashboard.action';
 import { LeaveRequestService } from './shared/leave-request.service';
 import { NotificationService } from './../../../shared/notification/notification.service';
 import { NotificationType } from './../../../shared/notification/notification.enum';
+
+declare var idbKeyval;
+const key = 'pwa-sync';
 
 @Component({
   selector: 'app-leave-request',
@@ -44,6 +47,9 @@ export class LeaveRequestComponent implements OnInit {
     step: 30 * 60
   }
 
+  pendingRequests: number = 0;
+  pendingMessage: boolean = false;
+
   constructor(private store: Store<any>,
               private requestService: LeaveRequestService,
               private notification: NotificationService) {
@@ -53,8 +59,11 @@ export class LeaveRequestComponent implements OnInit {
     });
 
     this.store.select((state: AppState) => state.userState).subscribe((state) => {
-      this.userId = state.user.id;
+      if (state) {
+        this.userId = state.user.id;
+      }
     });
+    this.getPendingMessages();
   }
 
   ngOnInit() {
@@ -112,6 +121,7 @@ export class LeaveRequestComponent implements OnInit {
 
       this.requestService.createRequest(formRequest);
       this.resetForm();
+      this.getPendingMessages();
   }
 
   dateDisplay(date: Date) {
@@ -128,6 +138,16 @@ export class LeaveRequestComponent implements OnInit {
     this.requestDescription = '';
     this.selectedLeaveType = null;
     this.sliderValue = [0, 0];
+  }
+
+  getPendingMessages() {
+    idbKeyval.get(key)
+         .then((pendingReqs: any[]) => {
+           if (pendingReqs) {
+            this.pendingRequests = pendingReqs.filter(data => data.url.includes(ENDPOINT.REQUEST.LEAVE)).length;
+           }
+         })
+         .then(() => this.pendingMessage = this.pendingRequests > 0 ? true : false);
   }
 
 

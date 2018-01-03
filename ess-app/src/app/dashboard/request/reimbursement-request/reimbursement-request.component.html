@@ -1,3 +1,7 @@
+<div class="pending-msg" *ngIf="pendingMessage && !requestConfirm">
+  <span>Terdapat {{pendingRequests}} request yang belum terkirim</span>
+</div>
+
 
 <div class="container" *ngIf="!requestConfirm">
     <mat-form-field>
