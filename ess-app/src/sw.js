@@ -85,7 +85,7 @@ workboxSW.router.registerRoute(/\.ttf$/,
         cacheableResponse: {statuses: [0, 200]}
     })
 );
-workboxSW.router.registerRoute('https://buzz.catapa.com/buzz-backend/(.*)',
+workboxSW.router.registerRoute('http://localhost:8080/(.*)',
   workboxSW.strategies.networkFirst({
         cacheName: 'buzz-backend',
         cacheExpiration: {

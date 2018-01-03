@@ -19,7 +19,8 @@ export class Provider extends BaseModel {
                 public name: string,
                 public providerType: FilterItem,
                 public serviceType: FilterItem,
-                public phoneNumbers: ContactNum[],
+                public telephone: string,
+                public fax: string,
                 public bpjs?: string) {
                 super();
   }

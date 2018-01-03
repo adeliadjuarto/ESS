@@ -101,9 +101,8 @@
   </mat-card-content>
   <mat-card-content>
     <div class="buttons">
+      <mat-icon class="reject" (click)="submitApproval('reject')">cancel</mat-icon>
       <mat-icon (click)="submitApproval('approve')">check_box</mat-icon>
-
-      <mat-icon (click)="submitApproval('reject')">cancel</mat-icon>
     </div>
   </mat-card-content>
   <mat-card-content *ngIf="!!approvalSubmission">
@@ -118,8 +117,9 @@
         Konfirmasi penyetujuan request?
       </div>
 
+      <mat-icon class="reject" (click)="submitApproval()">close</mat-icon>
+
       <mat-icon (click)="approveRequest()">check</mat-icon>
-      <mat-icon (click)="submitApproval()">close</mat-icon>
 
     </div>
   </mat-card-content>

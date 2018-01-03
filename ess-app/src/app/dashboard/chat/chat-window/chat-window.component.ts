@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
-import { MONTH } from './../../../core/constant/index';
+import { MONTH, REIMBURSEMENT_TYPES, LEAVE_TYPES } from './../../../core/constant/index';
 import { Message } from './../shared/message.model';
 import { MessageService } from './../shared/message.service';
 
@@ -36,9 +36,33 @@ export class ChatWindowComponent implements OnInit {
       this.messageService.sendMessage(this.draftMessage, this.parseDateToTimestamp(this.draftMessage));
     } else if (this.lastMessage.includes('masukkan jam')) {
       this.messageService.sendMessage(this.draftMessage, this.parseClockHourToTimestamp(this.draftMessage));
+    } else if (this.lastMessage.includes('masukkan jenis pengajuan cuti')) {
+      this.messageService.sendMessage(this.draftMessage, this.parseLeaveTypeToId(this.draftMessage))
+    } else if (this.lastMessage.includes('masukkan jenis pengajuan reimbursement')) {
+      this.messageService.sendMessage(this.draftMessage, this.parseReimbursementTypeToId(this.draftMessage))
     } else {
       this.messageService.sendMessage(this.draftMessage);
     }
+  }
+
+  parseLeaveTypeToId(leaveType) {
+    let id = '';
+    LEAVE_TYPES.forEach(type => {
+      if (type.name === leaveType) {
+        id = type.id.toString();
+      }
+    })
+    return id;
+  }
+
+  parseReimbursementTypeToId(reimbursementType) {
+    let id = '';
+    LEAVE_TYPES.forEach(type => {
+      if (type.name === reimbursementType) {
+        id = type.id.toString();
+      }
+    })
+    return id;
   }
 
   parseDateToTimestamp(date): string {

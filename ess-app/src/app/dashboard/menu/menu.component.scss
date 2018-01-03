@@ -1,7 +1,9 @@
+@import '../../../stylesheets/variables.scss';
+
 mat-grid-tile {
-    border: 1px solid #1fc584;
+    border: 1.5px solid $color-secondary;
     border-radius: 50px;
-    color: #1fc584;
+    color: $color-primary;
 }
 
 .menu-icon {
@@ -25,7 +27,8 @@ mat-icon {
     margin-top: 5vh;
     margin-bottom: 5vh;
     padding-left: 10px;
-    border: 1px solid black;
+    border: 1px solid $color-primary;
+    color: $color-primary;
 }
 
 .container {
