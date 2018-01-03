@@ -11,7 +11,6 @@ import { ChatComponent } from './chat/chat.component';
 import { RequestComponent } from './request/request.component';
 import { StatusComponent } from './status/status.component';
 import { PayrollComponent } from './payroll/payroll.component';
-import { PayrollViewerComponent } from './payroll/payroll-viewer/payroll-viewer.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ApprovalsComponent } from './approvals/approvals.component';
 import { DocumentYearsResolve } from './hcm-info/shared/document-years/document-years.resolver';
@@ -46,12 +45,14 @@ const routes: Routes = [
         component: ChatComponent,
         data: {
           title: 'Chat',
+          icon: 'chat'
         }
       },
       {
         path: PATH.HCM_INFO,
         data: {
-          title: 'HCM Info',
+          title: 'Informasi HCM',
+          icon: 'import_contacts'
         },
         children: [
           {
@@ -62,6 +63,7 @@ const routes: Routes = [
             path: PATH.PKB,
             data: {
               title: 'PKB',
+              icon: 'chrome_reader_mode'
             },
             children: [
               {
@@ -81,6 +83,7 @@ const routes: Routes = [
             path: PATH.SK_SE,
             data: {
               title: 'SK/SE',
+              icon: 'description'
             },
             children: [
               {
@@ -110,7 +113,8 @@ const routes: Routes = [
       {
         path: PATH.MEDICAL_INFO,
         data: {
-          title: 'Medical Provider Info',
+          title: 'Penyedia Tunjangan Medis',
+          icon: 'local_hospital'
         },
         children: [
           {
@@ -143,44 +147,40 @@ const routes: Routes = [
       {
         path: PATH.REQUEST,
         data: {
-          title: 'Request'
+          title: 'Pengajuan Request',
+          icon: 'move_to_inbox'
         },
         loadChildren: 'app/dashboard/request/request.module#RequestModule'
       },
       {
         path: PATH.STATUS,
         data: {
-          title: 'Status'
+          title: 'Status Request',
+          icon: 'assignment'
         },
         component: StatusComponent
       },
       {
         path: PATH.APPROVALS,
         data: {
-          title: 'Approval'
+          title: 'Penyetujuan Request',
+          icon: 'supervisor_account'
         },
         component: ApprovalsComponent
       },
       {
         path: PATH.PAYROLL,
         data: {
-          title: 'Payroll'
+          title: 'Slip Gaji',
+          icon: 'account_balance'
         },
-        children: [
-          {
-            path: PATH.EMPTY,
-            component: PayrollComponent
-          },
-          {
-            path: PATH.PAYROLL_SLIP,
-            component: PayrollViewerComponent
-          }
-        ]
+        component: PayrollComponent
       },
       {
         path: PATH.CALENDAR,
         data: {
-          title: 'Calendar'
+          title: 'Kalender Personal',
+          icon: 'perm_contact_calendar'
         },
         children: [
           {

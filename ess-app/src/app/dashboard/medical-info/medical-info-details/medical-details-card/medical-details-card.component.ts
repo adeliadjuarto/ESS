@@ -19,8 +19,6 @@ export class MedicalDetailsCardComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.telephone = this.provider.phoneNumbers.filter(phoneNumber => phoneNumber.type === 'telephone');
-    this.fax = this.provider.phoneNumbers.filter(phoneNumber => phoneNumber.type === 'fax');
   }
 
   redirectToMap(id) {

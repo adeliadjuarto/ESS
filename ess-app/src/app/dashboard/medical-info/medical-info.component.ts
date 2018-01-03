@@ -38,7 +38,7 @@ export class MedicalInfoComponent implements OnInit {
               private medicalInfoService: MedicalInfoService,
               private route: ActivatedRoute,
               private notification: NotificationService) {
-      this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Provider Tunjangan Medis'});
+      this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Penyedia Tunjangan Medis'});
       this.insuranceTypes = this.route.snapshot.data['insuranceTypes'];
       this.cities = this.route.snapshot.data['providerCities'];
       this.providers = this.route.snapshot.data['providerTypes'];

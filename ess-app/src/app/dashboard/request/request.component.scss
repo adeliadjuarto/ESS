@@ -1,6 +1,42 @@
 @import "~nouislider/distribute/nouislider.min.css";
 
 mat-grid-tile {
-    background-color: #1fc584 !important;
-    color: #fff;
+    border: 1px solid #1fc584;
+    border-radius: 50px;
+    color: #1fc584;
+}
+
+.menu-icon {
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.title {
+    font-size: 12px;
+}
+
+mat-icon {
+    font-size: 48px;
+    width: auto !important;
+}
+
+.header {
+    height: 15vh;
+}
+
+.greeting-message {
+    margin-left: 4vw;
+    margin-right: 4vw;
+    margin-top: 10vh;
+    margin-bottom: 5vh;
+    padding-left: 10px;
+    border: 1px solid black;
+}
+
+.container {
+    width: 94vw;
+    margin-top: 3vh;
+    margin-left: 3vw;
+    margin-right: 3vw;
 }

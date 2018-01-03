@@ -1,14 +1,14 @@
 <div class="container" *ngIf="!requestConfirm">
     <mat-form-field>
-      <input #nameInput matInput placeholder="Title" [(ngModel)]="requestTitle"/>
+      <input #nameInput matInput placeholder="Judul" [(ngModel)]="requestTitle"/>
     </mat-form-field>
 
     <mat-form-field>
-      <input #nameInput matInput placeholder="Description" [(ngModel)]="requestDescription"/>
+      <input #nameInput matInput placeholder="Keterangan" [(ngModel)]="requestDescription"/>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Pick A Date" [(ngModel)]="requestDate"
+      <input matInput placeholder="Pilih Tanggal" [(ngModel)]="requestDate"
              [matDatepicker]="picker" (click)="picker.open()" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
@@ -17,10 +17,15 @@
     <nouislider name="slider" [config]="sliderConfig" [(ngModel)]="sliderValue"></nouislider>
 
     <div class="input-file">
-      <input type="file" (change)="fileChange($event)">
+      <label for="file-input">Upload bukti (opsional)</label>
+      <br>
+      <input id="file-input" type="file" (change)="fileChange($event)" placeholder="Upload bukti (opsional)">
     </div>
 
-    <button mat-raised-button (click)="confirmRequest()">Submit Request</button>
+
+    <div class="buttons">
+      <button mat-raised-button (click)="confirmRequest()">Submit Pengajuan Request</button>
+    </div>
 </div>
 
 <div class="container" *ngIf="requestConfirm">
@@ -65,7 +70,7 @@
           </div>
         </div>
       </mat-card-content>
-      <mat-card-content>
+      <mat-card-content *ngIf="requestAttachments">
         <div class="status">
           <div class="status-title">
             File Attachment

@@ -67,13 +67,31 @@ mat-card {
 }
 
 .pending {
-    color: #2196F3;
+    border-top: 50px solid #2196F3;
 }
 
 .rejected {
-    color: #D32F2F;
+    border-top: 50px solid  #D32F2F;
 }
 
 .approved {
-    color: #43A047;
+    border-top: 50px solid #43A047;
+}
+
+.status-indicator {
+    position: absolute;
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+    z-index: 100;
+    right: 5vw;
+}
+
+.icon {
+    position: absolute;
+    z-index: 200;
+    right: 5vw;
+    padding-right: 4px;
+    padding-top: 1px;
+    color: white;
 }

@@ -16,39 +16,25 @@ import { PayrollService } from './shared/payroll.service';
 })
 export class PayrollComponent implements OnInit {
 
-  public currentDate: string;
-  public currentPayrollStatus: string = '';
-  public latestProcessedPayroll: string = '';
-
-  private dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+  processedPayrolls: Payroll[];
+  selectedPayroll: Payroll;
 
   constructor(private store: Store<any>,
-              private router: Router,
-              private route: ActivatedRoute,
               private service: PayrollService) {
     this.service.fetchPayroll();
     this.store.dispatch({
       type: DashboardAction.CHANGE_TITLE,
-      payload: 'Payroll'
+      payload: 'Slip Gaji'
     });
     this.store.select((state: AppState) => state.payrollState).subscribe(payrollState => {
       if (payrollState) {
-        if (payrollState.currentPayroll) {
-          this.currentPayrollStatus = payrollState.currentPayroll.payrollStatus;
-        }
-        if (payrollState.processedPayrolls.length > 0) {
-          this.latestProcessedPayroll = payrollState.processedPayrolls[0].monthName;
-        }
+        this.processedPayrolls = payrollState.processedPayrolls;
+        this.selectedPayroll = this.processedPayrolls[0];
       }
     })
-    this.currentDate = new Date().toLocaleDateString('en-GB', this.dateOptions);
   }
 
   ngOnInit() {
-  }
-
-  redirectToPayrollSlip() {
-    this.router.navigate([PATH.PAYROLL_SLIP], { relativeTo: this.route });
   }
 
 }

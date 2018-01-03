@@ -22,21 +22,24 @@ const routes: Routes = [
         path: PATH.LEAVE,
         component: LeaveRequestComponent,
         data: {
-          title: 'Leave',
+          title: 'Cuti',
+          icon: 'event_busy'
         }
       },
       {
         path: PATH.REIMBURSEMENT,
         component: ReimbursementRequestComponent,
         data: {
-          title: 'Reimbursement'
+          title: 'Reimbursement',
+          icon: 'monetization_on'
         }
       },
       {
         path: PATH.OVERTIME,
         component: OvertimeRequestComponent,
         data: {
-          title: 'Overtime'
+          title: 'Lembur',
+          icon: 'alarm_add'
         }
       }
     ]

@@ -20,6 +20,10 @@ import { DashboardAction } from './../shared/dashboard.action';
 import { PATH } from './../../core/constant/index';
 import { CalendarService } from './shared/calendar.service';
 
+const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
+  'Agustus', 'September', 'Oktober', 'November', 'Desember'
+];
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -53,12 +57,13 @@ export class CalendarComponent implements OnInit {
   viewDate: Date = new Date();
   activeDayIsOpen: boolean = true;
   events: CalendarEvent[];
+  monthNumber: number = new Date().getMonth();
 
   constructor(private store: Store<any>,
               private service: CalendarService,
               private router: Router,
               private route: ActivatedRoute ) {
-    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Calendar'});
+    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Kalender'});
     this.service.fetchEvents()
                 .subscribe(event => this.events = event.map(data => {
                               return {
@@ -66,16 +71,23 @@ export class CalendarComponent implements OnInit {
                                 end: new Date(data.end),
                                 color: this.colors.yellow,
                                 title: data.title
-                                //       + ' ('
-                                //       + this.getTime(data.start)
-                                //       + ' - '
-                                //       + this.getTime(data.end)
-                                //       + ')',
                               }
                             }));
   }
 
   ngOnInit() {
+  }
+
+  changeMonth(increment: number) {
+    if (increment === 0 ) {
+       this.monthNumber = new Date().getMonth();
+    } else {
+      this.monthNumber = this.monthNumber + increment;
+    }
+  }
+
+  public get month(): string {
+    return monthNames[this.monthNumber];
   }
 
   getTime(timestamp) {

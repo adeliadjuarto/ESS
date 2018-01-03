@@ -30,7 +30,7 @@ public class EventApiController {
                             @RequestParam("summary") String summary,
                             @RequestParam("userIds[]") Long[] userIds) throws Exception {
         eventService.addEvent(start, end, summary, userIds, isAllDayEvent);
-        return "Event successfully added to calendar!";
+        return "Event telah ditambahkan ke kalender!";
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -42,14 +42,14 @@ public class EventApiController {
                               @RequestParam("summary") String summary,
                               @RequestParam("userIds[]") Long[] userIds) throws Exception {
         eventService.updateEvent(id, start, end, summary, userIds, isAllDayEvent);
-        return "Event successfully edited!";
+        return "Event telah diedit!";
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/events/{id}", method = RequestMethod.DELETE)
     public String deleteEvent(@PathVariable("id") Long id) throws Exception {
         eventService.deleteEvent(id);
-        return "Event successfully deleted from calendar!";
+        return "Event telah dihapus dari kalender!";
     }
 
 }

@@ -1,7 +1,15 @@
+<div class="header">
+  <div class="greeting-message">
+    <p>Silahkan pilih tipe transaksi yang ingin diajukan.</p>
+  </div>
+</div>
+
+
 <div class="container" #requestContainer>
-  <mat-grid-list [cols]="columns" rowHeight="1:1">
+  <mat-grid-list [cols]="columns" gutterSize="12px" rowHeight="1:1">
     <mat-grid-tile *ngFor="let menu of menus" (click)="redirectTo(menu)">
         <div class="menu-icon">
+            <mat-icon>{{menu.icon}}</mat-icon>
             <div class="title">{{menu.title}}</div>
         </div>
     </mat-grid-tile>

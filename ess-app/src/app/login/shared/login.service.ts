@@ -46,7 +46,7 @@ export class LoginService {
         this.store.dispatch({ type: AuthenticationAction.LOGIN_COMPLETE, payload: result });
 
         if (result.success && result.data) {
-          this.store.dispatch({ type: UserAction.CHANGE_USER, payload: result.data.id});
+          this.store.dispatch({ type: UserAction.CHANGE_USER, payload: result.data});
           let token: LoginToken = new LoginToken(Math.random().toString(36).substr(2, 5));
           this.token.store(GENERAL.TOKEN.SESSION, token);
           this.token.store(GENERAL.TOKEN.USER, result.data);

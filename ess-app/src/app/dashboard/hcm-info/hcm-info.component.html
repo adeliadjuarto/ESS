@@ -1,9 +1,19 @@
+<div class="header">
+  <div class="greeting-message">
+    <p>Silahkan pilih menu di bawah untuk memulai.</p>
+    <p>Menu PKB berisi Perjanjian Kerja Bersama</p>
+    <p>Menu SK/SE berisi Surat Keterangan / Edaran yang dikeluarkan perusahaan</p>
+  </div>
+</div>
+
+
 <div class="container" #myGuideContainer>
-    <mat-grid-list [cols]="columns" rowHeight="1:1">
-      <mat-grid-tile *ngFor="let menu of menuItems" (click)="redirectTo(menu.path)">
+  <mat-grid-list [cols]="columns" gutterSize="12px" rowHeight="1:1">
+    <mat-grid-tile *ngFor="let menu of menuItems" (click)="redirectTo(menu.path)">
         <div class="menu-icon">
-          {{menu.title}}
+            <mat-icon>{{menu.icon}}</mat-icon>
+            <div class="title">{{menu.title}}</div>
         </div>
-      </mat-grid-tile>
-    </mat-grid-list>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>

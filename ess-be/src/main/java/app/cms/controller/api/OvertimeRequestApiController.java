@@ -76,7 +76,7 @@ public class OvertimeRequestApiController {
             attachmentRepository.save(a);
         }
 
-        return "Overtime request successfully created!";
+        return "Request lembur telah dibuat dan menunggu approval!";
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -90,27 +90,27 @@ public class OvertimeRequestApiController {
         OvertimeRequest request = overtimeRequestRepository.findOne(id);
         request.setIsActive(false);
         overtimeRequestRepository.save(request);
-        return "Overtime request successfully deleted!";
+        return "Request lembur telah dihapus!";
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/overtime-requests/{id}/reject", method = RequestMethod.POST)
+    @RequestMapping(value = "/overtime-approvals/{id}/reject", method = RequestMethod.POST)
     public String rejectRequest(@PathVariable("id") String id,
                                 @RequestParam("notes") String notes) throws Exception {
         OvertimeRequest request = overtimeRequestRepository.findOne(id);
         request.setIsApproved(false);
         request.setRejectionNote(notes);
         overtimeRequestRepository.save(request);
-        return "You have rejected this request";
+        return "Request telah ditolak";
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/overtime-requests/{id}/approve")
+    @RequestMapping(value = "/overtime-approvals/{id}/approve")
     public String approveRequest(@PathVariable("id") String id) throws Exception {
         OvertimeRequest request = overtimeRequestRepository.findOne(id);
         request.setIsApproved(true);
         overtimeRequestRepository.save(request);
-        return "You have approved this request";
+        return "Request telah disetujui";
     }
 
     private String saveFileToDirectory (MultipartFile file) {

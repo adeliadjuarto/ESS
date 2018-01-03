@@ -4,5 +4,42 @@
 }
 
 mat-icon {
-    color: black;
+    font-size: 45px;
+    width: auto !important;
+    color: white !important;
+}
+
+.month {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 7px;
+}
+
+:host /deep/ .mat-fab .mat-button-wrapper {
+    padding: 5px;
+}
+
+button {
+    background-color: #1fc584 !important;
+    color: white !important;
+}
+
+.add-button {
+    float: right;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.button-container {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.calendar-btn {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }

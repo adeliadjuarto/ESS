@@ -17,6 +17,7 @@ export class StatusCardComponent<T extends Status> implements OnInit {
   @Input() inputStatus: T;
   @Input() approvalType: string;
   statusHistory: Array<any> = Array<any>();
+  iconStatus: string;
 
   constructor() { }
 
@@ -26,14 +27,25 @@ export class StatusCardComponent<T extends Status> implements OnInit {
   public get status(): string {
 
     if (this.inputStatus.isApproved === null) {
-      return 'Pending';
+      this.iconStatus = 'watch_later';
+      return 'pending';
     } else if (this.inputStatus.isApproved) {
-      return 'Approved';
+      this.iconStatus = 'done';
+      return 'approved';
     } else if (this.inputStatus.isApproved === false) {
-      return 'Rejected';
+      this.iconStatus = 'clear';
+      return 'rejected';
     }
 
     return '';
+  }
+
+  dateDisplay(date: string) {
+    let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    if (new Date(date).toString() === 'Invalid Date') {
+      return date;
+    }
+    return new Date(date).toLocaleDateString('id-ID', dateOptions);
   }
 
 }

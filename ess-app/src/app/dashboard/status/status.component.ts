@@ -27,7 +27,7 @@ export class StatusComponent implements OnInit, AfterContentInit {
   constructor(private statusService: StatusService,
               private store: Store<any>,
               private router: Router) {
-    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Transaction Status'});
+    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Status Pengajuan Transaksi'});
     this.store.select((obj: AppState) => obj.statusState)
               .subscribe((statusState) => {
                 if (statusState) {
@@ -38,7 +38,7 @@ export class StatusComponent implements OnInit, AfterContentInit {
     this.store.select((obj: AppState) => obj.userState)
               .subscribe((userState) => {
                 if (userState) {
-                  this.userId = userState.id;
+                  this.userId = userState.user.id;
                 }
               })
   }
