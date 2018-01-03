@@ -38,29 +38,6 @@ export class MessageService {
   }
 
   private botReply(message: Message) {
-    // let reply;
-    // switch (intent) {
-    //   case INTENT.GREET:
-    //     reply = 'Hai juga';
-    //     break;
-    //   case INTENT.LEAVE_REQUEST:
-    //     reply = 'Oke, pesan sudah disampaikan';
-    //     break;
-    //   case INTENT.LEAVE_BALANCE_REQUEST:
-    //     reply = 'Sisa cuti anda tinggal x hari';
-    //     break;
-    //   case INTENT.AFFIRM:
-    //     reply = 'Oke';
-    //     break;
-    //   case INTENT.THANK:
-    //     reply = 'Sama-sama';
-    //     break;
-    //   default:
-    //     reply = 'Sorry I still don\'t understand';
-    // }
-
-    // let buttons: any = [{title: 'Hey'}, {title: 'Ho'}]
-
     setTimeout(() => this.addMessage(message), 1000);
   }
 

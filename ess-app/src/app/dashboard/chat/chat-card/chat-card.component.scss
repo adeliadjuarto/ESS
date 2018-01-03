@@ -12,3 +12,37 @@
     margin-left: 60px;
     margin-right: 5vw;
 }
+
+.message-text {
+    white-space: pre-wrap;
+    padding: 10px;
+	background-color: #ACDEC2;
+    line-height: 1.5em;
+    border: 1px solid #2E8B57;
+    border-radius: 15px 15px 15px 0px !important;
+    display: block;
+}
+
+.align-right-text {
+    border-radius: 15px 15px 0px 15px !important;
+}
+
+.buttons-container {
+    align-items: center;
+}
+
+.button {
+    position: relative;
+    height: 44px;
+    background-color: #DAF2E4;
+    border: 1px solid #2E8B57;
+    text-align: center;
+    vertical-align: middle;
+    min-width: 100px;
+    line-height: 44px;
+    margin-top: 5px;
+}
+
+.bot {
+    min-width: 100px;
+}

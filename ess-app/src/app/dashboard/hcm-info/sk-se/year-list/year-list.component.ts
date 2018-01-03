@@ -7,7 +7,6 @@ import { AppState } from '../../../../app.reducer';
 import { DashboardAction } from './../../../shared/dashboard.action';
 import { HcmInfoService } from '../../shared/hcm-info.service';
 import { DocumentsAction as Action } from '../../shared/hcm-info.action';
-import { SearchBarXsComponent } from './../../../../shared/search-bar/search-bar-xs/search-bar-xs.component';
 import { Document } from '../../shared/document.model';
 
 @Component({

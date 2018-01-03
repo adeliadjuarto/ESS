@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { values, mapKeys } from 'lodash';
 
 import { AppState } from './../../../app.reducer';
+import { Request } from './../shared/request';
 import { TimeFormatter } from './../shared/time-formatter';
 import { FormRequest, Leave } from './../shared/request.interface';
 import { LEAVE_TYPES, ENDPOINT } from './../../../core/constant';
@@ -20,17 +21,19 @@ const key = 'pwa-sync';
   templateUrl: './leave-request.component.html',
   styleUrls: ['./leave-request.component.scss']
 })
-export class LeaveRequestComponent implements OnInit {
+export class LeaveRequestComponent extends Request implements OnInit {
 
   selectedLeaveType: any;
   leaveTypes = LEAVE_TYPES;
-  singleDatepicker: boolean = false;
+  singleDatepickerToggle: boolean = false;
+  request = {
+    title: '',
+    description: '',
+    from: null,
+    to: null,
+    attachments: null
+  }
 
-  requestTitle: string;
-  requestDescription: string;
-  dateFor: Date;
-  dateTo: Date;
-  requestAttachments: File;
   userId: string;
   errorMessage: string;
   requestConfirm: boolean = false;
@@ -48,12 +51,12 @@ export class LeaveRequestComponent implements OnInit {
   }
 
   pendingRequests: number = 0;
-  pendingMessage: boolean = false;
   fileName: string = '';
 
   constructor(private store: Store<any>,
               private requestService: LeaveRequestService,
               private notification: NotificationService) {
+    super();
     this.store.dispatch({
       type: DashboardAction.CHANGE_TITLE,
       payload: 'Pengajuan Cuti'
@@ -70,29 +73,29 @@ export class LeaveRequestComponent implements OnInit {
   ngOnInit() {
   }
 
-  doStuff() {
-    this.selectedLeaveType === 7 ? this.singleDatepicker = true : this.singleDatepicker = false;
+  toggleLeaveType() {
+    this.selectedLeaveType.id === 7 ? this.singleDatepickerToggle = true : this.singleDatepickerToggle = false;
     this.sliderValue = [0, 0];
   }
 
   fileChange(event) {
-    this.requestAttachments = event.target.files[0];
-    this.fileName = this.requestAttachments.name;
+    this.request.attachments = event.target.files[0];
+    this.fileName = this.request.attachments.name;
   }
 
-  allFilesExist() {
-    if (!this.requestTitle || !this.requestDescription || !this.selectedLeaveType || !this.dateFor) {
+  requestValid() {
+    if (!this.request.title || !this.request.description || !this.selectedLeaveType || !this.request.from) {
       this.errorMessage = 'Semua input harus diisi';
       return false;
     }
-    if (!this.singleDatepicker && !this.dateTo) {
+    if (!this.singleDatepickerToggle && !this.request.to) {
       return false;
     }
     return true;
   }
 
   confirmRequest() {
-    if (this.allFilesExist()) {
+    if (this.requestValid()) {
       this.requestConfirm = !this.requestConfirm;
     } else {
       this.notification.show(this.errorMessage, NotificationType.Error);
@@ -100,12 +103,12 @@ export class LeaveRequestComponent implements OnInit {
   }
 
   submitRequest() {
-      let start = this.dateFor.getTime() + (this.sliderValue[0] * 1000);
+      let start = this.request.from.getTime() + (this.sliderValue[0] * 1000);
       let end;
-      if (this.singleDatepicker) {
-        end = this.dateFor.getTime() + (this.sliderValue[1] * 1000);
+      if (this.singleDatepickerToggle) {
+        end = this.request.from.getTime() + (this.sliderValue[1] * 1000);
       } else {
-        end = this.dateTo.getTime() + (this.sliderValue[1] * 1000);
+        end = this.request.to.getTime() + (this.sliderValue[1] * 1000);
       }
 
       if ( start >= end ) {
@@ -113,12 +116,12 @@ export class LeaveRequestComponent implements OnInit {
       }
 
       let formRequest: Leave = {
-        title: this.requestTitle,
-        description: this.requestDescription,
+        title: this.request.title,
+        description: this.request.description,
         start: start,
         end: end,
         requestTypeId: this.selectedLeaveType.id,
-        'attachments[]': this.requestAttachments
+        'attachments[]': this.request.attachments
       };
 
       this.requestService.createRequest(formRequest);
@@ -126,18 +129,15 @@ export class LeaveRequestComponent implements OnInit {
       this.getPendingMessages();
   }
 
-  dateDisplay(date: Date) {
-    let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString('id-ID', dateOptions);
-  }
-
   resetForm() {
     this.requestConfirm = false;
-    this.dateFor = null;
-    this.dateTo = null;
-    this.requestAttachments = null;
-    this.requestTitle = '';
-    this.requestDescription = '';
+    this.request = {
+    title: '',
+    description: '',
+    from: null,
+    to: null,
+    attachments: null
+    }
     this.selectedLeaveType = null;
     this.sliderValue = [0, 0];
   }
@@ -148,8 +148,7 @@ export class LeaveRequestComponent implements OnInit {
            if (pendingReqs) {
             this.pendingRequests = pendingReqs.filter(data => data.url.includes(ENDPOINT.REQUEST.LEAVE)).length;
            }
-         })
-         .then(() => this.pendingMessage = this.pendingRequests > 0 ? true : false);
+         });
   }
 
 

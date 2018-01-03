@@ -25,7 +25,6 @@ export class StatusCardComponent<T extends Status> implements OnInit {
   }
 
   public get status(): string {
-
     if (this.inputStatus.isApproved === null) {
       this.iconStatus = 'watch_later';
       return 'pending';
@@ -38,14 +37,6 @@ export class StatusCardComponent<T extends Status> implements OnInit {
     }
 
     return '';
-  }
-
-  dateDisplay(date: string) {
-    let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    if (new Date(date).toString() === 'Invalid Date') {
-      return date;
-    }
-    return new Date(date).toLocaleDateString('id-ID', dateOptions);
   }
 
 }

@@ -56,11 +56,6 @@ export class CalendarFormComponent implements OnInit {
     this.resetForm();
   }
 
-  dateDisplay(date: Date) {
-    let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString('id-ID', dateOptions);
-  }
-
   resetForm() {
     this.requestConfirm = false;
     this.eventForm = { description: null, start: null, end: null };

@@ -22,13 +22,17 @@ import { SearchFilterActions } from './../../shared/search-filter/search-filter.
 })
 export class MedicalInfoComponent implements OnInit {
 
-  insuranceTypes: Array<Object> = Array<Object>();
-  cities: Array<string> = Array<string>();
-  providers: Array<Object> = Array<Object>();
+  filters = {
+    insuranceTypes: [],
+    cities: [],
+    providers: []
+  }
 
-  selectedInsuranceType: number = null;
-  selectedCity: string = '';
-  selectedProvider: number = null;
+  selectedFilters = {
+    insuranceType: null,
+    city: '',
+    provider: null
+  }
 
   stateCtrl: FormControl;
   filteredCities: Observable<string[]>;
@@ -39,9 +43,9 @@ export class MedicalInfoComponent implements OnInit {
               private route: ActivatedRoute,
               private notification: NotificationService) {
       this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'Penyedia Tunjangan Medis'});
-      this.insuranceTypes = this.route.snapshot.data['insuranceTypes'];
-      this.cities = this.route.snapshot.data['providerCities'];
-      this.providers = this.route.snapshot.data['providerTypes'];
+      this.filters.insuranceTypes = this.route.snapshot.data['insuranceTypes'];
+      this.filters.cities = this.route.snapshot.data['providerCities'];
+      this.filters.providers = this.route.snapshot.data['providerTypes'];
 
       this.store.dispatch({
         type: SearchFilterActions.FILTER_INIT,
@@ -51,27 +55,27 @@ export class MedicalInfoComponent implements OnInit {
       this.store.select((obj: AppState) => obj.searchFilterState[this.route.routeConfig.component.name])
           .subscribe((searchFilterState) => {
             if (searchFilterState) {
-              this.selectedCity = searchFilterState['city'];
-              this.selectedInsuranceType = searchFilterState['insurance-type'];
-              this.selectedProvider = searchFilterState['provider-type'];
+              this.selectedFilters.city = searchFilterState['city'];
+              this.selectedFilters.insuranceType = searchFilterState['insurance-type'];
+              this.selectedFilters.provider = searchFilterState['provider-type'];
             }
       });
 
       this.stateCtrl = new FormControl();
       this.filteredCities = this.stateCtrl.valueChanges
                                 .startWith(null)
-                                .map(city => city ? this.filterCity(city) : this.cities);
+                                .map(city => city ? this.filterCity(city) : this.filters.cities);
   }
 
   ngOnInit() {
   }
 
   filterCity(input) {
-    return this.cities.filter( city => city.toLowerCase().indexOf(input.toLowerCase()) === 0 );
+    return this.filters.cities.filter( city => city.toLowerCase().indexOf(input.toLowerCase()) === 0 );
   }
 
   goToDetails() {
-    let filter = { city: this.selectedCity, 'provider-type': this.selectedProvider, 'insurance-type': this.selectedInsuranceType };
+    let filter = { city: this.selectedFilters.city, 'provider-type': this.selectedFilters.provider, 'insurance-type': this.selectedFilters.insuranceType };
 
     this.store.dispatch({
       type: SearchFilterActions.FILTER_UPDATE,
@@ -81,13 +85,13 @@ export class MedicalInfoComponent implements OnInit {
       }
     });
 
-    if (this.selectedCity) {
-      if (!this.cities.includes(this.selectedCity.toUpperCase())) {
+    if (this.selectedFilters.city) {
+      if (!this.filters.cities.includes(this.selectedFilters.city.toUpperCase())) {
         this.notification.show('City Not Found', NotificationType.Error);
         return;
       }
       this.router.navigate([PATH.DETAILS], { relativeTo: this.route,
-        queryParams : {city: this.selectedCity, provider: this.selectedProvider, insurance: this.selectedInsuranceType}
+        queryParams : {city: this.selectedFilters.city, provider: this.selectedFilters.provider, insurance: this.selectedFilters.insuranceType}
       });
     } else {
       this.notification.show('Field \'Kota\' harus diisi', NotificationType.Error)

@@ -1,18 +1,18 @@
-<div class="pending-msg" *ngIf="pendingMessage && !requestConfirm">
+<div class="pending-msg" *ngIf="pendingRequests > 0 && !requestConfirm">
   <span>Terdapat {{pendingRequests}} request yang belum terkirim</span>
 </div>
 
 <div class="container" *ngIf="!requestConfirm">
     <mat-form-field>
-      <input #nameInput matInput placeholder="Judul" [(ngModel)]="requestTitle"/>
+      <input #nameInput matInput placeholder="Judul" [(ngModel)]="request.title"/>
     </mat-form-field>
 
     <mat-form-field>
-      <input #nameInput matInput placeholder="Keterangan" [(ngModel)]="requestDescription"/>
+      <input #nameInput matInput placeholder="Keterangan" [(ngModel)]="request.description"/>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Pilih Tanggal" [(ngModel)]="requestDate"
+      <input matInput placeholder="Pilih Tanggal" [(ngModel)]="request.date"
              [matDatepicker]="picker" (click)="picker.open()" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>

@@ -15,7 +15,6 @@ import { LoginState } from './shared/login.reducer';
 })
 export class LoginComponent implements OnInit {
 
-  private destroyed: boolean = false;
   public isLoading: boolean = false;
   public credential: Credential = { identifier: null, secret: null };
 
@@ -27,12 +26,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.service.observable
-      .takeWhile(() => !this.destroyed)
       .subscribe((state: LoginState) => {
         this.isLoading = state.loading;
 
         if (state.message) { this.notification.show(state.message, state.success ? NotificationType.Default : NotificationType.Error); }
-
         if (state.success) {
           this.router.navigateByUrl(PATH.DASHBOARD);
         }

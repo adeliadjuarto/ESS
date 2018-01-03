@@ -12,8 +12,6 @@ import { PATH } from './../../../../core/constant/index';
 export class MedicalDetailsCardComponent implements OnInit {
 
   @Input() provider: Provider;
-  public telephone: ContactNum[];
-  public fax: ContactNum[];
 
   constructor(private router: Router,
               private route: ActivatedRoute) { }

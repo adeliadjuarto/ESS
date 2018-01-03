@@ -1,4 +1,4 @@
-<div class="pending-msg" *ngIf="pendingMessage && !requestConfirm">
+<div class="pending-msg" *ngIf="pendingRequests > 0 && !requestConfirm">
   <span>Terdapat {{pendingRequests}} request yang belum terkirim</span>
 </div>
 
@@ -81,7 +81,7 @@
             Tanggal
           </div>
           <div class="status-item">
-            {{dateDisplay(eventDate)}}
+            {{eventDate | dateFormat}}
           </div>
         </div>
       </mat-card-content>

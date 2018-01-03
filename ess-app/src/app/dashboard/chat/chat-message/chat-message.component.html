@@ -1,8 +1,0 @@
-<div class="message-container">
-    <div [ngClass]="{'message': true, 'align-right': message.sender==='you' } " *ngFor="let text of message.text" >{{ text }}</div>
-</div>
-<div class="buttons-container">
-    <div class="button" *ngFor="let button of message.buttons" (click)="addMessage(button)">
-        {{button}}
-    </div>
-</div>

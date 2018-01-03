@@ -1,32 +1,32 @@
-<div class="pending-msg" *ngIf="pendingMessage && !requestConfirm">
+<div class="pending-msg" *ngIf="pendingRequests > 0 && !requestConfirm">
   <span>Terdapat {{pendingRequests}} request yang belum terkirim</span>
 </div>
 
 <div class="container" *ngIf="!requestConfirm">
     <mat-form-field>
-      <mat-select placeholder="Tipe Pengajuan" [(ngModel)]="selectedLeaveType" name="leaveType" (change)="doStuff()">
+      <mat-select placeholder="Tipe Pengajuan" [(ngModel)]="selectedLeaveType" name="leaveType" (change)="toggleLeaveType()">
         <mat-option *ngFor = "let type of leaveTypes" [value]="type">
             {{type.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <input #nameInput matInput placeholder="Judul" [(ngModel)]="requestTitle"/>
+      <input #nameInput matInput placeholder="Judul" [(ngModel)]="request.title"/>
     </mat-form-field>
 
     <mat-form-field>
-      <input #nameInput matInput placeholder="Keterangan" [(ngModel)]="requestDescription"/>
+      <input #nameInput matInput placeholder="Keterangan" [(ngModel)]="request.description"/>
     </mat-form-field>
 
     <div class="from-to-datepicker" *ngIf="!singleDatepicker">
       <mat-form-field id="datepicker-left">
-        <input name="dateFor" matInput placeholder="Dari" [(ngModel)]="dateFor"
+        <input name="dateFor" matInput placeholder="Dari" [(ngModel)]="request.from"
                [matDatepicker]="pickerFor" (click)="pickerFor.open()"/>
         <mat-datepicker-toggle matSuffix [for]="pickerFor"></mat-datepicker-toggle>
         <mat-datepicker #pickerFor></mat-datepicker>
       </mat-form-field>
       <mat-form-field id="datepicker-right">
-        <input name="dateTo" matInput placeholder="Sampai" [(ngModel)]="dateTo"
+        <input name="dateTo" matInput placeholder="Sampai" [(ngModel)]="request.to"
                [matDatepicker]="pickerTo" (click)="pickerTo.open()" />
         <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
         <mat-datepicker #pickerTo></mat-datepicker>
@@ -36,7 +36,7 @@
     <div class="single-datepicker" *ngIf="singleDatepicker">
 
       <mat-form-field>
-        <input matInput placeholder="Pilih Tanggal" [(ngModel)]="dateFor"
+        <input matInput placeholder="Pilih Tanggal" [(ngModel)]="request.from"
                [matDatepicker]="picker" (click)="picker.open()" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -100,7 +100,7 @@
             Dari
           </div>
           <div class="status-item">
-            {{dateDisplay(dateFor)}}
+            {{dateFor | dateFormat}}
           </div>
         </div>
       </mat-card-content>
@@ -110,7 +110,7 @@
             Sampai
           </div>
           <div class="status-item">
-            {{dateDisplay(dateTo)}}
+            {{dateTo | dateFormat}}
           </div>
         </div>
       </mat-card-content>

@@ -8,7 +8,7 @@ import { AppState } from '../../../../app.reducer';
 import { HcmInfoService } from '../../shared/hcm-info.service';
 import { Document } from './../../shared/document.model';
 import { DocumentsAction as Action } from '../../shared/hcm-info.action';
-import { SearchBarXsComponent } from './../../../../shared/search-bar/search-bar-xs/search-bar-xs.component';
+import { SearchBarComponent } from './../../../../shared/search-bar/search-bar.component';
 import { DocumentsAction as Actions } from './../../shared/hcm-info.action';
 import { DOCUMENT } from './../../../../core/constant/index';
 
@@ -19,7 +19,7 @@ import { DOCUMENT } from './../../../../core/constant/index';
 })
 export class SkListComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(SearchBarXsComponent) searchBarXsComponent: SearchBarXsComponent;
+  @ViewChild(SearchBarComponent) searchBarComponent: SearchBarComponent;
 
   listOfSK: Document[];
   filteredSK: Document[];
@@ -43,11 +43,11 @@ export class SkListComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     let year = this.route.snapshot.params['year'];
     this.loadListOfSK(year);
-    this.searchBarXsComponent.setFocus();
+    this.searchBarComponent.setFocus();
   }
 
   ngAfterViewInit() {
-    this.searchBarXsComponent.query$
+    this.searchBarComponent.query$
           .subscribe((query) => {
             this.filterDocuments(query);
       });

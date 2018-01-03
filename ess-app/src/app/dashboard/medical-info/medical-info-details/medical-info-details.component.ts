@@ -37,10 +37,6 @@ export class MedicalInfoDetailsComponent implements OnInit {
   ngOnInit() {
   }
 
-  backToParent() {
-    this.router.navigate(['../../../'], { relativeTo: this.route });
-  }
-
   public get isEmpty(): boolean {
     return this.providers.length === 0;
   }

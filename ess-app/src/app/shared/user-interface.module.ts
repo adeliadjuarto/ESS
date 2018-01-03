@@ -10,6 +10,7 @@ import { InfoCardComponent } from './info-card/info-card.component';
 import { LoadingComponent } from './loading/loading.component';
 import { SearchBarModule } from './search-bar/search-bar.module';
 import { SearchFilterModule } from './search-filter/search-filter.module';
+import { DateFormatPipe } from './date-format.pipe';
 
 @NgModule({
   imports: [
@@ -26,14 +27,16 @@ import { SearchFilterModule } from './search-filter/search-filter.module';
     PdfViewerComponent,
     EmptyStateComponent,
     InfoCardComponent,
-    LoadingComponent
+    LoadingComponent,
+    DateFormatPipe
   ],
   declarations: [
     CircularRangeSliderComponent,
     PdfViewerComponent,
     EmptyStateComponent,
     InfoCardComponent,
-    LoadingComponent
+    LoadingComponent,
+    DateFormatPipe
   ]
 })
 export class UIModule { }

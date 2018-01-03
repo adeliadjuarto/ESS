@@ -25,8 +25,6 @@ import { AppState } from './../../app.reducer';
 export class MenuComponent implements OnInit {
 
   public menus: Array<MenuItem> = Array<MenuItem>();
-  public menuInfo: boolean = false;
-  public infoIcon: boolean = true;
   public onlineToggle: boolean;
   public user: any = { name: 'User' };
 
@@ -79,11 +77,6 @@ export class MenuComponent implements OnInit {
     } else {
       this.router.navigate([menu.path], { relativeTo: this.route });
     }
-  }
-
-  toggleMenuInfo() {
-    this.menuInfo = !this.menuInfo;
-    this.infoIcon = !this.infoIcon;
   }
 
   public get columns(): number {

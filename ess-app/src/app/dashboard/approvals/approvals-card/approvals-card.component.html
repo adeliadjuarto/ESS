@@ -45,7 +45,7 @@
         Tanggal
       </div>
       <div class="status-item">
-        {{dateDisplay(inputStatus.eventDate)}}
+        {{(inputStatus.eventDate | dateFormat)}}
       </div>
     </div>
   </mat-card-content>
@@ -55,7 +55,7 @@
         Dari
       </div>
       <div class="status-item">
-        {{dateDisplay(inputStatus.start)}}
+        {{(inputStatus.start | dateFormat)}}
       </div>
     </div>
   </mat-card-content>
@@ -65,7 +65,7 @@
         Dari
       </div>
       <div class="status-item">
-        {{dateDisplay(inputStatus.startTime)}}
+        {{(inputStatus.startTime | dateFormat)}}
       </div>
     </div>
   </mat-card-content>
@@ -75,7 +75,7 @@
         Sampai
       </div>
       <div class="status-item">
-        {{dateDisplay(inputStatus.end)}}
+        {{(inputStatus.end | dateFormat)}}
       </div>
     </div>
   </mat-card-content>
@@ -85,7 +85,7 @@
         Sampai
       </div>
       <div class="status-item">
-        {{dateDisplay(inputStatus.endTime)}}
+        {{(inputStatus.endTime | dateFormat)}}
       </div>
     </div>
   </mat-card-content>

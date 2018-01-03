@@ -39,7 +39,7 @@
             Dari
           </div>
           <div class="status-item">
-            {{dateDisplay(eventForm.start)}}
+            {{eventForm.start | dateFormat}}
           </div>
         </div>
       </mat-card-content>
@@ -49,7 +49,7 @@
             Sampai
           </div>
           <div class="status-item">
-            {{dateDisplay(eventForm.end)}}
+            {{eventForm.end | dateFormat}}
           </div>
         </div>
       </mat-card-content>

@@ -4,6 +4,7 @@ import { mapKeys } from 'lodash';
 import { Store } from '@ngrx/store';
 
 import { AppState } from './../../../app.reducer';
+import { Request } from './../shared/request';
 import { REIMBURSEMENT_TYPES, ENDPOINT } from './../../../core/constant';
 import { DashboardAction } from './../../shared/dashboard.action';
 import { ReimbursementRequestService } from './shared/reimbursement-request.service';
@@ -19,29 +20,30 @@ const key = 'pwa-sync';
   templateUrl: './reimbursement-request.component.html',
   styleUrls: ['./reimbursement-request.component.scss']
 })
-export class ReimbursementRequestComponent implements OnInit {
+export class ReimbursementRequestComponent extends Request implements OnInit {
 
   types = REIMBURSEMENT_TYPES;
-
   selectedType: any;
-  title: string;
-  description: string;
-  eventDate: Date;
-  amount: number;
-  requestTypeId: number;
-  userId: string;
-  requestAttachments: File;
 
+  request = {
+    title: '',
+    description: '',
+    date: null,
+    amount: null,
+    attachments: null,
+  }
+
+  userId: string;
   requestConfirm: boolean = false;
   errorMessage: string;
 
   pendingRequests: number = 0;
-  pendingMessage: boolean = false;
   fileName: string = '';
 
   constructor(private store: Store<any>,
               private requestService: ReimbursementRequestService,
               private notification: NotificationService) {
+    super();
     this.store.dispatch({
       type: DashboardAction.CHANGE_TITLE,
       payload: 'Pengajuan Reimbursement'
@@ -56,8 +58,8 @@ export class ReimbursementRequestComponent implements OnInit {
   }
 
   fileChange(event) {
-    this.requestAttachments = event.target.files[0];
-    this.fileName = this.requestAttachments.name;
+    this.request.attachments = event.target.files[0];
+    this.fileName = this.request.attachments.name;
   }
 
   confirmRequest() {
@@ -69,15 +71,15 @@ export class ReimbursementRequestComponent implements OnInit {
   }
 
   submitRequest() {
-    let eventDate = this.eventDate.getTime();
+    let eventDate = this.request.date.getTime();
 
     let formRequest: Reimbursement = {
-        title: this.title,
-        description: this.description,
+        title: this.request.title,
+        description: this.request.description,
         eventDate: eventDate,
-        amount: this.amount,
+        amount: this.request.amount,
         requestTypeId: this.selectedType.id,
-        'attachments[]': this.requestAttachments
+        'attachments[]': this.request.attachments
     };
 
     this.requestService.createRequest(formRequest);
@@ -96,12 +98,12 @@ export class ReimbursementRequestComponent implements OnInit {
   }
 
   requestValid() {
-    if (!this.title || !this.description) {
+    if (!this.request.title || !this.request.description) {
       this.errorMessage = 'Semua input harus diisi';
       return false;
     }
 
-    if (this.eventDate.getTime() > Date.now()) {
+    if (this.request.date.getTime() > Date.now()) {
       this.errorMessage = 'Tanggal melebihi tanggal hari ini'
       return false;
     }
@@ -111,11 +113,13 @@ export class ReimbursementRequestComponent implements OnInit {
 
   resetForm() {
     this.requestConfirm = false;
-    this.eventDate = null;
-    this.requestAttachments = null;
-    this.title = '';
-    this.description = '';
-    this.amount = null;
+    this.request = {
+      title: '',
+      description: '',
+      date: null,
+      amount: null,
+      attachments: null,
+    }
     this.selectedType = null;
   }
 
@@ -125,8 +129,7 @@ export class ReimbursementRequestComponent implements OnInit {
            if (pendingReqs) {
             this.pendingRequests = pendingReqs.filter(data => data.url.includes(ENDPOINT.REQUEST.REIMBURSEMENT)).length;
            }
-         })
-         .then(() => this.pendingMessage = this.pendingRequests > 0 ? true : false);
+         });
   }
 
 }

@@ -6,8 +6,6 @@ import { MatOptionModule,
          MatAutocompleteModule,
          MatIconModule } from '@angular/material';
 
-import { SearchBarLgComponent } from './search-bar-lg/search-bar-lg.component';
-import { SearchBarXsComponent } from './search-bar-xs/search-bar-xs.component';
 import { SearchBarComponent } from './search-bar.component';
 
 @NgModule({
@@ -20,13 +18,9 @@ import { SearchBarComponent } from './search-bar.component';
     MatIconModule
   ],
   declarations: [
-    SearchBarLgComponent,
-    SearchBarXsComponent,
     SearchBarComponent
   ],
   exports: [
-    SearchBarLgComponent,
-    SearchBarXsComponent
   ]
 })
 export class SearchBarModule { }
