@@ -172,7 +172,7 @@ const routes: Routes = [
         path: PATH.PAYROLL,
         data: {
           title: 'Slip Gaji',
-          icon: 'account_balance'
+          icon: 'local_atm'
         },
         component: PayrollComponent
       },

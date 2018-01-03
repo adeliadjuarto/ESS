@@ -30,7 +30,7 @@ export class LeaveRequestComponent implements OnInit {
   requestDescription: string;
   dateFor: Date;
   dateTo: Date;
-  requestAttachments: File[];
+  requestAttachments: File;
   userId: string;
   errorMessage: string;
   requestConfirm: boolean = false;
@@ -49,6 +49,7 @@ export class LeaveRequestComponent implements OnInit {
 
   pendingRequests: number = 0;
   pendingMessage: boolean = false;
+  fileName: string = '';
 
   constructor(private store: Store<any>,
               private requestService: LeaveRequestService,
@@ -76,6 +77,7 @@ export class LeaveRequestComponent implements OnInit {
 
   fileChange(event) {
     this.requestAttachments = event.target.files[0];
+    this.fileName = this.requestAttachments.name;
   }
 
   allFilesExist() {
@@ -133,7 +135,7 @@ export class LeaveRequestComponent implements OnInit {
     this.requestConfirm = false;
     this.dateFor = null;
     this.dateTo = null;
-    this.requestAttachments = [];
+    this.requestAttachments = null;
     this.requestTitle = '';
     this.requestDescription = '';
     this.selectedLeaveType = null;

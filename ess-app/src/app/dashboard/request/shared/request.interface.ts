@@ -1,7 +1,7 @@
 export interface IRequest {
     title: string;
     description: string;
-    'attachments[]': File[];
+    'attachments[]': File;
 }
 
 export interface Leave extends IRequest {
@@ -28,6 +28,6 @@ export class FormRequest {
                 private start: number,
                 private end: number,
                 private userId: string,
-                private attachments: File[]
+                private attachments: File
     ) {}
 }

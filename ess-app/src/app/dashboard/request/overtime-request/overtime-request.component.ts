@@ -26,7 +26,7 @@ export class OvertimeRequestComponent implements OnInit {
   requestTitle: string;
   requestDescription: string;
   requestDate: Date;
-  requestAttachment: File[];
+  requestAttachments: File;
   userId: string;
   errorMessage: string;
 
@@ -49,6 +49,7 @@ export class OvertimeRequestComponent implements OnInit {
 
   pendingRequests: number = 0;
   pendingMessage: boolean = false;
+  fileName: string = '';
 
   constructor(private store: Store<any>,
               private requestService: OvertimeRequestService,
@@ -68,7 +69,8 @@ export class OvertimeRequestComponent implements OnInit {
   }
 
   fileChange(event) {
-    this.requestAttachment = event.target.files[0];
+    this.requestAttachments = event.target.files[0];
+    this.fileName = this.requestAttachments.name;
   }
 
   confirmRequest() {
@@ -98,7 +100,7 @@ export class OvertimeRequestComponent implements OnInit {
       eventDate: eventDate,
       startTime: startTime,
       endTime: endTime,
-      'attachments[]': this.requestAttachment
+      'attachments[]': this.requestAttachments
     };
     this.requestService.createRequest(formRequest);
     this.resetForm();
@@ -122,7 +124,7 @@ export class OvertimeRequestComponent implements OnInit {
   resetForm() {
     this.requestConfirm = false;
     this.requestDate = null;
-    this.requestAttachment = [];
+    this.requestAttachments = null;
     this.requestTitle = '';
     this.requestDescription = '';
     this.sliderValue = [0, 0];

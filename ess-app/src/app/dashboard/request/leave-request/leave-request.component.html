@@ -48,8 +48,13 @@
 
     <div class="input-file">
       <label for="file-input">Upload bukti (opsional)</label>
-      <br>
-      <input id="file-input" type="file" (change)="fileChange($event)" placeholder="Upload bukti (opsional)">
+      <input #fileInput id="file-input" hidden type="file" (change)="fileChange($event)" placeholder="Upload bukti (opsional)">
+      <div  class="file-attach">
+      <button mat-fab>
+        <mat-icon (click)="fileInput.click()">add</mat-icon>
+      </button>
+      <span>{{fileName}}</span>
+      </div>
     </div>
 
     <div class="buttons">

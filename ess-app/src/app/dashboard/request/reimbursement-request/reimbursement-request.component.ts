@@ -30,13 +30,14 @@ export class ReimbursementRequestComponent implements OnInit {
   amount: number;
   requestTypeId: number;
   userId: string;
-  requestAttachments: File[];
+  requestAttachments: File;
 
   requestConfirm: boolean = false;
   errorMessage: string;
 
   pendingRequests: number = 0;
   pendingMessage: boolean = false;
+  fileName: string = '';
 
   constructor(private store: Store<any>,
               private requestService: ReimbursementRequestService,
@@ -56,6 +57,7 @@ export class ReimbursementRequestComponent implements OnInit {
 
   fileChange(event) {
     this.requestAttachments = event.target.files[0];
+    this.fileName = this.requestAttachments.name;
   }
 
   confirmRequest() {
@@ -110,7 +112,7 @@ export class ReimbursementRequestComponent implements OnInit {
   resetForm() {
     this.requestConfirm = false;
     this.eventDate = null;
-    this.requestAttachments = [];
+    this.requestAttachments = null;
     this.title = '';
     this.description = '';
     this.amount = null;
