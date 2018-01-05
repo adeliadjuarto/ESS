@@ -94,7 +94,7 @@ export class LeaveRequestComponent extends RequestClass implements OnInit {
     return true;
   }
 
-  confirmRequest() {
+  submitRequest() {
     if (this.requestValid()) {
       this.requestConfirm = !this.requestConfirm;
     } else {
@@ -102,7 +102,7 @@ export class LeaveRequestComponent extends RequestClass implements OnInit {
     }
   }
 
-  submitRequest() {
+  confirmRequest() {
       let start = this.request.from.getTime() + (this.sliderValue[0] * 1000);
       let end;
       if (this.singleDatepickerToggle) {

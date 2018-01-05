@@ -75,7 +75,7 @@ export class OvertimeRequestComponent extends RequestClass implements OnInit {
     this.fileName = this.request.attachments.name;
   }
 
-  confirmRequest() {
+  submitRequest() {
     if (this.requestValid()) {
       let eventDate = this.request.date.getTime();
       let startTime = eventDate + (this.sliderValue[0] * 1000);
@@ -92,7 +92,7 @@ export class OvertimeRequestComponent extends RequestClass implements OnInit {
     }
   }
 
-  submitRequest() {
+  confirmRequest() {
     let eventDate = this.request.date.getTime();
     let startTime = eventDate + (this.sliderValue[0] * 1000);
     let endTime = eventDate + (this.sliderValue[1] * 1000);

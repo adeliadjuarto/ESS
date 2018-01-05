@@ -31,7 +31,7 @@ export class ApprovalsCardComponent<T extends Approvals> implements OnInit {
     this.approvalSubmission = type;
   }
 
-  approveRequest() {
+  confirmApproval() {
     let endpoint = `${this.approvalType}/${this.inputStatus.id}/${this.approvalSubmission}`;
     if (this.approvalSubmission === 'reject' && !this.rejectionNote) {
       this.notification.show('Keterangan harus diisi', NotificationType.Error);

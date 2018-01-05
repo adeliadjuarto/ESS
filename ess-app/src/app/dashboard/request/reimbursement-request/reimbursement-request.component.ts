@@ -62,7 +62,7 @@ export class ReimbursementRequestComponent extends RequestClass implements OnIni
     this.fileName = this.request.attachments.name;
   }
 
-  confirmRequest() {
+  submitRequest() {
     if (this.requestValid()) {
       this.requestConfirm = !this.requestConfirm;
     } else {
@@ -70,7 +70,7 @@ export class ReimbursementRequestComponent extends RequestClass implements OnIni
     }
   }
 
-  submitRequest() {
+  confirmRequest() {
     let eventDate = this.request.date.getTime();
 
     let formRequest: Reimbursement = {
