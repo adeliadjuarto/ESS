@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { mapKeys } from 'lodash';
 
-import { Request } from './../shared/request';
+import { RequestClass } from './../shared/request-class';
 import { AppState } from './../../../app.reducer';
 import { ENDPOINT } from './../../../core/constant';
 import { Overtime } from './../shared/request.interface';
@@ -22,7 +22,7 @@ const key = 'pwa-sync';
   templateUrl: './overtime-request.component.html',
   styleUrls: ['./overtime-request.component.scss']
 })
-export class OvertimeRequestComponent extends Request implements OnInit {
+export class OvertimeRequestComponent extends RequestClass implements OnInit {
 
   request = {
     title: '',

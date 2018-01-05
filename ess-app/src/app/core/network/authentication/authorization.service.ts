@@ -20,9 +20,6 @@ export class AuthorizationService {
 
     if (this.token.exists(GENERAL.TOKEN.USER)) {
       let user: User = this.token.retrieve<User>(GENERAL.TOKEN.USER, User);
-      let authorities: Array<string> = user.authorities.map((auth: Authority) => auth.authority);
-
-      result = !!authorities.find((authority: string) => authority === permission);
     }
 
     return result;
@@ -33,11 +30,9 @@ export class AuthorizationService {
 
     if (this.token.exists(GENERAL.TOKEN.USER)) {
       let user: User = this.token.retrieve<User>(GENERAL.TOKEN.USER, User);
-      let authorities: Array<string> = user.authorities.map((auth: Authority) => auth.authority);
 
       result = (routes || Array<Route>())
         .filter((r: Route) => !!r.data && !!r.data.permission)
-        .filter((r: Route) => authorities.find((auth: string) => r.data.permission === auth));
     }
 
     return result;

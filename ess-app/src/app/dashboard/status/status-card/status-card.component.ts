@@ -16,7 +16,6 @@ export class StatusCardComponent<T extends Status> implements OnInit {
 
   @Input() inputStatus: T;
   @Input() approvalType: string;
-  statusHistory: Array<any> = Array<any>();
   iconStatus: string;
 
   constructor() { }

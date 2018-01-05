@@ -1,11 +1,8 @@
 
-export class Payroll {
+import { BaseModel } from './../../../core/base.model';
 
-    public id: string;
+export class Payroll extends BaseModel {
     public payrollStatus: string;
     public monthName: string;
     public payrollFile: File;
-
-    constructor() {
-    }
 }

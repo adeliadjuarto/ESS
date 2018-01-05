@@ -61,12 +61,4 @@ export class LoginService {
       .subscribe(() => {});
   }
 
-  public changePassword(data: { oldPassword: string; newPassword: string; confirmPassword: string; }) {
-    this.store.dispatch({ type: AuthenticationAction.CHANGE_PASSWORD_BEGIN });
-    this.authentication.changePassword(data)
-      .subscribe((result: AuthenticationResult) => {
-        this.store.dispatch({ type: AuthenticationAction.CHANGE_PASSWORD_COMPLETE, payload: result });
-      });
-  }
-
 }

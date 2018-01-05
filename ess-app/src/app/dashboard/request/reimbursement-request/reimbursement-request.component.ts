@@ -4,7 +4,7 @@ import { mapKeys } from 'lodash';
 import { Store } from '@ngrx/store';
 
 import { AppState } from './../../../app.reducer';
-import { Request } from './../shared/request';
+import { RequestClass } from './../shared/request-class';
 import { REIMBURSEMENT_TYPES, ENDPOINT } from './../../../core/constant';
 import { DashboardAction } from './../../shared/dashboard.action';
 import { ReimbursementRequestService } from './shared/reimbursement-request.service';
@@ -20,7 +20,7 @@ const key = 'pwa-sync';
   templateUrl: './reimbursement-request.component.html',
   styleUrls: ['./reimbursement-request.component.scss']
 })
-export class ReimbursementRequestComponent extends Request implements OnInit {
+export class ReimbursementRequestComponent extends RequestClass implements OnInit {
 
   types = REIMBURSEMENT_TYPES;
   selectedType: any;

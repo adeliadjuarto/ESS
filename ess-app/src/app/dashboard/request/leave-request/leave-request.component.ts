@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { values, mapKeys } from 'lodash';
 
 import { AppState } from './../../../app.reducer';
-import { Request } from './../shared/request';
+import { RequestClass } from './../shared/request-class';
 import { TimeFormatter } from './../shared/time-formatter';
 import { FormRequest, Leave } from './../shared/request.interface';
 import { LEAVE_TYPES, ENDPOINT } from './../../../core/constant';
@@ -21,7 +21,7 @@ const key = 'pwa-sync';
   templateUrl: './leave-request.component.html',
   styleUrls: ['./leave-request.component.scss']
 })
-export class LeaveRequestComponent extends Request implements OnInit {
+export class LeaveRequestComponent extends RequestClass implements OnInit {
 
   selectedLeaveType: any;
   leaveTypes = LEAVE_TYPES;

@@ -16,15 +16,11 @@ import { Document } from '../../shared/document.model';
 })
 export class YearListComponent implements OnInit {
 
-  listOfSK: Document[];
-  filteredSK: Document[];
   listOfYears: String[];
-  public listToggle: boolean = false;
 
   constructor(private store: Store<any>,
               private router: Router,
-              private route: ActivatedRoute,
-              private hcmInfoService: HcmInfoService) {
+              private route: ActivatedRoute) {
 
               this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'SK / SE'});
               this.store.select((appState: AppState) => appState.hcmInfoState)

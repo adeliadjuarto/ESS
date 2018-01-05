@@ -16,8 +16,6 @@ import { DocumentsAction as Actions } from './hcm-info.action';
 @Injectable()
 export class HcmInfoService extends DataService<Document> {
 
-  totalPage: number = 0;
-
   constructor(private store: Store<any>,
               apiService: ApiService) {
     super(apiService);
@@ -41,11 +39,6 @@ export class HcmInfoService extends DataService<Document> {
       type: Actions.UPDATE_DOCUMENTLIST,
       payload: result
     });
-  }
-
-
-  fetchYears() {
-
   }
 
 }

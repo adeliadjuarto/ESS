@@ -1,6 +1,6 @@
 import { IRequest } from './request.interface';
 
-export abstract class Request {
+export abstract class RequestClass {
 
     protected abstract request: any;
     protected abstract submitRequest();

@@ -44,7 +44,7 @@
             Judul
           </div>
           <div class="status-item">
-            {{requestTitle}}
+            {{request.title}}
           </div>
         </div>
       </mat-card-content>
@@ -54,7 +54,7 @@
             Keterangan
           </div>
           <div class="status-item">
-            {{requestDescription}}
+            {{request.description}}
           </div>
         </div>
       </mat-card-content>
@@ -64,7 +64,7 @@
             Dari
           </div>
           <div class="status-item">
-            {{start}}
+            {{request.from}}
           </div>
         </div>
       </mat-card-content>
@@ -74,17 +74,17 @@
             Sampai
           </div>
           <div class="status-item">
-            {{end}}
+            {{request.to}}
           </div>
         </div>
       </mat-card-content>
-      <mat-card-content *ngIf="requestAttachments">
+      <mat-card-content *ngIf="request.attachments">
         <div class="status">
           <div class="status-title">
             File Attachment
           </div>
           <div class="status-item">
-            {{requestAttachment.name}}
+            {{request.attachments.name}}
           </div>
         </div>
       </mat-card-content>

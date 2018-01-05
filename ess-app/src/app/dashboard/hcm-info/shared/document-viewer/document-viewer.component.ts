@@ -10,22 +10,22 @@ import { DocumentsAction as Action } from '../../shared/hcm-info.action';
 import { Document } from './../../shared/document.model';
 
 @Component({
-  selector: 'app-pkb-viewer',
-  templateUrl: './pkb-viewer.component.html',
-  styleUrls: ['./pkb-viewer.component.scss']
+  selector: 'app-document-viewer',
+  templateUrl: './document-viewer.component.html',
+  styleUrls: ['./document-viewer.component.scss']
 })
-export class PkbViewerComponent implements OnInit {
+export class DocumentViewerComponent implements OnInit {
 
   url: string;
 
   constructor(private route: ActivatedRoute,
               private store: Store<any>) {
-    let  { url } = this.route.snapshot.data;
+    let title = this.route.snapshot.data['title'];
+    let url = this.route.snapshot.params['id'];
     this.url = url;
-    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: 'PKB'});
+    this.store.dispatch({type: DashboardAction.CHANGE_TITLE, payload: title});
   }
 
   ngOnInit() {
   }
-
 }

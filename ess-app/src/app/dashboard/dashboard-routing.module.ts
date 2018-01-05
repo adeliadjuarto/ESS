@@ -16,9 +16,8 @@ import { ApprovalsComponent } from './approvals/approvals.component';
 import { DocumentYearsResolve } from './hcm-info/shared/document-years/document-years.resolver';
 import { HcmInfoComponent } from './hcm-info/hcm-info.component';
 import { PkbComponent } from './hcm-info/pkb/pkb.component';
-import { PkbViewerComponent } from './hcm-info/pkb/pkb-viewer/pkb-viewer.component';
 import { SkListComponent } from './hcm-info/sk-se/sk-list/sk-list.component';
-import { SkViewerComponent } from './hcm-info/sk-se/sk-viewer/sk-viewer.component';
+import { DocumentViewerComponent } from './hcm-info/shared/document-viewer/document-viewer.component';
 import { MedicalInfoDetailsComponent } from './medical-info/medical-info-details/medical-info-details.component';
 import { MedicalInfoDetailMapComponent } from './medical-info/medical-info-detail-map/medical-info-detail-map.component';
 import { MedicalInfoComponent } from './medical-info/medical-info.component';
@@ -75,7 +74,7 @@ const routes: Routes = [
               },
               {
                 path: PATH.PARAM.ID,
-                component: PkbViewerComponent,
+                component: DocumentViewerComponent
               },
             ],
           },
@@ -102,7 +101,7 @@ const routes: Routes = [
                   },
                   {
                     path: PATH.PARAM.ID,
-                    component: SkViewerComponent,
+                    component: DocumentViewerComponent,
                   },
                 ]
               },

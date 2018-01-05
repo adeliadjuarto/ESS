@@ -21,6 +21,7 @@ import { SearchBarComponent } from './search-bar.component';
     SearchBarComponent
   ],
   exports: [
+    SearchBarComponent
   ]
 })
 export class SearchBarModule { }

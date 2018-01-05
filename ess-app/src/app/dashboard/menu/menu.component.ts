@@ -34,7 +34,6 @@ export class MenuComponent implements OnInit {
               private route: ActivatedRoute,
               private store: Store<any>,
               private userService: UserService,
-              private authorization: AuthorizationService,
               private notification: NotificationService) {
 
     this.store.dispatch({ type: DashboardAction.CHANGE_TITLE, payload: '' });

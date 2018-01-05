@@ -74,14 +74,6 @@ export class CalendarComponent implements OnInit {
     return monthNames[this.monthNumber];
   }
 
-  getTime(timestamp) {
-    let date = new Date(timestamp);
-    let hours = date.getHours() < 10 ? '0' + date.getHours().toString() : date.getHours().toString();
-    let minutes = date.getMinutes() < 10 ? '0' + date.getMinutes().toString() : date.getMinutes().toString();
-
-    return hours + ':' + minutes;
-  }
-
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
