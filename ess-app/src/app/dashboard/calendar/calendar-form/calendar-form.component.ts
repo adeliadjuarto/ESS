@@ -34,7 +34,7 @@ export class CalendarFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  confirmRequest() {
+  submitRequest() {
     if (this.eventForm.description && this.eventForm.end && this.eventForm.end && this.userId) {
       this.requestConfirm = !this.requestConfirm;
     } else {
@@ -42,7 +42,7 @@ export class CalendarFormComponent implements OnInit {
     }
   }
 
-  submitRequest() {
+  confirmRequest() {
     let request = {
       summary: this.eventForm.description,
       'userIds[]': [this.userId],

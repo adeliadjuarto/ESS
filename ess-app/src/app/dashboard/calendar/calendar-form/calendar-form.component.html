@@ -18,7 +18,7 @@
       </mat-form-field>
     </div>
 
-    <button mat-raised-button (click)="confirmRequest()">Tambah Event</button>
+    <button mat-raised-button (click)="submitRequest()">Tambah Event</button>
 </div>
 
 <div class="container" *ngIf="requestConfirm">
@@ -55,8 +55,8 @@
       </mat-card-content>
       <mat-card-content>
         <div class="buttons">
-          <button mat-raised-button (click)="submitRequest()">Confirm</button>
-          <button mat-raised-button (click)="confirmRequest()">Cancel</button>
+          <button mat-raised-button (click)="confirmRequest()">Confirm</button>
+          <button mat-raised-button (click)="submitRequest()">Cancel</button>
         </div>
       </mat-card-content>
     </mat-card>
