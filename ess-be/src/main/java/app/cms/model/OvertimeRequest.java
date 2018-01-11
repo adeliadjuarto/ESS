@@ -1,6 +1,7 @@
 package app.cms.model;
 
 import app.cms.model.shared.BaseEntity;
+import app.cms.model.shared.Request;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -19,7 +20,7 @@ import java.util.TimeZone;
 @Table(name = "overtime_requests")
 @Setter
 @Getter
-public class OvertimeRequest extends BaseEntity{
+public class OvertimeRequest extends Request {
     public OvertimeRequest () {}
     public OvertimeRequest (String title, String description, Long eventDate,
                             Long start, Long end, User user) {
@@ -32,21 +33,9 @@ public class OvertimeRequest extends BaseEntity{
         this.isApproved = null;
         this.isActive = true;
     }
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(
-            name = "system-uuid",
-            strategy = "uuid2")
-    private String id;
-    private String title;
-    private String description;
     private Long eventDate;
     private Long start;
     private Long end;
-    @Column(name = "rejection_note")
-    private String rejectionNote;
-    @Column(name = "is_approved")
-    private Boolean isApproved;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;

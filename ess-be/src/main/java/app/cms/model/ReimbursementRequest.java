@@ -1,6 +1,7 @@
 package app.cms.model;
 
 import app.cms.model.shared.BaseEntity;
+import app.cms.model.shared.Request;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -20,7 +21,7 @@ import java.util.TimeZone;
 @Table(name = "reimbursement_requests")
 @Setter
 @Getter
-public class ReimbursementRequest extends BaseEntity {
+public class ReimbursementRequest extends Request {
     public ReimbursementRequest () {}
     public ReimbursementRequest (String title, String description, Long eventDate,
                                  Long amount, RequestType requestType, User user) {
@@ -33,20 +34,8 @@ public class ReimbursementRequest extends BaseEntity {
         this.isApproved = null;
         this.isActive = true;
     }
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(
-            name = "system-uuid",
-            strategy = "uuid2")
-    private String id;
-    private String title;
-    private String description;
     private Long eventDate;
     private Long amount;
-    @Column(name = "rejection_note")
-    private String rejectionNote;
-    @Column(name = "is_approved")
-    private Boolean isApproved;
     @ManyToOne
     @JoinColumn(name = "request_type_id", referencedColumnName = "id")
     private RequestType requestType;
